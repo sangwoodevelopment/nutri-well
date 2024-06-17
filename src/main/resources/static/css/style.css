@@ -171,7 +171,8 @@
     opacity: 1;
 }
 
-#searchModal .modal-content {
+#searchModal .modal-content,
+#loginModal .modal-content {
     background: rgba(255, 255, 255, .8);
 }
 /*** Navbar End ***/
