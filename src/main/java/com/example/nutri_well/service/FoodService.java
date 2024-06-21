@@ -10,4 +10,5 @@ public interface FoodService {
     List<FoodResponseDTO> searchByFoodName(String name, Pageable pageable);
     List<FoodResponseDTO> searchByCategoryId(CategoryResponseDTO category, Pageable pageable);
     int getTotalPages();
+    FoodResponseDTO findByName(String name);
 }

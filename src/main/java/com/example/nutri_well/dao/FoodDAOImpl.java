@@ -27,4 +27,9 @@ public class FoodDAOImpl implements FoodDAO{
     public int getTotalPages(Page<Food> page) {
         return page.getTotalPages();
     }
+
+    @Override
+    public Food findByName(String name) {
+        return foodRepository.findByName(name);
+    }
 }

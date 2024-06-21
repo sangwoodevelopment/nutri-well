@@ -8,4 +8,5 @@ public interface FoodDAO {
     Page<Food> searchByFoodName(String name, Pageable pageable);
     Page<Food> searchByCategoryId(Long categoryid, Pageable pageable);
     int getTotalPages(Page<Food> page);
+    Food findByName(String name);
 }
