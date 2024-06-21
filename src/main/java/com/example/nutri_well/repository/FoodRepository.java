@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 
 public interface FoodRepository extends JpaRepository<Food,Long> {
-
+    Food findByName(String name);
     //@Query(value = "SELECT f FROM Food as f WHERE f.name LIKE %:name%")
     Page<Food> findByNameContaining(@Param("name") String name, Pageable pageable);
     //Slice

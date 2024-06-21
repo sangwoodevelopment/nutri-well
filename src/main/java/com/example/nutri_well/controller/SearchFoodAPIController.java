@@ -8,11 +8,11 @@ import com.example.nutri_well.service.FoodService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -21,20 +21,45 @@ import java.util.List;
 public final class SearchFoodAPIController {
     private final FoodService foodService;
     private final CategoryService categoryService;
-//    @GetMapping("/search")
-//    public List<FoodResponseDTO> searchPage2(@RequestParam("query") String query, @RequestParam("page") int page,
-//                                   @RequestParam("size") int size){
-//        return foodService.searchByFoodName(query,
-//                PageRequest.of(page,size, Sort.unsorted()));
-//    }
 
+    @GetMapping("/food/detail")
+    public FoodResponseDTO showPage(@RequestParam("foodname") String foodname){
+        return foodService.findByName(foodname);
+    }
     @GetMapping("/search")
     public SearchPageWrapperDTO searchPage(@RequestParam("query") String query, @RequestParam("page") int page,
-                                           @RequestParam("size") int size){
-        List<FoodResponseDTO> fooddto= foodService.searchByFoodName(query,
-                PageRequest.of(page,size, Sort.unsorted()));
-        List<CategoryResponseDTO> categorydto = categoryService.findByParentCategoryIsNull();
+                                           @RequestParam("size") int size, @RequestParam(name="category",required = false) Long category,
+                                           @RequestParam(name="nutrient",required = false) String nutrients ){
+        if (nutrients != null){
+            List<String> nutrientQuery = new ArrayList<>();
+            if(nutrients.contains("\\|")){
+                nutrientQuery = Arrays.stream(nutrients.split("\\|")).toList();
+            }else{
+                nutrientQuery.add(nutrients);
+            }
+        }
 
-        return new SearchPageWrapperDTO(categorydto,fooddto);
+        List<FoodResponseDTO> foodlist = null;
+        List<CategoryResponseDTO> categories = null;
+        int totalpage = 0;
+
+        if(category == null || category == 0){
+            foodlist = foodService.searchByFoodName(query,
+                    PageRequest.of(page,size, Sort.unsorted()));
+            totalpage = foodService.getTotalPages();
+            categories = categoryService.findByParentCategoryIsNull();
+
+        } else {
+            CategoryResponseDTO categoryDTO = categoryService.findbyId(category);
+            foodlist = foodService.searchByCategoryId(categoryDTO,
+                    PageRequest.of(page,size));
+            totalpage = foodService.getTotalPages();
+            categories = categoryService.findByParentCategoryIsNull();
+        }
+
+        return new SearchPageWrapperDTO(categories,foodlist);
     }
+
+
+
 }
