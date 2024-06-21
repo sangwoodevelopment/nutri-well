@@ -22,12 +22,11 @@ import java.util.List;
 public final class SearchFoodController {
     private final FoodService foodService;
     private final CategoryService categoryService;
-    private final CategoryRepository categoryRepository;
 
     @GetMapping("/search")
-    public ModelAndView searchPage(@RequestParam String query, @RequestParam int page,
-                                   @RequestParam int size, @RequestParam(required = false) Long category,
-                                    @RequestParam(required = false) String nutrients ){
+    public ModelAndView searchPage(@RequestParam("query") String query, @RequestParam("page") int page,
+                                   @RequestParam("size") int size, @RequestParam(name="category",required = false) Long category,
+                                    @RequestParam(name="nutrient",required = false) String nutrients ){
         if (nutrients != null){
             List<String> nutrientQuery = new ArrayList<>();
             if(nutrients.contains("\\|")){
@@ -63,6 +62,7 @@ public final class SearchFoodController {
         mav.addObject("categories",categories);
         return mav;
     }
+
     @GetMapping("/show")
     public ModelAndView searchPage2( ){
         ModelAndView mav = new ModelAndView("search/shop");

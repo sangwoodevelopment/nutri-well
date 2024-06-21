@@ -162,7 +162,7 @@
                                                             <div class="nav-item dropdown">
                                                                 <div class="d-flex justify-content-between fruite-name">
                                                                     <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
-                                                                        <i class="fas fa-apple-alt me-2" th:text="${category.categoryName}"></i>
+                                                                        <i class="fas fa-apple-alt me-2" th:text="' ' + ${category.categoryName}"></i>
                                                                     </a>
                                                                     <div class="dropdown-menu m-0 bg-secondary rounded-0" >
                                                                         <a class="dropdown-item searchCategory" th:each="child: ${category.childCategory}"
@@ -212,7 +212,7 @@
                                         <h4 class="mb-3">Featured products</h4>
                                         <div class="d-flex align-items-center justify-content-start">
                                             <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                                <img src="../../static/common/img/featur-1.jpg" class="img-fluid rounded" alt="">
+                                                <img src="common/img/featur-1.jpg" class="img-fluid rounded" alt="">
                                             </div>
                                             <div>
                                                 <h6 class="mb-2">Big Banana</h6>
@@ -231,7 +231,7 @@
                                         </div>
                                         <div class="d-flex align-items-center justify-content-start">
                                             <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                                <img src="../../static/common/img/featur-2.jpg" class="img-fluid rounded" alt="">
+                                                <img src="common/img/featur-2.jpg" class="img-fluid rounded" alt="">
                                             </div>
                                             <div>
                                                 <h6 class="mb-2">Big Banana</h6>
@@ -250,7 +250,7 @@
                                         </div>
                                         <div class="d-flex align-items-center justify-content-start">
                                             <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                                <img src="../../static/common/img/featur-3.jpg" class="img-fluid rounded" alt="">
+                                                <img src="common/img/featur-3.jpg" class="img-fluid rounded" alt="">
                                             </div>
                                             <div>
                                                 <h6 class="mb-2">Big Banana</h6>
@@ -273,7 +273,7 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="position-relative">
-                                            <img src="../../static/common/img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
+                                            <img src="common/img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
                                             <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
                                                 <h3 class="text-secondary fw-bold">Fresh <br> Fruits <br> Banner</h3>
                                             </div>
@@ -286,32 +286,36 @@
                                     <div class="col-md-6 col-lg-6 col-xl-4" th:each="food : ${foodlist}">
                                         <div class="rounded position-relative fruite-item">
                                             <div class="fruite-img">
-                                                <img src="../../static/common/img/fruite-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                                <img src="common/img/fruite-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
                                             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;" th:text="${food.categoryName}"></div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4 th:text="${food.name}"></h4>
-                                                    <span th:each="nutrient : ${food.nutrientlist}" th:text="${nutrient.name} + ' : ' + ${nutrient.amount} + ${nutrient.value}"></span>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0" th:text="${food.nutrientlist[0].amount} + ${food.nutrientlist[0].value}" >$4.99 / kg</p>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary">
-                                                        <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                                <div class="p-4 border border-secondary border-top-0 rounded-bottom" >
+
+                                                    <h4>
+                                                        <a th:href="@{/food/detail(foodname=${food.name})}" th:text="${food.name}"></a>
+                                                    </h4>
+                                                        <span th:each="nutrient : ${food.nutrientlist}" th:text="${nutrient.name} + ': ' + ${nutrient.amount} + ${nutrient.value} + ' '"></span>
+                                                    <div class="d-flex justify-content-between flex-lg-wrap">
+                                                        <p class="text-dark fs-5 fw-bold mb-0" th:text="${food.nutrientlist[0].amount} + ${food.nutrientlist[0].value}" >$4.99 / kg</p>
+                                                        <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary">
+                                                            <i class="fa fa-shopping-bag me-2 text-primary"></i>Add to cart</a>
+                                                    </div>
                                                 </div>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="pagination d-flex justify-content-center mt-5" >
-                                            <a href="#"  class="rounded">&laquo;</a>
-                                            <span th:each="i : ${#numbers.sequence(0, totalPage-1)}">
-                                                <a href="#" data-filter-type="itemPage" th:attr="data-filter-value=${i}" th:class="page" th:text="${i+1}"></a>
+                                            <a href="#"  class="rounded" id="prev">&laquo;</a>
+                                            <span id="page-container">
+                                                <!-- 페이지 동적 추가 10개씩-->
                                             </span>
-                                            <a href="#" class="rounded">&raquo;</a>
+                                            <a href="#" class="rounded" id="next">&raquo;</a>
                                         </div>
                                     </div>
                                     <div id="queryContainer" th:data-query="${query}"></div>
                                     <div id="categoryContainer" th:data-category="${category}"></div>
                                     <div id="nutrientContainer" th:data-array="${nutrient}"></div>
+                                    <div id="pageContainer" th:data-pages="${totalPage}"></div>
                                 </div>
                             </div>
                         </div>
@@ -387,7 +391,7 @@
                             <p>Email: Example@gmail.com</p>
                             <p>Phone: +0123 4567 8910</p>
                             <p>Payment Accepted</p>
-                            <img src="../../static/common/img/payment.png" class="img-fluid" alt="">
+                            <img src="common/img/payment.png" class="img-fluid" alt="">
                         </div>
                     </div>
                 </div>
