@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
     <head>
         <meta charset="utf-8">
@@ -18,15 +18,14 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
         <!-- Libraries Stylesheet -->
-        <link href="common/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-        <link href="common/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="../common/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+        <link href="../common/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
 
         <!-- Customized Bootstrap Stylesheet -->
-        <link href="common/css/bootstrap.min.css" rel="stylesheet">
-
+        <link href="../common/css/bootstrap.min.css" rel="stylesheet">
         <!-- Template Stylesheet -->
-        <link href="common/css/style.css" rel="stylesheet">
+        <link href="../common/css/style.css" rel="stylesheet">
     </head>
 
     <body>
@@ -55,25 +54,25 @@
             </div>
             <div class="container px-0">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                    <a href="../templates/index.html" class="navbar-brand"><h1 class="text-primary display-6">Fruitables</h1></a>
+                    <a href="../../static/index.html" class="navbar-brand"><h1 class="text-primary display-6">Fruitables</h1></a>
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="fa fa-bars text-primary"></span>
                     </button>
                     <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
-                            <a href="../templates/index.html" class="nav-item nav-link">Home</a>
+                            <a href="../../static/index.html" class="nav-item nav-link">Home</a>
                             <a href="shop.html" class="nav-item nav-link">Shop</a>
-                            <a href="shop-detail.html" class="nav-item nav-link active">Shop Detail</a>
+                            <a href="food_detail.html" class="nav-item nav-link active">Shop Detail</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                                    <a href="cart.html" class="dropdown-item">Cart</a>
-                                    <a href="chackout.html" class="dropdown-item">Chackout</a>
-                                    <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                                    <a href="404.html" class="dropdown-item">404 Page</a>
+                                    <a href="../../static/cart.html" class="dropdown-item">Cart</a>
+                                    <a href="../../static/chackout.html" class="dropdown-item">Chackout</a>
+                                    <a href="../../static/testimonial.html" class="dropdown-item">Testimonial</a>
+                                    <a href="../../static/404.html" class="dropdown-item">404 Page</a>
                                 </div>
                             </div>
-                            <a href="contact.html" class="nav-item nav-link">Contact</a>
+                            <a href="../../static/contact.html" class="nav-item nav-link">Contact</a>
                         </div>
                         <div class="d-flex m-3 me-0">
                             <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
@@ -133,14 +132,14 @@
                             <div class="col-lg-6">
                                 <div class="border rounded">
                                     <a href="#">
-                                        <img src="common/img/single-item.jpg" class="img-fluid rounded" alt="Image">
+                                        <img src="../common/img/single-item.jpg" class="img-fluid rounded" alt="Image">
                                     </a>
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <h4 class="fw-bold mb-3">Brocoli</h4>
-                                <p class="mb-3">Category: Vegetables</p>
-                                <h5 class="fw-bold mb-3">3,35 $</h5>
+                                <h4 class="fw-bold mb-3" id="foodname" th:text="${food.name}">Brocoli</h4>
+                                <p class="mb-3" th:text="Category+' : ' + ${food.categoryName}"></p>
+                                <h5 class="fw-bold mb-3" th:text="${food.nutrientlist[0].amount} +' '+  ${food.nutrientlist[0].value}" ></h5>
                                 <div class="d-flex mb-4">
                                     <i class="fa fa-star text-secondary"></i>
                                     <i class="fa fa-star text-secondary"></i>
@@ -170,7 +169,7 @@
                                     <div class="nav nav-tabs mb-3">
                                         <button class="nav-link active border-white border-bottom-0" type="button" role="tab"
                                             id="nav-about-tab" data-bs-toggle="tab" data-bs-target="#nav-about"
-                                            aria-controls="nav-about" aria-selected="true">Description</button>
+                                            aria-controls="nav-about" aria-selected="true">영양성분표</button>
                                         <button class="nav-link border-white border-bottom-0" type="button" role="tab"
                                             id="nav-mission-tab" data-bs-toggle="tab" data-bs-target="#nav-mission"
                                             aria-controls="nav-mission" aria-selected="false">Reviews</button>
@@ -178,52 +177,38 @@
                                 </nav>
                                 <div class="tab-content mb-5">
                                     <div class="tab-pane active" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
-                                        <p>The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic words etc. 
-                                            Susp endisse ultricies nisi vel quam suscipit </p>
-                                        <p>Sabertooth peacock flounder; chain pickerel hatchetfish, pencilfish snailfish filefish Antarctic 
-                                            icefish goldeye aholehole trumpetfish pilot fish airbreathing catfish, electric ray sweeper.</p>
                                         <div class="px-2">
                                             <div class="row g-4">
                                                 <div class="col-6">
                                                     <div class="row bg-light align-items-center text-center justify-content-center py-2">
-                                                        <div class="col-6">
-                                                            <p class="mb-0">Weight</p>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <p class="mb-0">1 kg</p>
-                                                        </div>
+                                                        <table id="nutrientTable">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>성분</th>
+                                                                <th>양</th>
+                                                                <th>퍼센티지</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <!--js로 동적추가-->
+                                                            </tbody>
+                                                        </table>
                                                     </div>
-                                                    <div class="row text-center align-items-center justify-content-center py-2">
-                                                        <div class="col-6">
-                                                            <p class="mb-0">Country of Origin</p>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <p class="mb-0">Agro Farm</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row bg-light text-center align-items-center justify-content-center py-2">
-                                                        <div class="col-6">
-                                                            <p class="mb-0">Quality</p>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <p class="mb-0">Organic</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row text-center align-items-center justify-content-center py-2">
-                                                        <div class="col-6">
-                                                            <p class="mb-0">Сheck</p>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <p class="mb-0">Healthy</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row bg-light text-center align-items-center justify-content-center py-2">
-                                                        <div class="col-6">
-                                                            <p class="mb-0">Min Weight</p>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <p class="mb-0">250 Kg</p>
-                                                        </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="row bg-light align-items-center text-center justify-content-center py-2">
+                                                        <table id="nutrientTable2">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>성분</th>
+                                                                <th>양</th>
+                                                                <th>퍼센티지</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <!--js로 동적추가-->
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                 </div>
                                             </div>
@@ -231,7 +216,7 @@
                                     </div>
                                     <div class="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
                                         <div class="d-flex">
-                                            <img src="common/img/avatar.jpg" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
+                                            <img src="../common/img/avatar.jpg" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
                                             <div class="">
                                                 <p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
                                                 <div class="d-flex justify-content-between">
@@ -249,7 +234,7 @@
                                             </div>
                                         </div>
                                         <div class="d-flex">
-                                            <img src="common/img/avatar.jpg" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
+                                            <img src="../common/img/avatar.jpg" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
                                             <div class="">
                                                 <p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
                                                 <div class="d-flex justify-content-between">
@@ -321,45 +306,34 @@
                                 </div>
                                 <div class="mb-4">
                                     <h4>Categories</h4>
-                                    <ul class="list-unstyled fruite-categorie">
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Apples</a>
-                                                <span>(3)</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Oranges</a>
-                                                <span>(5)</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Strawbery</a>
-                                                <span>(2)</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Banana</a>
-                                                <span>(8)</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Pumpkin</a>
-                                                <span>(5)</span>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                    <div class="scrollable" id="results">
+                                        <ul class="list-unstyled fruite-categorie">
+                                            <li th:each="category: ${categories}">
+                                                <div class="nav-item dropdown">
+                                                    <div class="d-flex justify-content-between fruite-name">
+                                                        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
+                                                            <i class="fas fa-apple-alt me-2" th:text="' ' + ${category.categoryName}"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu m-0 bg-secondary rounded-0" >
+                                                            <a class="dropdown-item searchCategory" th:each="child: ${category.childCategory}"
+                                                               th:data-filter-type="category" th:data-filter-value="${child.categoryId}"
+                                                               th:text="${child.categoryName}" >
+
+                                                            </a>
+                                                        </div>
+                                                        <span th:text="${#lists.size(category.childCategory)}">(3)</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <h4 class="mb-4">Featured products</h4>
                                 <div class="d-flex align-items-center justify-content-start">
                                     <div class="rounded" style="width: 100px; height: 100px;">
-                                        <img src="common/img/featur-1.jpg" class="img-fluid rounded" alt="Image">
+                                        <img src="../common/img/featur-1.jpg" class="img-fluid rounded" alt="Image">
                                     </div>
                                     <div>
                                         <h6 class="mb-2">Big Banana</h6>
@@ -378,7 +352,7 @@
                                 </div>
                                 <div class="d-flex align-items-center justify-content-start">
                                     <div class="rounded" style="width: 100px; height: 100px;">
-                                        <img src="common/img/featur-2.jpg" class="img-fluid rounded" alt="">
+                                        <img src="../common/img/featur-2.jpg" class="img-fluid rounded" alt="">
                                     </div>
                                     <div>
                                         <h6 class="mb-2">Big Banana</h6>
@@ -397,7 +371,7 @@
                                 </div>
                                 <div class="d-flex align-items-center justify-content-start">
                                     <div class="rounded" style="width: 100px; height: 100px;">
-                                        <img src="common/img/featur-3.jpg" class="img-fluid rounded" alt="">
+                                        <img src="../common/img/featur-3.jpg" class="img-fluid rounded" alt="">
                                     </div>
                                     <div>
                                         <h6 class="mb-2">Big Banana</h6>
@@ -416,7 +390,7 @@
                                 </div>
                                 <div class="d-flex align-items-center justify-content-start">
                                     <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                        <img src="common/img/vegetable-item-4.jpg" class="img-fluid rounded" alt="">
+                                        <img src="../common/img/vegetable-item-4.jpg" class="img-fluid rounded" alt="">
                                     </div>
                                     <div>
                                         <h6 class="mb-2">Big Banana</h6>
@@ -435,7 +409,7 @@
                                 </div>
                                 <div class="d-flex align-items-center justify-content-start">
                                     <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                        <img src="common/img/vegetable-item-5.jpg" class="img-fluid rounded" alt="">
+                                        <img src="../common/img/vegetable-item-5.jpg" class="img-fluid rounded" alt="">
                                     </div>
                                     <div>
                                         <h6 class="mb-2">Big Banana</h6>
@@ -454,7 +428,7 @@
                                 </div>
                                 <div class="d-flex align-items-center justify-content-start">
                                     <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                        <img src="common/img/vegetable-item-6.jpg" class="img-fluid rounded" alt="">
+                                        <img src="../common/img/vegetable-item-6.jpg" class="img-fluid rounded" alt="">
                                     </div>
                                     <div>
                                         <h6 class="mb-2">Big Banana</h6>
@@ -477,7 +451,7 @@
                             </div>
                             <div class="col-lg-12">
                                 <div class="position-relative">
-                                    <img src="common/img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
+                                    <img src="../common/img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
                                     <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
                                         <h3 class="text-secondary fw-bold">Fresh <br> Fruits <br> Banner</h3>
                                     </div>
@@ -491,7 +465,7 @@
                     <div class="owl-carousel vegetable-carousel justify-content-center">
                         <div class="border border-primary rounded position-relative vesitable-item">
                             <div class="vesitable-img">
-                                <img src="common/img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                <img src="../common/img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">
                             </div>
                             <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
                             <div class="p-4 pb-0 rounded-bottom">
@@ -505,7 +479,7 @@
                         </div>
                         <div class="border border-primary rounded position-relative vesitable-item">
                             <div class="vesitable-img">
-                                <img src="common/img/vegetable-item-1.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                <img src="../common/img/vegetable-item-1.jpg" class="img-fluid w-100 rounded-top" alt="">
                             </div>
                             <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
                             <div class="p-4 pb-0 rounded-bottom">
@@ -519,7 +493,7 @@
                         </div>
                         <div class="border border-primary rounded position-relative vesitable-item">
                             <div class="vesitable-img">
-                                <img src="common/img/vegetable-item-3.png" class="img-fluid w-100 rounded-top bg-light" alt="">
+                                <img src="../common/img/vegetable-item-3.png" class="img-fluid w-100 rounded-top bg-light" alt="">
                             </div>
                             <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
                             <div class="p-4 pb-0 rounded-bottom">
@@ -533,7 +507,7 @@
                         </div>
                         <div class="border border-primary rounded position-relative vesitable-item">
                             <div class="vesitable-img">
-                                <img src="common/img/vegetable-item-4.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                <img src="../common/img/vegetable-item-4.jpg" class="img-fluid w-100 rounded-top" alt="">
                             </div>
                             <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
                             <div class="p-4 pb-0 rounded-bottom">
@@ -547,7 +521,7 @@
                         </div>
                         <div class="border border-primary rounded position-relative vesitable-item">
                             <div class="vesitable-img">
-                                <img src="common/img/vegetable-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                <img src="../common/img/vegetable-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
                             </div>
                             <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
                             <div class="p-4 pb-0 rounded-bottom">
@@ -561,7 +535,7 @@
                         </div>
                         <div class="border border-primary rounded position-relative vesitable-item">
                             <div class="vesitable-img">
-                                <img src="common/img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                <img src="../common/img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">
                             </div>
                             <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
                             <div class="p-4 pb-0 rounded-bottom">
@@ -575,7 +549,7 @@
                         </div>
                         <div class="border border-primary rounded position-relative vesitable-item">
                             <div class="vesitable-img">
-                                <img src="common/img/vegetable-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                <img src="../common/img/vegetable-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
                             </div>
                             <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
                             <div class="p-4 pb-0 rounded-bottom">
@@ -589,7 +563,7 @@
                         </div>
                         <div class="border border-primary rounded position-relative vesitable-item">
                             <div class="vesitable-img">
-                                <img src="common/img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                <img src="../common/img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">
                             </div>
                             <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
                             <div class="p-4 pb-0 rounded-bottom">
@@ -673,7 +647,7 @@
                             <p>Email: Example@gmail.com</p>
                             <p>Phone: +0123 4567 8910</p>
                             <p>Payment Accepted</p>
-                            <img src="common/img/payment.png" class="img-fluid" alt="">
+                            <img src="../common/img/payment.png" class="img-fluid" alt="">
                         </div>
                     </div>
                 </div>
@@ -708,13 +682,62 @@
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="common/lib/easing/easing.min.js"></script>
-    <script src="common/lib/waypoints/waypoints.min.js"></script>
-    <script src="common/lib/lightbox/js/lightbox.min.js"></script>
-    <script src="common/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="../common/lib/easing/easing.min.js"></script>
+    <script src="../common/lib/waypoints/waypoints.min.js"></script>
+    <script src="../common/lib/lightbox/js/lightbox.min.js"></script>
+    <script src="../common/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="common/js/main.js"></script>
+    <script src="../common/js/main.js"></script>
     </body>
 
+    <script>
+        $(document).ready(function() {
+           const foodname = $('#foodname').text();
+           const baseUrl = '/nutri-well/api/food/detail';
+           const urlWithParams = `${baseUrl}?foodname=${encodeURIComponent(foodname)}`;
+
+           fetch(urlWithParams)
+               .then(response => response.json())
+               .then(foodData => {
+                   if (!foodData || !foodData.nutrientlist) {
+                       console.error('Food 객체나 nutrientlist 배열이 정의되지 않았습니다.');
+                       return;
+                   }
+
+                   const nutrientTables = [
+                       { tableId: 'nutrientTable',
+                        nutrients: ['탄수화물', '단백질', '지방', '당류', '나트륨'],
+                        values: ['g', 'g', 'g', 'g', 'mg'] },
+
+                       { tableId: 'nutrientTable2',
+                        nutrients: ['마그네슘', '비타민 C', '칼슘', '콜레스테롤', '트랜스지방산'],
+                        values: ['mg', 'mg', 'mg', 'mg', 'g'] }
+                   ];
+
+                   nutrientTables.forEach(({ tableId, nutrients, values }) => {
+                       nutrients.forEach((nutrient, index) => {
+                           const unit = values[index];
+                           const nutrientData =
+                           foodData.nutrientlist.find(n => n.name === nutrient) || { name: nutrient, amount: 0, value: '' };
+
+                           const row = $('<tr></tr>');
+                           row.append($('<td></td>').text(nutrientData.name));
+                           row.append($('<td></td>').addClass('amount').text(`${nutrientData.amount} ${unit}`));
+
+                           const progressBar =
+                           $('<div></div>').addClass('progress-bar').css('width', `${nutrientData.amount / 5}%`);
+                           const progressDiv =
+                           $('<div></div>').addClass('progress').append(progressBar);
+
+                           row.append($('<td></td>').append(progressDiv));
+                           $(`#${tableId} tbody`).append(row);
+                       });
+                   });
+               })
+               .catch(error => {
+                   console.error('데이터를 가져오는 데 실패했습니다:', error);
+               });
+       });
+    </script>
 </html>

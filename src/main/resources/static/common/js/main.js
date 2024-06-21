@@ -156,7 +156,7 @@ $('#searchButton').on('click', function ()  {
         };
         // URLSearchParams 객체를 사용하여 파라미터를 URL 형식으로 변환
         var searchParams = new URLSearchParams(params);
-        var url = '/nutri-well/search?' + searchParams.toString();
+        var url = '/search?' + searchParams.toString();
         location.href = url;
     });
     $('.searchCategory').on('click', function ()  {
@@ -172,7 +172,7 @@ $('#searchButton').on('click', function ()  {
         /*$('#queryContainer').data("query");*/
         // URLSearchParams 객체를 사용하여 파라미터를 URL 형식으로 변환
         var searchParams = new URLSearchParams(params);
-        var url = '/nutri-well/search?' + searchParams.toString();
+        var url = '/search?' + searchParams.toString();
         location.href = url;
     });
 
@@ -206,7 +206,7 @@ $('#searchButton').on('click', function ()  {
         };
 
         var searchParams = new URLSearchParams(params);
-        var url = '/nutri-well/search?' + searchParams.toString();
+        var url = '/search?' + searchParams.toString();
         location.href = url;
     });
 /*=============================shop.html pagination=============================*/
@@ -265,7 +265,7 @@ $('#searchButton').on('click', function ()  {
         }
 
         var searchParams = new URLSearchParams(params);
-        var url = '/nutri-well/search?' + searchParams.toString();
+        var url = '/search?' + searchParams.toString();
         location.href = url;
     });
 
