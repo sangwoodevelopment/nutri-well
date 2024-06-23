@@ -198,8 +198,8 @@
                                                 <label for="Categories-4"> 당류</label>
                                             </div>
                                             <div class="mb-2">
-                                                <input type="checkbox" class="me-2" id="Categories-5" name="nutrient" value="몰라씨발">
-                                                <label for="Categories-5"> 몰라씨발</label>
+                                                <input type="checkbox" class="me-2" id="Categories-5" name="nutrient" value="나트륨">
+                                                <label for="Categories-5"> 나트륨</label>
                                             </div>
                                         </div>
                                         <div class="mb-3">
@@ -314,7 +314,7 @@
                                     </div>
                                     <div id="queryContainer" th:data-query="${query}"></div>
                                     <div id="categoryContainer" th:data-category="${category}"></div>
-                                    <div id="nutrientContainer" th:data-array="${nutrient}"></div>
+                                    <div id="nutrientContainer" th:data-array='${nutrient}'></div>
                                     <div id="pageContainer" th:data-pages="${totalPage}"></div>
                                 </div>
                             </div>
@@ -433,6 +433,7 @@
 
     <!-- Template Javascript -->
     <script src="common/js/main.js"></script>
+    <script src="common/js/shop.js"></script>
     </body>
 
 </html>

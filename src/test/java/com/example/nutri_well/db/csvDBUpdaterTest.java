@@ -16,6 +16,9 @@ import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 
 import java.io.FileInputStream;
@@ -47,9 +50,9 @@ class csvDBUpdaterTest {
 
     @Test
     public void updateDatabase() throws IOException {
-        String filePath = "D:\\test\\Untitled.csv";//DB파일경로
+        String filePath = "D:\\test\\FoodDB_test1.csv";//DB파일경로
 
-        try (CSVReader reader = new CSVReader(new InputStreamReader(new FileInputStream(filePath), "UTF8"))) {
+        try (CSVReader reader = new CSVReader(new InputStreamReader(new FileInputStream(filePath), "CP949"))) {
             List<String[]> records = reader.readAll();
             System.out.println(records.size());
             List<Nutrient> nutrientList = saveNutrients(records.get(0));
@@ -134,7 +137,7 @@ class csvDBUpdaterTest {
     private void saveFoodNutrients(String[] record, Food food, List<Nutrient> nutrientList) {
         String[] nutrients = Arrays.copyOfRange(record, 17, 100);
         for (int i = 0; i < nutrients.length; i++) {
-            if (!nutrients[i].isEmpty()) {
+            if (!nutrients[i].isEmpty() && !nutrients[i].equals("0")) {
                 String nutrientValueStr = nutrients[i].trim();
                 double nutrientValue = Double.parseDouble(nutrientValueStr);
                 FoodNutrient foodNutrient = new FoodNutrient(food, nutrientList.get(i), nutrientValue);
