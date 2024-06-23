@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,7 +31,7 @@ public class Member {
     private String password;
 
     @Column(nullable = false)
-    private String birth;
+    private Date birth;
 
     @Column(nullable = false)
     private String gender;
