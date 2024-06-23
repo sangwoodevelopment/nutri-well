@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class FoodDAOImpl implements FoodDAO{
@@ -14,7 +16,7 @@ public class FoodDAOImpl implements FoodDAO{
 
     @Override
     public Page<Food> searchByFoodName(String name , Pageable pageable) {
-        System.out.println(foodRepository.findByNameContaining(name, pageable).getTotalElements());
+        System.out.println("searchByFoodName"+foodRepository.findByNameContaining(name, pageable).getTotalElements());
         return foodRepository.findByNameContaining(name, pageable);
     }
 
@@ -31,5 +33,11 @@ public class FoodDAOImpl implements FoodDAO{
     @Override
     public Food findByName(String name) {
         return foodRepository.findByName(name);
+    }
+
+    @Override
+    public Page<Food> findAllByNutrientsNotIn(String foodname, List<String> names, Pageable pageable) {
+        System.out.println("findAllByNutrientsNotIn"+foodRepository.findAllByNutrientsNotIn(foodname,names, pageable).getTotalElements());
+        return foodRepository.findAllByNutrientsNotIn(foodname,names, pageable);
     }
 }
