@@ -694,7 +694,7 @@
     <script>
         $(document).ready(function() {
            const foodname = $('#foodname').text();
-           const baseUrl = '/nutri-well/api/food/detail';
+           const baseUrl = '/api/food/detail';
            const urlWithParams = `${baseUrl}?foodname=${encodeURIComponent(foodname)}`;
 
            fetch(urlWithParams)

@@ -3,6 +3,7 @@ package com.example.nutri_well.controller;
 import com.example.nutri_well.dto.CategoryResponseDTO;
 import com.example.nutri_well.dto.FoodResponseDTO;
 import com.example.nutri_well.repository.CategoryRepository;
+import com.example.nutri_well.repository.FoodRepository;
 import com.example.nutri_well.service.CategoryService;
 import com.example.nutri_well.service.FoodService;
 import lombok.RequiredArgsConstructor;
@@ -26,37 +27,27 @@ public final class SearchFoodController {
     @GetMapping("/search")
     public ModelAndView searchPage(@RequestParam("query") String query, @RequestParam("page") int page,
                                    @RequestParam("size") int size, @RequestParam(name="category",required = false) Long category,
-                                    @RequestParam(name="nutrient",required = false) String nutrients ){
-        if (nutrients != null){
-            List<String> nutrientQuery = new ArrayList<>();
-            if(nutrients.contains("\\|")){
-                nutrientQuery = Arrays.stream(nutrients.split("\\|")).toList();
-            }else{
-                nutrientQuery.add(nutrients);
-            }
-        }
-
-        ModelAndView mav = new ModelAndView("/search/shop");
+                                    @RequestParam(name="nutrients",required = false) List<String> nutrients ){
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.unsorted());
         List<FoodResponseDTO> foodlist = null;
-        List<CategoryResponseDTO> categories = null;
-        int totalpage = 0;
 
         if(category == null || category == 0){
-            foodlist = foodService.searchByFoodName(query,
-                    PageRequest.of(page,size, Sort.unsorted()));
-            totalpage = foodService.getTotalPages();
-            categories = categoryService.findByParentCategoryIsNull();
-
+            if(nutrients != null){
+                System.out.println(nutrients.size());
+                foodlist = foodService.findAllByNutrientsNotIn(query,nutrients,pageRequest);
+            }else{
+                foodlist = foodService.searchByFoodName(query, pageRequest);
+            }
         } else {
             CategoryResponseDTO categoryDTO = categoryService.findbyId(category);
-            foodlist = foodService.searchByCategoryId(categoryDTO,
-                    PageRequest.of(page,size));
-            totalpage = foodService.getTotalPages();
-            categories = categoryService.findByParentCategoryIsNull();
+            foodlist = foodService.searchByCategoryId(categoryDTO,pageRequest);
         }
-        System.out.println(totalpage);
+
+        int totalpage = foodService.getTotalPages();
+        List<CategoryResponseDTO> categories = categoryService.findByParentCategoryIsNull();
+
+        ModelAndView mav = new ModelAndView("/search/shop");
         mav.addObject("query",query);
-        mav.addObject("currentPage",page);
         mav.addObject("totalPage",totalpage);
         mav.addObject("foodlist",foodlist);
         mav.addObject("categories",categories);
