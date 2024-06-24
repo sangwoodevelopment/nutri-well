@@ -28,4 +28,13 @@ public class IndexController {
         //src/main/resources/static/index.html
         return "index";
     }
+
+    @GetMapping("/mypage.do")
+    public String mypageHtml(HttpSession session, Model model) {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("user");
+        if (sessionUser != null) {
+            model.addAttribute("user", sessionUser);
+        }
+        return "user/mypage";
+    }
 }
