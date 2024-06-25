@@ -46,7 +46,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         System.out.println("NameAttributeKey: " + attributes.getNameAttributeKey());
         System.out.println("Attributes Map: " + attributes.getAttributes());
         User user = saveOrUpdate(attributes); //데이터베이스를 확인해서 기존 유저면 업데이트 , 새로운 유저면 저장
-        System.out.println("==============================================================="+user);
+//        System.out.println("==============================================================="+user); toString을 부르면 calendar에서 호출이 무한루프에 걸림.
         httpSession.setAttribute("user", new SessionUser(user)); // SessionUser (직렬화된 dto 클래스 사용) => 세션에 저장
         return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(user.getRoleKey())),
                 attributes.getAttributes(),
