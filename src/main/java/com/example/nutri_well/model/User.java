@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "USERS")
@@ -16,15 +16,13 @@ import java.util.Date;
 public class User {
     @Id
     @GeneratedValue
-    private Long id;
+    private Long userId;
 
     @Column(nullable = false)
     private String username;
 
-    @Column(nullable = false)
-    private String email; //=> 로그인할때는 email + password . 중복된 값이 허용됨. => userId가 email 이 userId 가 되고 UNIQUE
-
-    //email
+    @Column(nullable = false, unique = true)
+    private String email; //=> 로그인할때는 email + password . UNIQUE
 
     @Column(nullable = false)
     private String gender; //수정가능
@@ -48,7 +46,7 @@ public class User {
     private int basel_metabolism; //수정가능
 
     @Column(nullable = false)
-    private String password; //수정가능 => 일반사용자가 email 을 입력하지 못하게 해서 email 있으면 소셜로그인, 소셜로그인은 비밀번호 추가,수정 불가.
+    private String password;
 
     @Column
     private String picture; //수정가능
@@ -70,6 +68,9 @@ public class User {
         this.tel = tel;
     }
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<myCalendar> calendars;
+
     public User update(String name, String picture) {
         this.username = name;
         this.picture = picture;
@@ -80,6 +81,7 @@ public class User {
     public String getRoleKey() {
         return this.role.getKey();
     }
+
 
 
 }
