@@ -7,6 +7,8 @@ import com.example.nutri_well.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -21,9 +23,12 @@ public class CalendarService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user ID"));
 
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+
         myCalendar calendar = myCalendar.builder()
                 .user(user)
-                .calDate(date)
+                .calDate(localDate)
                 .percentage(percentage)
                 .build();
 
