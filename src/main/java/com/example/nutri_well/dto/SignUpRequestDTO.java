@@ -1,4 +1,4 @@
-package com.example.nutri_well.SignUp;
+package com.example.nutri_well.dto;
 
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 //사용자가 주는 요청
-public class RequestDTO {
+public class SignUpRequestDTO {
     //회원가입 추가
     //DB에 넣고 싶은 값
     @Column(nullable = false) //유니크

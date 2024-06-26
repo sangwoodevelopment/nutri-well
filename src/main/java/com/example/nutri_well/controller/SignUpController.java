@@ -1,5 +1,7 @@
-package com.example.nutri_well.SignUp;
+package com.example.nutri_well.controller;
 
+import com.example.nutri_well.dto.SignUpDTO;
+import com.example.nutri_well.service.SignUpService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,19 +12,19 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/member")
-public class MemberController {
+public class SignUpController {
 
-    private final MemberService memberService;
+    private final SignUpService memberService;
 
     @GetMapping("/signup")
     public String signUp(Model model){
-        model.addAttribute("member",new Member());
+        model.addAttribute("memberSignUpDTO",new SignUpDTO());
         return "signup/signup";
     }
     @PostMapping("/signup")
-    public String registerUser(@ModelAttribute("member") Member member, Model model) {
+    public String registerUser(@ModelAttribute("memberSignUpDTO") SignUpDTO memberSignUpDTO, Model model) {
         try {
-            memberService.registerUser(member);
+            memberService.registerUser(memberSignUpDTO);
             return "redirect:/member/signUpsuccess";
         } catch (IllegalArgumentException e) {
             model.addAttribute("에러메세지","회원가입실패"+e.getMessage());
@@ -39,7 +41,7 @@ public class MemberController {
     public String signupError(@RequestParam("signUp_error")String loginError, Model model){
         //회원가입실패시 signup페이지에 머무르기
         model.addAttribute("errorMsg","회원가입실패");
-        return "signUp/signup";
+        return "signup/signup";
     }
     @GetMapping("/main")
     public String main(){
