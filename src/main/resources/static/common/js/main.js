@@ -161,5 +161,14 @@
         location.href = url;
     });
 
+    // 로그인 체크
+    $(document).ready(function() {
+        var loginError = /*[[${loginError != null ? loginError : false}]]*/ false;
+        if (loginError) {
+            alert("로그인이 필요합니다.");
+            window.location.href = document.referrer; // 이전 페이지로 돌아감
+        }
+    });
+
 })(jQuery);
 

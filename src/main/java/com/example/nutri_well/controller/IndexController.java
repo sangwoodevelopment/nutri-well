@@ -4,6 +4,7 @@ import com.example.nutri_well.config.auth.dto.SessionUser;
 import com.example.nutri_well.model.User;
 import com.example.nutri_well.model.myCalendar;
 import com.example.nutri_well.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -39,8 +40,12 @@ public class IndexController {
     }
 
     @GetMapping("/mypage.do")
-    public String mypageHtml(HttpSession session, Model model) {
+    public String mypageHtml(HttpSession session, Model model, HttpServletRequest request) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("user");
+        if (sessionUser == null) {
+            model.addAttribute("loginError", true);
+            return "redirect:" + request.getHeader("Referer"); // 이전 페이지로 리다이렉트
+        }
         if (sessionUser != null) {
             Optional<User> userOptional = userService.findByUserEmail(sessionUser.getEmail());//userservice를 통해 사용자 객체 조회
             if (userOptional.isPresent()) {
@@ -49,5 +54,10 @@ public class IndexController {
             }
         }
         return "user/mypage";
+    }
+
+    @GetMapping("/addFoodPage")
+    public String showAddFoodPage() {
+        return "food/addFood";
     }
 }
