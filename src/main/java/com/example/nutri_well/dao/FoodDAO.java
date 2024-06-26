@@ -17,4 +17,6 @@ public interface FoodDAO {
     Page<Food> findAllByNutrientsNotIn(@Param("category")Long categoryid, @Param("names") List<String> names, Pageable pageable);
     Food findById(Long foodId);
     Food findByFoodCode(String foodcode);
+
+    Food save(Food food);
 }

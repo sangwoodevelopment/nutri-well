@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Food Approvals</title>
+</head>
+<body>
+<h1>Food Approvals</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Category ID</th>
+        <th>Product</th>
+        <th>Manufacturer</th>
+        <th>Serving Size</th>
+        <th>User Email</th>
+        <th>Request Date</th>
+        <th>Approval Date</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="approval : ${approvals}">
+        <td th:text="${approval.id}"></td>
+        <td th:text="${approval.name}"></td>
+        <td th:text="${approval.categoryId}"></td>
+        <td th:text="${approval.product}"></td>
+        <td th:text="${approval.manufacturer}"></td>
+        <td th:text="${approval.servingSize}"></td>
+        <td th:text="${approval.userEmail}"></td>
+        <td th:text="${approval.requestDate}"></td>
+        <td th:text="${approval.approvalDate}"></td>
+        <td><a th:href="@{/food-approve/approve/{id}(id=${approval.id})}">Approve</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
