@@ -15,4 +15,5 @@ public interface FoodService {
     int getTotalPages();
     FoodResponseDTO findByName(String name);
     List<FoodResponseDTO> findAllByNutrientsNotIn(@Param("name")String foodname, @Param("names") List<String> names, Pageable pageable);
+    List<FoodResponseDTO> findAllByNutrientsNotIn(@Param("category")CategoryResponseDTO category, @Param("names") List<String> names, Pageable pageable);
 }

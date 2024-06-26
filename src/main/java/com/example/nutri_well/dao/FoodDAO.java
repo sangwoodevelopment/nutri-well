@@ -13,8 +13,7 @@ public interface FoodDAO {
     Page<Food> searchByCategoryId(Long categoryid, Pageable pageable);
     int getTotalPages(Page<Food> page);
     Food findByName(String name);
-    @Query("SELECT f FROM Food f " +
-            "WHERE f.name LIKE :name AND " +
-            "NOT EXISTS (SELECT 1 FROM f.nutrientlist fn WHERE fn.nutrient.name IN :names)")
     Page<Food> findAllByNutrientsNotIn(@Param("name")String foodname, @Param("names") List<String> names, Pageable pageable);
+    Page<Food> findAllByNutrientsNotIn(@Param("category")Long categoryid, @Param("names") List<String> names, Pageable pageable);
+    Food findById(Long foodId);
 }

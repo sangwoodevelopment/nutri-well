@@ -53,6 +53,18 @@ public class FoodServiceImpl implements FoodService{
     }
 
     @Override
+    public List<FoodResponseDTO> findAllByNutrientsNotIn(CategoryResponseDTO category, List<String> names, Pageable pageable) {
+        ModelMapper mapper = new ModelMapper();
+        Category entity = mapper.map(category, Category.class);
+
+        Page<Food> foods = dao.findAllByNutrientsNotIn(entity.getId(),names, pageable);
+        List<FoodResponseDTO> list = foods.map(FoodResponseDTO::of).getContent();
+
+        this.totalPage = foods.getTotalPages();
+        return list;
+    }
+
+    @Override
     public int getTotalPages() {
         return totalPage;
     }
