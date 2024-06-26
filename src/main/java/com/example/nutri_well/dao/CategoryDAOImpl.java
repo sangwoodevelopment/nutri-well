@@ -22,6 +22,7 @@ public class CategoryDAOImpl implements CategoryDAO{
         return categoryRepository.findByParentCategoryIsNull();
     }
 
+
     @Override
     public Category findbyId(Long id) {
         return categoryRepository.findById(id).get();

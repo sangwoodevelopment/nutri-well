@@ -32,7 +32,6 @@ public class Test1 {
 
         Page<Food> DFDF = foodRepository.findByNameContaining("마카롱", Pageable.unpaged());
         List<FoodResponseDTO> list4 =DFDF.stream().map(FoodResponseDTO::of).toList();
-
         System.out.println(list3.size()+","+list3.size()/10);
         System.out.println(list4.size()+","+list4.size()/10);
 

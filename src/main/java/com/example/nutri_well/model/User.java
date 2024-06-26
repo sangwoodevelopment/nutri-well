@@ -1,10 +1,9 @@
 package com.example.nutri_well.model;
 
+import com.example.nutri_well.entity.BookMark;
+import com.example.nutri_well.entity.Food;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
@@ -68,14 +67,17 @@ public class User {
         this.birth = birth;
         this.tel = tel;
     }
-
+    @ToString.Exclude
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<myCalendar> calendars;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BookMark> bookmark;
 
     public User update(String name, String picture) {
         this.username = name;
         this.picture = picture;
-
         return this;
     }
 
