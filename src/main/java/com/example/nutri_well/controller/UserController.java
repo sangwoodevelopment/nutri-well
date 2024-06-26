@@ -37,7 +37,7 @@ public class UserController {
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             if (user.getPassword().equals(password)) {
-                session.setAttribute("user", user); //사용자 정보를 세션에 저장
+                session.setAttribute("user", new SessionUser(user)); //사용자 정보를 세션에 저장
                 response.put("username", user.getUsername());
                 return ResponseEntity.ok(response);
             }

@@ -28,7 +28,7 @@ public class User {
     private String gender; //수정가능
 
     @Column
-    private float weight; //수정가능
+    private Float weight; //수정가능
 
     @Column
     private Date birth; //수정가능
@@ -40,7 +40,7 @@ public class User {
     private boolean state; //가입, 탈퇴여부
 
     @Column
-    private float height; //수정가능
+    private Float height; //수정가능
 
     @Column
     private int basel_metabolism; //수정가능

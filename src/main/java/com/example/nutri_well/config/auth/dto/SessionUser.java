@@ -16,11 +16,11 @@ public class SessionUser implements Serializable {
     private String name;
     private String email;
     private String gender;
-    private float weight;
+    private Float weight;
     private Date birth;
     private String tel;
     private boolean state;
-    private float height;
+    private Float height;
     private int basel_metabolism;
     private String password;
     private String picture;

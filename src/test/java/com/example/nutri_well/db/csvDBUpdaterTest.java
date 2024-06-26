@@ -52,7 +52,7 @@ class csvDBUpdaterTest {
     public void updateDatabase() throws IOException {
         String filePath = "D:\\test\\FoodDB_test1.csv";//DB파일경로
 
-        try (CSVReader reader = new CSVReader(new InputStreamReader(new FileInputStream(filePath), "CP949"))) {
+        try (CSVReader reader = new CSVReader(new InputStreamReader(new FileInputStream(filePath), "UTF8"))) {
             List<String[]> records = reader.readAll();
             System.out.println(records.size());
             List<Nutrient> nutrientList = saveNutrients(records.get(0));
