@@ -60,7 +60,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         if (userOptional.isPresent()) { //사용자가  존재하면
             user = userOptional.get();
-            user.update(attributes.getName(), attributes.getPicture());
+            user.update(attributes.getUsername(), attributes.getPicture());
         } else {//사용자가 존재하지 않으면
             user = attributes.toEntity();
             user.setPassword("oauth2user"); // 기본 비밀번호 설정

@@ -16,7 +16,7 @@ public class OAuthAttributes {
 
     private Map<String, Object> attributes; // OAuth2 반환하는 유저 정보 Map
     private String nameAttributeKey;
-    private String name;
+    private String username;
     private String email;
     private String picture;
     private String gender;
@@ -27,7 +27,7 @@ public class OAuthAttributes {
     public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, String picture, String gender, Date birthday, String mobile) {
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
-        this.name = name;
+        this.username = name;
         this.email = email;
         this.picture = picture;
         this.gender = gender;
@@ -69,7 +69,7 @@ public class OAuthAttributes {
 
     public User toEntity() {
         return User.builder()
-                .name(name)
+                .username(username)
                 .email(email)
                 .picture(picture)
                 .role(Role.USER) // 기본 권한 USER
