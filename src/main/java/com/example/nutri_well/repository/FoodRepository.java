@@ -26,4 +26,6 @@ public interface FoodRepository extends JpaRepository<Food,Long> {
             "WHERE f.categoryId.id = :categoryId AND " +
             "NOT EXISTS (SELECT 1 FROM f.nutrientlist fn WHERE fn.nutrient.name IN :names)")
     Page<Food> findAllByNutrientsNotIn(@Param("categoryId")Long category, @Param("names") List<String> names, Pageable pageable);
+
+    Food findByFoodCode(String foodcode);
 }
