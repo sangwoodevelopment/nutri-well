@@ -10,12 +10,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class ResponseDTO {
+public class SignUpResponseDTO {
     private Long UserId;
     private String username;
     private String email;
 
-    public ResponseDTO(User user){
+    public SignUpResponseDTO(User user){
         this.UserId = user.getUserId();
         this.username = user.getUsername();
         this.email = user.getEmail();
