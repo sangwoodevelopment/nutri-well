@@ -19,5 +19,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByWeight(float weight);
     Optional<User> findByHeight(float height);
     Optional<User> findByPicture(String picture);
-
+    Optional<User> findByBaselMetabolism(Integer baselMetabolism);
 }

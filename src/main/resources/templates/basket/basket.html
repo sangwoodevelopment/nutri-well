@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,14 +8,14 @@
     <link href="/common/css/basket.css" rel="stylesheet">
 </head>
 <body>
-<div class="container">
+<div class="container" th:fragment="basket">
     <div class="favorites p-2">
-<!--         즐겨찾기 목록 (for문으로 반목문 처리해서 뿌려주면 될듯)-->
+        <!--         즐겨찾기 목록 (for문으로 반목문 처리해서 뿌려주면 될듯)-->
         <section >
             <span class="star">⭐</span>
             <select>
                 <option value="#">즐겨찾기 목록</option>
-                <option value="새우">새우</option>1
+                <option value="새우" >새우</option>
                 <option value="브로콜리">브로콜리</option>
                 <option value="복숭아">복숭아</option>
             </select>
@@ -33,44 +33,81 @@
         <div class="tab-pane fade show active" id="daily" role="tabpanel" aria-labelledby="daily-tab">
             <div class="nutrition-info">
                 <h2>영양정보</h2>
+                <span th:text="${session.food.name}"></span>
+                <!--                <span th:text="${session.food84.nutrientlist}"></span>-->
                 <table>
                     <thead>
-                    <tr>
+                    <tr th:if="${session.food.nutrientlist[0].amount != null}">
+                        <th>총 내용량</th>
+                        <th><input class="kcal" th:value="${session.food.nutrientlist[0].amount}" readonly>kcal</th>
+                    </tr>
+                    <tr th:else>
                         <th>총 내용량</th>
                         <th><input class="kcal" value="0" readonly>kcal</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>나트륨 <input class="amount">mg</td>
+                    <tr th:if="${session.food.nutrientlist[12].amount != null}">
+                        <td>나트륨 <input class="amount" th:value="${session.food.nutrientlist[12].amount}" >mg</td>
                         <td><input class="percent" value="100" readonly>%</td>
                     </tr>
-                    <tr>
-                        <td>탄수화물 <input class="amount">g</td>
+                    <tr th:else>
+                        <td>나트륨 <input class="amount" value="0">g</td>
                         <td><input class="percent" value="100" readonly>%</td>
                     </tr>
-                    <tr>
-                        <td>당류 <input class="amount">g</td>
+                    <tr th:if="${session.food.nutrientlist[5].amount != null}">
+                        <td>탄수화물 <input class="amount" th:value="${session.food.nutrientlist[5].amount}" >g</td>
                         <td><input class="percent" value="100" readonly>%</td>
                     </tr>
-                    <tr>
-                        <td>지방 <input class="amount">g</td>
+                    <tr th:else>
+                        <td>탄수화물 <input class="amount" value="0">g</td>
                         <td><input class="percent" value="100" readonly>%</td>
                     </tr>
-                    <tr>
-                        <td>트랜스지방 <input class="amount">g</td>
+                    <tr th:if="${session.food.nutrientlist[6].amount != null}">
+                        <td>당류 <input class="amount" th:value="${session.food.nutrientlist[6].amount}" >g</td>
+                        <td><input class="percent" value="100" readonly>%</td>
+                    </tr>
+                    <tr th:else>
+                        <td>당류 <input class="amount" value="0">g</td>
+                        <td><input class="percent" value="100" readonly>%</td>
+                    </tr>
+                    <tr th:if="${session.food.nutrientlist[3].amount != null}">
+                        <td>지방 <input class="amount" th:value="${session.food.nutrientlist[3].amount}" >g</td>
+                        <td><input class="percent" value="100" readonly>%</td>
+                    </tr>
+                    <tr th:else>
+                        <td>지방 <input class="amount" value="0">g</td>
+                        <td><input class="percent" value="100" readonly>%</td>
+                    </tr>
+                    <tr th:if="${session.food.nutrientlist[23].amount != null}">
+                        <td>트랜스지방 <input class="amount" th:value="${session.food.nutrientlist[23].amount}" >g</td>
                         <td></td>
                     </tr>
-                    <tr>
-                        <td>포화지방 <input class="amount">g</td>
+                    <tr th:else>
+                        <td>트랜스지방 <input class="amount" value="0">g</td>
+                    </tr>
+                    <tr th:if="${session.food.nutrientlist[22].amount != null}">
+                        <td>포화지방 <input class="amount" th:value="${session.food.nutrientlist[22].amount}" >g</td>
                         <td><input class="percent" value="100" readonly>%</td>
                     </tr>
-                    <tr>
-                        <td>콜레스테롤 <input class="amount">mg</td>
+                    <tr th:else>
+                        <td>포화지방 <input class="amount" value="0">g</td>
                         <td><input class="percent" value="100" readonly>%</td>
                     </tr>
-                    <tr>
-                        <td>단백질 <input class="amount">g</td>
+                    <tr th:if="${session.food.nutrientlist[21].amount != null}">
+                        <td>콜레스테롤 <input class="amount" th:value="${session.food.nutrientlist[21].amount}" >mg</td>
+                        <td><input class="percent" value="100" readonly>%</td>
+                    </tr>
+                    <tr th:else>
+                        <td>콜레스테롤 <input class="amount" value="0">g</td>
+                        <td><input class="percent" value="100" readonly>%</td>
+                    </tr>
+                    <tr th:if="${session.food.nutrientlist[2].amount != null}">
+                        <td>단백질 <input class="amount" th:value="${session.food.nutrientlist[2].amount}">g</td>
+                        <td><input class="percent" value="100" readonly>%</td>
+                    </tr>
+                    <tr th:else>
+                        <td>단백질 <input class="amount" value="0">g</td>
                         <td><input class="percent" value="100" readonly>%</td>
                     </tr>
                     </tbody>
@@ -81,15 +118,20 @@
             <!-- 기초대사량 내용 -->
             <div class="barsel">
                 <h2>영양정보</h2>
-                <table>
-                    <thead>
-                    <tr>
+                <table >
+                    <!--                    th:each="nutrient : ${session.food.nutrientlist}"-->
+                    <thead >
+                    <tr th:if="${session.food.nutrientlist[0].amount != null}">
                         <th>총 내용량</th>
-                        <th><input class="amount">kcal</th>
+                        <th><input id="amount" class="amount"  th:value="${session.food.nutrientlist[0].amount}">kcal</th>
+                    </tr>
+                    <tr th:else>
+                        <th>총 내용량</th>
+                        <th><input id="amount" class="amount"  value="0">kcal</th>
                     </tr>
                     <tr>
                         <td></td>
-                        <td><input class="percent" value="100" readonly>%</td>
+                        <td><input id="percent" class="percent" readonly>%</td>
                     </tr>
                     </thead>
                 </table>
@@ -104,10 +146,11 @@
     <div class="food">
         <table>
             <tbody>
-                <tr>
-                    <td>1. 새우: 열량: 45kcal, 콜레스테롤: 45mg ... fasdfsdafasdfsd</td>
-                    <td><button>삭제</button></td>
-                </tr>
+            <!--                <tr th:each="nutrient : ${session.food84.nutrientlist}">-->
+            <!--&lt;!&ndash;                    <td>1. 새우: 열량: 45kcal, 콜레스테롤: 45mg ... fasdfsdafasdfsd</td>&ndash;&gt;-->
+            <!--                    <td th:text="${nutrient[0].name} + ': ' + ${nutrient[0].amount} + ${nutrient[0].value} + ', '"></td>-->
+            <!--                    <td><button>삭제</button></td>-->
+            <!--                </tr>-->
             </tbody>
         </table>
     </div>
@@ -116,7 +159,15 @@
         <button type="submit">등록</button>
     </div>
 </div>
+<script>
+    // JavaScript 부분은 이곳에 작성합니다.
+    document.addEventListener("DOMContentLoaded", function() {
+        let amount = document.getElementById("amount").value;
+        let percent = Math.floor(amount / 2000 * 100);
 
+        document.getElementById("percent").value = percent;
+    });
+</script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

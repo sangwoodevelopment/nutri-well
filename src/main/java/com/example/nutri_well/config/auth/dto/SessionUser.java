@@ -21,7 +21,7 @@ public class SessionUser implements Serializable {
     private String tel;
     private boolean state;
     private float height;
-    private int basel_metabolism;
+    private int baselMetabolism;
     private String password;
     private String picture;
     private Role role;
@@ -42,7 +42,7 @@ public class SessionUser implements Serializable {
         this.tel = user.getTel();
         this.state = user.isState();
         this.height = user.getHeight();
-        this.basel_metabolism = user.getBasel_metabolism();
+        this.baselMetabolism = user.getBaselMetabolism();
         this.password = user.getPassword();
         this.picture = user.getPicture();
         this.role = user.getRole();

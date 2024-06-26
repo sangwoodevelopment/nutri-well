@@ -16,8 +16,7 @@ import java.util.List;
 @Builder
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
-    @SequenceGenerator(name = "user_seq",sequenceName = "user_sequence", allocationSize = 1)
+    @GeneratedValue
     private Long userId;
 
     @Column(nullable = false)
@@ -45,7 +44,7 @@ public class User {
     private float height; //수정가능
 
     @Column
-    private int basel_metabolism; //수정가능
+    private int baselMetabolism; //수정가능
 
     @Column(nullable = false)
     private String password;
