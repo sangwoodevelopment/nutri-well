@@ -13,17 +13,17 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "NUTRI")
+@Table(name = "USERS")
 public class Member {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq")
-    @SequenceGenerator(name = "member_seq",sequenceName = "member_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
+    @SequenceGenerator(name = "user_seq",sequenceName = "user_sequence", allocationSize = 1)
     private Long id;
 
-    @Column(nullable = false) //유니크
+    @Column(nullable = false, unique = true) //유니크
     private String username;
 
-    @Column(nullable = false) //= 로그인 시 사용할 계정명
+    @Column(nullable = false, unique = true) //= 로그인 시 사용할 계정명
 //    ex) 1234@naver.com , pass:1234
     private String email;
 

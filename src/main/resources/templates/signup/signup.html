@@ -41,8 +41,8 @@
             </div>
         </div>
         <div class="divider">OR</div>
-        <form th:action="@{/member/signup}" method="post" th:object="${member}">
-            <input type="text" th:field="*{id}" placeholder="id">
+        <form th:action="@{/member/signup}" method="post" th:object="${memberSignUpDTO}">
+
             <input type="text" th:field="*{username}" placeholder="username">
             <input type="email" th:field="*{email}" placeholder="email">
             <input type="password" th:field="*{password}" placeholder="password">
