@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.text.AttributedString;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,11 +20,11 @@ public class OAuthAttributes {
     private String email;
     private String picture;
     private String gender;
-    private String birthday;
+    private Date birthday;
     private String mobile;
 
     @Builder
-    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, String picture, String gender, String birthday, String mobile) {
+    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, String picture, String gender, Date birthday, String mobile) {
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
         this.name = name;
@@ -49,7 +50,7 @@ public class OAuthAttributes {
                 .name((String) response.get("name"))
                 .email((String) response.get("email"))
                 .gender((String) response.get("gender"))
-                .birthday((String) response.get("birthday"))
+                .birthday((Date) response.get("birthday"))
                 .mobile((String) response.get("mobile"))
                 .nameAttributeKey(userNameAttributeName)
                 .attributes(response) // attributes 설정 추가

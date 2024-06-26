@@ -8,10 +8,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -57,6 +64,33 @@ public class UserController {
             response.put("loggedIn", false);
         }
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/updateProfile")
+    public String updateProfile(@RequestParam("gender") String gender, @RequestParam("height") float height,
+                                @RequestParam("weight") float weight, @RequestParam("birth") String birth,
+                                @RequestParam("tel") String tel, @RequestParam("picture") String picture,
+                                HttpSession session) {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("user");
+        if (sessionUser != null) {
+            User existingUser = userService.getCurrentUser(sessionUser.getEmail());
+            System.out.println("=====================user.getemail" + sessionUser.getEmail());
+            existingUser.setGender(gender);
+            existingUser.setHeight(height);
+            existingUser.setWeight(weight);
+            // Convert birth string to Date
+            try {
+                Date birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(birth);
+                existingUser.setBirth(birthDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            existingUser.setTel(tel);
+            existingUser.setPicture(picture);
+
+            userService.updateUser(existingUser);
+        }
+        return "redirect:/mypage.do";
     }
 
 
