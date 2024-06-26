@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class Category {
     @JoinColumn(name = "parent_id", referencedColumnName = "id")
     private Category parentCategory;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "parentCategory", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Category> childrenCategory;
 
