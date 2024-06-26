@@ -1,4 +1,4 @@
-package com.example.nutri_well.SignUp;
+package com.example.nutri_well.dto;
 
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;

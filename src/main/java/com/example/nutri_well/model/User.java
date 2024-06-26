@@ -13,9 +13,11 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
+    @SequenceGenerator(name = "user_seq",sequenceName = "user_sequence", allocationSize = 1)
     private Long userId;
 
     @Column(nullable = false)
@@ -37,7 +39,7 @@ public class User {
     private String tel; //수정가능
 
     @Column(nullable = false)
-    private boolean state; //가입, 탈퇴여부
+    private boolean state = true; //가입, 탈퇴여부
 
     @Column
     private float height; //수정가능

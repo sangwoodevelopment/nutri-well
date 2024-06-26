@@ -1,15 +1,14 @@
-package com.example.nutri_well.SignUp;
+package com.example.nutri_well.dto;
 
+import com.example.nutri_well.model.Role;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @NoArgsConstructor
 @Getter
 @Data
-public class MemberSignUpDTO {
+public class SignUpDTO {
     private String username;
     private String email;
     private String password;
@@ -20,5 +19,7 @@ public class MemberSignUpDTO {
     private String tel;
     private int basel_metabolism;
     private String picture;
+    private Role role = Role.USER;
+    private boolean state = true;
 
 }

@@ -1,5 +1,7 @@
-package com.example.nutri_well.SignUp;
+package com.example.nutri_well.controller;
 
+import com.example.nutri_well.dto.SignUpDTO;
+import com.example.nutri_well.service.SignUpService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,17 +12,17 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/member")
-public class MemberController {
+public class SignUpController {
 
-    private final MemberService memberService;
+    private final SignUpService memberService;
 
     @GetMapping("/signup")
     public String signUp(Model model){
-        model.addAttribute("memberSignUpDTO",new MemberSignUpDTO());
+        model.addAttribute("memberSignUpDTO",new SignUpDTO());
         return "signup/signup";
     }
     @PostMapping("/signup")
-    public String registerUser(@ModelAttribute("memberSignUpDTO") MemberSignUpDTO memberSignUpDTO, Model model) {
+    public String registerUser(@ModelAttribute("memberSignUpDTO") SignUpDTO memberSignUpDTO, Model model) {
         try {
             memberService.registerUser(memberSignUpDTO);
             return "redirect:/member/signUpsuccess";
