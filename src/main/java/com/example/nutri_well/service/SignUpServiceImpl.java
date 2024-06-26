@@ -54,7 +54,7 @@ public class SignUpServiceImpl implements SignUpService {
                         .height(Float.parseFloat(memberSignUpDTO.getHeight()))
                         .tel(memberSignUpDTO.getTel())
                         .picture(memberSignUpDTO.getPicture())
-                         .basel_metabolism(memberSignUpDTO.getBasel_metabolism())
+                         .baselMetabolism(memberSignUpDTO.getBaselMetabolism())
                          .role(memberSignUpDTO.getRole())
                          .state(true)
                         .build();
