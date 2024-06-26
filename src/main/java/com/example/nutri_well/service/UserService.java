@@ -20,4 +20,6 @@ public class UserService {
     public void save(User user) {
         userRepository.save(user);
     }
+
+    public Optional<User> findById(Long userId){return userRepository.findById(userId);}
 }

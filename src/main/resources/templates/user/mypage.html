@@ -27,6 +27,11 @@
 
     <!-- Template Stylesheet -->
     <link href="/common/css/style.css" rel="stylesheet">
+
+    <!-- FullCalendar -->
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
+
 </head>
 
 <body>
@@ -216,7 +221,7 @@
         <div class="col-lg-9">
             <!-- 이곳에 유저 정보 출력-->
             <p th:text="'id : '+${user.userId}"></p>
-            <p th:text="'name : '+${user.name}"></p>
+            <p th:text="'name : '+${user.username}"></p>
             <p th:text="'email : '+${user.email}"></p>
             <p th:text="'gender : '+${user.gender}"></p>
             <p th:text="'weight : '+${user.weight}"></p>
@@ -229,6 +234,9 @@
             <p th:text="'picture : '+${user.picture}"></p>
             <p th:text="'role : '+${user.role}"></p>
 
+            <!-- 캘린더 정보 출력 -->
+            <h3>캘린더 정보</h3>
+            <div id='calendar'></div>
 
         </div>
     </div>
@@ -343,6 +351,21 @@
 <!-- Template Javascript -->
 <script src="/common/js/main.js"></script>
 <script src="/common/js/login.js"></script>
+
+<!-- FullCalendar Initialization -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: '/calendar/api/calendars', // URL to fetch events
+            displayEventTime: false,
+            eventDisplay: 'block'
+        });
+        calendar.render();
+    });
+</script>
+
 </body>
 
 </html>

@@ -37,6 +37,7 @@ public class Basket {
 
     @Column(nullable = false)
     private String type;
+
     @ManyToOne
     @JoinColumn(name = "foodId")
     private Food foodid;

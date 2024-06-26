@@ -35,7 +35,6 @@ public class UserController {
                 return ResponseEntity.ok(response);
             }
         }
-
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
 
     }
