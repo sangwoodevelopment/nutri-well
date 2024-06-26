@@ -1,9 +1,11 @@
 package com.example.nutri_well.entity;
 
+import com.example.nutri_well.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,8 +35,12 @@ public class Food {
 
     private Date creationDate;
     //하나의 식품은 여러개의 영양소를 가질수 있다.
+    @ToString.Exclude
     @OneToMany(mappedBy = "food", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FoodNutrient> nutrientlist = new ArrayList<>();
+    @ToString.Exclude
+    @OneToMany()
+    private List<BookMark> userlist = new ArrayList<>();
 
     public Food(String name, Category categoryId, String foodCode, String product, String manufacturer, String servingSize, Date creationDate) {
         this.name = name;

@@ -40,7 +40,12 @@ public final class SearchFoodController {
             }
         } else {
             CategoryResponseDTO categoryDTO = categoryService.findbyId(category);
-            foodlist = foodService.searchByCategoryId(categoryDTO,pageRequest);
+            if(nutrients != null){
+                foodlist = foodService.findAllByNutrientsNotIn(categoryDTO,nutrients,pageRequest);
+            }else {
+                foodlist = foodService.searchByCategoryId(categoryDTO,pageRequest);
+            }
+
         }
 
         int totalpage = foodService.getTotalPages();
@@ -49,6 +54,7 @@ public final class SearchFoodController {
         ModelAndView mav = new ModelAndView("/search/shop");
         mav.addObject("query",query);
         mav.addObject("totalPage",totalpage);
+        mav.addObject("category",category);
         mav.addObject("foodlist",foodlist);
         mav.addObject("categories",categories);
         return mav;
