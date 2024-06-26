@@ -33,7 +33,7 @@ public class Basket {
     private Food foodId;
 
     @Transient // 기초대사량 계산식 적용해야함
-    private String basel_metabolism;
+    private String baselMetabolism;
 
     public Basket(User userId, String type, Food foodId) {
         this.userId = userId;

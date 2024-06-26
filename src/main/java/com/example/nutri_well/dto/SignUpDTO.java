@@ -17,7 +17,7 @@ public class SignUpDTO {
     private String weight;
     private String height;
     private String tel;
-    private int basel_metabolism;
+    private int baselMetabolism;
     private String picture;
     private Role role = Role.USER;
     private boolean state = true;
