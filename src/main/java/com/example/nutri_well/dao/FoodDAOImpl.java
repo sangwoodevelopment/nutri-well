@@ -16,7 +16,6 @@ public class FoodDAOImpl implements FoodDAO{
 
     @Override
     public Page<Food> searchByFoodName(String name , Pageable pageable) {
-        System.out.println("searchByFoodName"+foodRepository.findByNameContaining(name, pageable).getTotalElements());
         return foodRepository.findByNameContaining(name, pageable);
     }
 
@@ -37,7 +36,16 @@ public class FoodDAOImpl implements FoodDAO{
 
     @Override
     public Page<Food> findAllByNutrientsNotIn(String foodname, List<String> names, Pageable pageable) {
-        System.out.println("findAllByNutrientsNotIn"+foodRepository.findAllByNutrientsNotIn(foodname,names, pageable).getTotalElements());
         return foodRepository.findAllByNutrientsNotIn(foodname,names, pageable);
+    }
+
+    @Override
+    public Page<Food> findAllByNutrientsNotIn(Long categoryid, List<String> names, Pageable pageable) {
+        return foodRepository.findAllByNutrientsNotIn(categoryid,names,pageable);
+    }
+
+    @Override
+    public Food findById(Long foodId) {
+        return foodRepository.findById(foodId).get();
     }
 }

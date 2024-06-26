@@ -48,7 +48,6 @@ public final class SearchFoodAPIController {
                     PageRequest.of(page,size, Sort.unsorted()));
             totalpage = foodService.getTotalPages();
             categories = categoryService.findByParentCategoryIsNull();
-
         } else {
             CategoryResponseDTO categoryDTO = categoryService.findbyId(category);
             foodlist = foodService.searchByCategoryId(categoryDTO,
@@ -59,7 +58,4 @@ public final class SearchFoodAPIController {
 
         return new SearchPageWrapperDTO(categories,foodlist);
     }
-
-
-
 }

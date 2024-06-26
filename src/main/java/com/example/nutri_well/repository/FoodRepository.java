@@ -21,4 +21,9 @@ public interface FoodRepository extends JpaRepository<Food,Long> {
             "WHERE f.name LIKE :name AND " +
             "NOT EXISTS (SELECT 1 FROM f.nutrientlist fn WHERE fn.nutrient.name IN :names)")
     Page<Food> findAllByNutrientsNotIn(@Param("name")String foodname, @Param("names") List<String> names, Pageable pageable);
+
+    @Query("SELECT f FROM Food f " +
+            "WHERE f.categoryId.id = :categoryId AND " +
+            "NOT EXISTS (SELECT 1 FROM f.nutrientlist fn WHERE fn.nutrient.name IN :names)")
+    Page<Food> findAllByNutrientsNotIn(@Param("categoryId")Long category, @Param("names") List<String> names, Pageable pageable);
 }

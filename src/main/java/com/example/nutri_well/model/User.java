@@ -1,11 +1,11 @@
 package com.example.nutri_well.model;
 
+import com.example.nutri_well.entity.BookMark;
+import com.example.nutri_well.entity.Food;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -31,7 +31,7 @@ public class User {
     private float weight; //수정가능
 
     @Column
-    private String birth; //수정가능
+    private Date birth; //수정가능
 
     @Column
     private String tel; //수정가능
@@ -56,7 +56,7 @@ public class User {
     private Role role;
 
     @Builder
-    public User(String name, String email, String password, String picture, Role role, String gender, boolean state, String birth, String tel) {
+    public User(String name, String email, String password, String picture, Role role, String gender, boolean state, Date birth, String tel) {
         this.username = name;
         this.email = email;
         this.password = password;
@@ -67,14 +67,17 @@ public class User {
         this.birth = birth;
         this.tel = tel;
     }
-
+    @ToString.Exclude
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<myCalendar> calendars;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BookMark> bookmark;
 
     public User update(String name, String picture) {
         this.username = name;
         this.picture = picture;
-
         return this;
     }
 

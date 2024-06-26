@@ -5,6 +5,7 @@ import com.example.nutri_well.model.User;
 import lombok.Getter;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Getter
 public class SessionUser implements Serializable {
@@ -16,7 +17,7 @@ public class SessionUser implements Serializable {
     private String email;
     private String gender;
     private float weight;
-    private String birth;
+    private Date birth;
     private String tel;
     private boolean state;
     private float height;

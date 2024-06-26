@@ -50,7 +50,6 @@
         var queryValue = $('#queryContainer').data("query");
         var category = $('#categoryContainer').data("category") || 0;
         var nutrients = JSON.parse(localStorage.getItem('nutrients') || '[]');
-
         if (isChecked) {
             if (!nutrients.includes(nutrient)) {
                 nutrients.push(nutrient);
