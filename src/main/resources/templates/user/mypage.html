@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -11,7 +11,8 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap"
+          rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
@@ -29,15 +30,50 @@
     <link href="/common/css/style.css" rel="stylesheet">
 
     <!-- FullCalendar -->
-    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet'/>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
 
+    <!-- 웹페이지 캡쳐 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <style>
+        .section-title {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ffb524;
+            padding-bottom: 10px;
+        }
+        .user-info {
+            margin-bottom: 30px;
+        }
+        .user-info p {
+            margin: 5px 0;
+            font-size: 1.1em;
+        }
+        .tooltip-icon {
+            cursor: pointer;
+            border-bottom: 1px dotted;
+        }
+        .tooltip-icon:hover::after {
+            content: attr(title);
+            position: absolute;
+            background: #333;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            white-space: nowrap;
+            z-index: 10;
+        }
+        form .mb-3 {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 
 <body>
 
 <!-- Spinner Start -->
-<div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+<div id="spinner"
+     class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
     <div class="spinner-grow text-primary" role="status"></div>
 </div>
 <!-- Spinner End -->
@@ -48,13 +84,16 @@
     <div class="container topbar bg-primary d-none d-lg-block">
         <div class="d-flex justify-content-between">
             <div class="top-info ps-2">
-                <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">123 Street, New York</a></small>
+                <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#"
+                                                                                                 class="text-white">123
+                    Street, New York</a></small>
                 <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com</a></small>
             </div>
             <div class="top-link pe-2">
                 <a href="#" class="text-white"><small class="text-white mx-2">공지사항</small>/</a>
                 <a href="#" class="text-white"><small class="text-white mx-2">문의하기</small>/</a>
-                <a href="#" class="text-white" data-bs-toggle="modal" data-bs-target="#loginModal" id="login-link"><small class="text-white ms-2" id="login-text">로그인</small></a>
+                <a href="#" class="text-white" data-bs-toggle="modal" data-bs-target="#loginModal"
+                   id="login-link"><small class="text-white ms-2" id="login-text">로그인</small></a>
                 <a href="#" class="text-white d-none" id="logout-link"><small class="text-white ms-2" id="logout-text">로그아웃</small></a>
                 <span id="login-separator" class="text-white d-none"> /</span>
                 <span class="text-white ms-2" id="username-display" style="display:none;"></span>
@@ -64,7 +103,8 @@
     <div class="container px-0">
         <nav class="navbar navbar-light bg-white navbar-expand-xl">
             <a href="index.do" class="navbar-brand"><h1 class="text-primary display-6">Fruitables</h1></a>
-            <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
                 <span class="fa fa-bars text-primary"></span>
             </button>
             <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
@@ -84,12 +124,15 @@
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
                 </div>
                 <div class="d-flex m-3 me-0">
-                    <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
+                    <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
+                            data-bs-toggle="modal" data-bs-target="#searchModal"><i
+                            class="fas fa-search text-primary"></i></button>
                     <a href="#" class="position-relative me-4 my-auto">
                         <i class="fa fa-shopping-bag fa-2x"></i>
-                        <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                        <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                              style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                     </a>
-                    <a href="#" class="my-auto">
+                    <a th:href="mypage.do" class="my-auto">
                         <i class="fas fa-user fa-2x"></i>
                     </a>
                 </div>
@@ -110,7 +153,8 @@
             </div>
             <div class="modal-body d-flex align-items-center">
                 <div class="input-group w-75 mx-auto d-flex">
-                    <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
+                    <input type="search" class="form-control p-3" placeholder="keywords"
+                           aria-describedby="search-icon-1">
                     <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
                 </div>
             </div>
@@ -138,14 +182,19 @@
 
                     <!-- Google Login Button -->
                     <div class="mb-3 w-100">
-                        <a class="btn btn-outline-secondary w-100" href="/oauth2/authorization/google" rel="noopener follow">
+                        <a class="btn btn-outline-secondary w-100" href="/oauth2/authorization/google"
+                           rel="noopener follow">
                             <div class="d-flex align-items-center justify-content-center">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="me-2">
                                     <g fill-rule="evenodd" clip-rule="evenodd">
-                                        <path d="M20.64 12.2c0-.63-.06-1.25-.16-1.84H12v3.49h4.84a4.14 4.14 0 0 1-1.8 2.71v2.26h2.92a8.78 8.78 0 0 0 2.68-6.61z" fill="#4285F4"></path>
-                                        <path d="M12 21a8.6 8.6 0 0 0 5.96-2.18l-2.91-2.26a5.41 5.41 0 0 1-8.09-2.85h-3v2.33A9 9 0 0 0 12 21z" fill="#34A853"></path>
-                                        <path d="M6.96 13.71a5.41 5.41 0 0 1 0-3.42V7.96h-3a9 9 0 0 0 0 8.08l3-2.33z" fill="#FBBC05"></path>
-                                        <path d="M12 6.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58A9 9 0 0 0 3.96 7.96l3 2.33A5.36 5.36 0 0 1 12 6.6z" fill="#EA4335"></path>
+                                        <path d="M20.64 12.2c0-.63-.06-1.25-.16-1.84H12v3.49h4.84a4.14 4.14 0 0 1-1.8 2.71v2.26h2.92a8.78 8.78 0 0 0 2.68-6.61z"
+                                              fill="#4285F4"></path>
+                                        <path d="M12 21a8.6 8.6 0 0 0 5.96-2.18l-2.91-2.26a5.41 5.41 0 0 1-8.09-2.85h-3v2.33A9 9 0 0 0 12 21z"
+                                              fill="#34A853"></path>
+                                        <path d="M6.96 13.71a5.41 5.41 0 0 1 0-3.42V7.96h-3a9 9 0 0 0 0 8.08l3-2.33z"
+                                              fill="#FBBC05"></path>
+                                        <path d="M12 6.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58A9 9 0 0 0 3.96 7.96l3 2.33A5.36 5.36 0 0 1 12 6.6z"
+                                              fill="#EA4335"></path>
                                     </g>
                                 </svg>
                                 Sign in with Google
@@ -159,16 +208,19 @@
                            th:href="@{'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=' + ${kakaoApiKey} + '&redirect_uri=' + ${redirectUri}}"
                            rel="noopener follow">
                             <div class="d-flex align-items-center justify-content-center">
-                                <img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png" alt="Kakao Login" class="me-2" style="width: 24px; height: 24px;">
+                                <img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"
+                                     alt="Kakao Login" class="me-2" style="width: 24px; height: 24px;">
                                 Sign in with Kakao
                             </div>
                         </a>
                     </div>
                     <!-- Naver Login Button -->
                     <div class="mb-3 w-100">
-                        <a class="btn btn-outline-secondary w-100" href="/oauth2/authorization/naver" rel="noopener follow">
+                        <a class="btn btn-outline-secondary w-100" href="/oauth2/authorization/naver"
+                           rel="noopener follow">
                             <div class="d-flex align-items-center justify-content-center">
-                                <img src="/common/img/naver_login_logo1.png" alt="Naver Login" class="me-2" style="width: 24px; height: 24px;">
+                                <img src="/common/img/naver_login_logo1.png" alt="Naver Login" class="me-2"
+                                     style="width: 24px; height: 24px;">
                                 Sign in with Naver
                             </div>
                         </a>
@@ -181,12 +233,18 @@
                         </p>
                     </div>
                     <div class="mb-3 w-100 text-center">
-                        <p>이메일을 잊으셨거나 로그인에 문제가 있으신가요? <a href="https://help.medium.com/hc/en-us/requests/new?ticket_form_id=9455427953559&amp;form=true&amp;source=login-------------------------------------" rel="noopener follow" target="_blank">도움 받기</a>.</p>
+                        <p>이메일을 잊으셨거나 로그인에 문제가 있으신가요? <a
+                                href="https://help.medium.com/hc/en-us/requests/new?ticket_form_id=9455427953559&amp;form=true&amp;source=login-------------------------------------"
+                                rel="noopener follow" target="_blank">도움 받기</a>.</p>
                     </div>
                 </div>
             </div>
             <div class="modal-footer text-center">
-                <p>로그인 버튼을 클릭하면 Medium의 <a href="https://policy.medium.com/medium-terms-of-service-9db0094a1e0f?source=login-------------------------------------" rel="noopener follow" target="_blank">서비스 약관</a>과 <a href="https://policy.medium.com/medium-privacy-policy-f03bf92035c9?source=login-------------------------------------" rel="noopener follow" target="_blank">개인정보 보호정책</a>에 동의하는 것입니다.</p>
+                <p>로그인 버튼을 클릭하면 Medium의 <a
+                        href="https://policy.medium.com/medium-terms-of-service-9db0094a1e0f?source=login-------------------------------------"
+                        rel="noopener follow" target="_blank">서비스 약관</a>과 <a
+                        href="https://policy.medium.com/medium-privacy-policy-f03bf92035c9?source=login-------------------------------------"
+                        rel="noopener follow" target="_blank">개인정보 보호정책</a>에 동의하는 것입니다.</p>
             </div>
         </div>
     </div>
@@ -195,7 +253,7 @@
 
 <!-- Single Page Header start -->
 <div class="container-fluid page-header py-5">
-    <h1 class="text-center text-white display-6" id="name-text" >Testimonial</h1>
+    <h1 class="text-center text-white display-6" id="name-text">Testimonial</h1>
     <ol class="breadcrumb justify-content-center mb-0">
         <li class="breadcrumb-item"><a href="#">Home</a></li>
         <li class="breadcrumb-item"><a href="#">Pages</a></li>
@@ -211,35 +269,110 @@
             <!-- 유저 정보 섹션 -->
             <div class="card">
                 <div class="card-body text-center">
-                    <h5 class="card-title" id="user-name">UserName</h5>
+                    <h5 class="card-title" id="user-name" th:text="${user.username}"></h5>
+                    <!--여기에 유저의 사진 보여주기-->
+                    <img th:src="@{${user.picture}}" alt="User Picture" class="img-thumbnail" style="width: 150px; height: 150px;">
                     <p class="card-text">Silver III</p>
                     <span class="badge bg-primary">424</span>
 
                 </div>
             </div>
         </div>
+
+
         <div class="col-lg-9">
-            <!-- 이곳에 유저 정보 출력-->
-            <p th:text="'id : '+${user.userId}"></p>
-            <p th:text="'name : '+${user.username}"></p>
-            <p th:text="'email : '+${user.email}"></p>
-            <p th:text="'gender : '+${user.gender}"></p>
-            <p th:text="'weight : '+${user.weight}"></p>
-            <p th:text="'birth : '+${user.birth}"></p>
-            <p th:text="'tel : '+${user.tel}"></p>
-            <p th:text="'state : '+${user.state}"></p>
-            <p th:text="'heigtht : '+${user.height}"></p>
-            <p th:text="'basel_metabolism : '+${user.basel_metabolism}"></p>
-            <p th:text="'password : '+${user.password}"></p>
-            <p th:text="'picture : '+${user.picture}"></p>
-            <p th:text="'role : '+${user.role}"></p>
+            <!-- 네비게이션 -->
+            <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-bottom: 10px" >
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="calendar-tab" data-bs-toggle="tab" data-bs-target="#calendar-tab-pane" type="button" role="tab" aria-controls="calendar-tab-pane" aria-selected="true">캘린더 정보</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">회원정보 수정</button>
+                </li>
+                <!-- 식품 승인 탭 (관리자만 보임) -->
+                <li class="nav-item" role="presentation" th:if="${user.role == T(com.example.nutri_well.model.Role).ADMIN}">
+                    <button class="nav-link" id="approval-tab" data-bs-toggle="tab" data-bs-target="#approval-tab-pane" type="button" role="tab" aria-controls="approval-tab-pane" aria-selected="false">식품 승인</button>
+                </li>
+            </ul>
 
-            <!-- 캘린더 정보 출력 -->
-            <h3>캘린더 정보</h3>
-            <div id='calendar'></div>
+            <p th:if="${user.role == T(com.example.nutri_well.model.Role).ADMIN}" th:text="'관리자권한이 있습니다.'"></p>
 
+            <div class="tab-content" id="myTabContent">
+                <!-- 캘린더 탭-->
+                <div class="tab-pane fade show active" id="calendar-tab-pane" role="tabpanel" aria-labelledby="calendar-tab">
+                    <h3>캘린더 정보</h3>
+                    <div id='calendar'></div>
+                    <!-- 캡처 버튼 -->
+                    <button id="capture-btn" title="캘린더가 잘보이는 상태로 캡쳐해주세요">캘린더 캡쳐</button>
+                    <!-- 캡처된 이미지 미리보기 -->
+                    <img id="captured-image" style="display:none;">
+                    <!-- 이미지 다운로드 버튼 -->
+                    <a id="download-link" href="#" download="calendar.png" style="display:none;">Download Image</a>
+                </div>
+
+                <!-- 회원정보 수정탭-->
+                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab">
+                    <h3 class="section-title">내 정보 </h3>
+                    <div class="user-info">
+                        <p th:text="'이름 : '+${user.username}"></p>
+                        <p th:text="'아이디 : '+${user.email}"></p>
+                        <p th:text="'성별 : '+${user.gender}"></p>
+                        <p th:text="'키 : '+${user.height}"></p>
+                        <p th:text="'몸무게 : '+${user.weight}"></p>
+                        <p th:text="'생년월일 : '+${user.birth}"></p>
+                        <p th:text="'전화번호 : '+${user.tel}"></p>
+                        <p th:text="'기초대사량 : '+${user.basel_metabolism}"></p>
+                        <p th:text="'프로필 URL : '+${user.picture}"></p>
+                    </div>
+
+                    <h3 class="section-title">회원 정보 수정</h3>
+                    <!-- action="updateProfile" 로 하면 9079/updateProfile로 렌더링 되어버림-->
+                    <!-- th:action="@{/updateProfile}" 로 해서 9079/mypage.do/updateProfile 로 동적으로 처리할 수 있게함-->
+                    <form method="post" th:action="@{/updateProfile}" enctype="multipart/form-data" onsubmit="return showSuccessAlert()">
+                        <div class="mb-3">
+                            <label for="gender" class="form-label">성별</label>
+                            <select id="gender" name="gender" class="form-select">
+                                <option th:value="MALE" th:text="#{male}" th:selected="${user.gender == 'MALE'}"></option>
+                                <option th:value="FEMALE" th:text="#{female}" th:selected="${user.gender == 'FEMALE'}"></option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="height" class="form-label">키</label>
+                            <input type="number" id="height" name="height" class="form-control" th:value="${user.height}" step="0.01">
+                        </div>
+                        <div class="mb-3">
+                            <label for="weight" class="form-label">몸무게</label>
+                            <input type="number" id="weight" name="weight" class="form-control" th:value="${user.weight}" step="0.01">
+                        </div>
+                        <div class="mb-3">
+                            <label for="birth" class="form-label">생일 (입력형식을 맞춰주세요.)</label>
+                            <input type="date" id="birth" name="birth" class="form-control" th:value="${#dates.format(user.birth, 'yyyy-MM-dd')}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="tel" class="form-label">전화번호</label>
+                            <input type="text" id="tel" name="tel" class="form-control" th:value="${user.tel}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="picture" class="form-label">프로필 이미지 주소
+                                <span class="tooltip-icon" title="이미지를 새탭에서 열어주세요. 그리고 이미지 주소를 복사해 주세요. 예: http://example.com/image.jpg">?</span>
+                            </label>
+                            <input type="text" id="picture" name="picture" class="form-control" th:value="${user.picture}">
+                            <a href="https://ifh.cc/" target="_blank">소유한 사진을 URL로 변경하고 싶다면 여기서 변경하세요.</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary">수정하기</button>
+                    </form>
+                </div>
+
+                <!-- 식품승인 탭 -->
+                <div class="tab-pane fade" id="approval-tab-pane" role="tabpanel" aria-labelledby="approval-tab">
+                    <h3>식품 승인</h3>
+                    <!-- 식품 승인 내용 추가 -->
+                </div>
+            </div>
         </div>
+
     </div>
+</div>
 </div>
 <!-- My Page 끝 -->
 
@@ -256,16 +389,24 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="position-relative mx-auto">
-                        <input class="form-control border-0 w-100 py-3 px-4 rounded-pill" type="number" placeholder="Your Email">
-                        <button type="submit" class="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white" style="top: 0; right: 0;">Subscribe Now</button>
+                        <input class="form-control border-0 w-100 py-3 px-4 rounded-pill" type="number"
+                               placeholder="Your Email">
+                        <button type="submit"
+                                class="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white"
+                                style="top: 0; right: 0;">Subscribe Now
+                        </button>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="d-flex justify-content-end pt-3">
-                        <a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-youtube"></i></a>
-                        <a class="btn btn-outline-secondary btn-md-square rounded-circle" href=""><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i
+                                class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i
+                                class="fab fa-youtube"></i></a>
+                        <a class="btn btn-outline-secondary btn-md-square rounded-circle" href=""><i
+                                class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
             </div>
@@ -327,7 +468,8 @@
                 <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
                 <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
                 <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
+                Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a
+                    class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
             </div>
         </div>
     </div>
@@ -335,9 +477,9 @@
 <!-- Copyright End -->
 
 
-
 <!-- Back to Top -->
-<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
+        class="fa fa-arrow-up"></i></a>
 
 
 <!-- JavaScript Libraries -->
@@ -354,7 +496,7 @@
 
 <!-- FullCalendar Initialization -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
@@ -364,6 +506,31 @@
         });
         calendar.render();
     });
+</script>
+
+<!-- 캘린더 캡쳐 -->
+<script>
+    document.getElementById('capture-btn').addEventListener('click', function () {
+        html2canvas(document.getElementById('calendar'), {
+            onrendered: function (canvas) {
+                var img = canvas.toDataURL('image/png');
+                document.getElementById('captured-image').src = img;
+                document.getElementById('captured-image').style.display = 'block';
+
+                var downloadLink = document.getElementById('download-link');
+                downloadLink.href = img;
+                downloadLink.style.display = 'inline'; // 다운로드 링크 표시
+            }
+        });
+    });
+</script>
+
+<!--수정성공-->
+<script>
+    function showSuccessAlert() {
+        alert("회원수정이 완료되었습니다");
+        return true;
+    }
 </script>
 
 </body>
