@@ -5,6 +5,7 @@ import com.example.nutri_well.entity.Food;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -12,6 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class User {
     @Id
     @GeneratedValue
@@ -27,22 +29,22 @@ public class User {
     private String gender; //수정가능
 
     @Column
-    private float weight; //수정가능
+    private Float weight; //수정가능
 
     @Column
-    private String birth; //수정가능
+    private Date birth; //수정가능
 
     @Column
     private String tel; //수정가능
 
     @Column(nullable = false)
-    private boolean state; //가입, 탈퇴여부
+    private boolean state = true; //가입, 탈퇴여부
 
     @Column
-    private float height; //수정가능
+    private Float height; //수정가능
 
     @Column
-    private int basel_metabolism; //수정가능
+    private int baselMetabolism; //수정가능
 
     @Column(nullable = false)
     private String password;
@@ -55,7 +57,7 @@ public class User {
     private Role role;
 
     @Builder
-    public User(String name, String email, String password, String picture, Role role, String gender, boolean state, String birth, String tel) {
+    public User(String name, String email, String password, String picture, Role role, String gender, boolean state, Date birth, String tel) {
         this.username = name;
         this.email = email;
         this.password = password;

@@ -89,6 +89,11 @@ public class FoodServiceImpl implements FoodService{
         return list;
     }
 
+    @Override
+    public FoodResponseDTO findByFoodCode(String foodcode) {
+        return FoodResponseDTO.of(dao.findByFoodCode(foodcode));
+    }
+
     public List<FoodNutrientResponseDTO> findMainNutrients(FoodResponseDTO dto){
         String[] mainNutrients = {"에너지","탄수화물","단백질","지방","당류"};
         List<FoodNutrientResponseDTO> filteredNutrients = new ArrayList<>();
