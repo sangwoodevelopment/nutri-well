@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Food Approval Request</title>
+    <style>
+        .template {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<h1>Food Approval Request</h1>
+<form th:action="@{/food-approve/request}" th:object="${foodApproveRequest}" method="post">
+    <label for="name">Food Name:</label>
+    <input type="text" id="name" th:field="*{name}" /><br/>
+
+    <label for="category">Category:</label>
+    <select id="category" th:field="*{categoryId}">
+        <option th:each="category : ${categories}" th:value="${category.categoryId}" th:text="${category.categoryName}"></option>
+    </select><br/>
+
+    <label for="product">Product:</label>
+    <input type="text" id="product" th:field="*{product}" /><br/>
+
+    <label for="manufacturer">Manufacturer:</label>
+    <input type="text" id="manufacturer" th:field="*{manufacturer}" /><br/>
+
+    <label for="servingSize">Serving Size:</label>
+    <input type="text" id="servingSize" th:field="*{servingSize}" /><br/>
+
+    <label for="userEmail">User Email:</label>
+    <input type="email" id="userEmail" th:field="*{userEmail}" /><br/>
+
+    <div id="nutrients-container">
+        <div id="nutrient-template" class="template">
+            <label for="nutrient">Nutrient:</label>
+            <select th:field="*{nutrients[0].nutrientId}">
+                <option th:each="n : ${nutrients}" th:value="${n.id}" th:text="${n.name}"></option>
+            </select><br/>
+            <label for="amount">Amount:</label>
+            <input type="text" th:field="*{nutrients[0].amount}" /><br/>
+        </div>
+    </div>
+
+    <button type="button" onclick="addNutrient()">Add Nutrient</button><br/>
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    function addNutrient() {
+        const template = document.getElementById('nutrient-template');
+        const clone = template.cloneNode(true);
+        clone.classList.remove('template');
+        clone.id = '';
+
+        const container = document.getElementById('nutrients-container');
+        const index = container.children.length;
+
+        const selects = clone.querySelectorAll('select');
+        const inputs = clone.querySelectorAll('input');
+
+        selects.forEach(select => {
+            select.name = select.name.replace('nutrients[0]', 'nutrients[' + index + ']');
+        });
+
+        inputs.forEach(input => {
+            input.name = input.name.replace('nutrients[0]', 'nutrients[' + index + ']');
+        });
+
+        container.appendChild(clone);
+    }
+</script>
+</body>
+</html>

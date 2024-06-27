@@ -3,13 +3,16 @@ package com.example.nutri_well.controller;
 import com.example.nutri_well.dto.CategoryResponseDTO;
 import com.example.nutri_well.dto.FoodResponseDTO;
 import com.example.nutri_well.repository.CategoryRepository;
+import com.example.nutri_well.repository.FoodRepository;
 import com.example.nutri_well.service.CategoryService;
 import com.example.nutri_well.service.FoodService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,38 +29,35 @@ public final class SearchFoodController {
     @GetMapping("/search")
     public ModelAndView searchPage(@RequestParam("query") String query, @RequestParam("page") int page,
                                    @RequestParam("size") int size, @RequestParam(name="category",required = false) Long category,
-                                    @RequestParam(name="nutrient",required = false) String nutrients ){
-        if (nutrients != null){
-            List<String> nutrientQuery = new ArrayList<>();
-            if(nutrients.contains("\\|")){
-                nutrientQuery = Arrays.stream(nutrients.split("\\|")).toList();
-            }else{
-                nutrientQuery.add(nutrients);
-            }
-        }
+                                   @RequestParam(name="nutrients",required = false) List<String> nutrients){
 
-        ModelAndView mav = new ModelAndView("/search/shop");
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.unsorted());
         List<FoodResponseDTO> foodlist = null;
-        List<CategoryResponseDTO> categories = null;
-        int totalpage = 0;
 
         if(category == null || category == 0){
-            foodlist = foodService.searchByFoodName(query,
-                    PageRequest.of(page,size, Sort.unsorted()));
-            totalpage = foodService.getTotalPages();
-            categories = categoryService.findByParentCategoryIsNull();
-
+            if(nutrients != null){
+                System.out.println(nutrients.size());
+                foodlist = foodService.findAllByNutrientsNotIn(query,nutrients,pageRequest);
+            }else{
+                foodlist = foodService.searchByFoodName(query, pageRequest);
+            }
         } else {
             CategoryResponseDTO categoryDTO = categoryService.findbyId(category);
-            foodlist = foodService.searchByCategoryId(categoryDTO,
-                    PageRequest.of(page,size));
-            totalpage = foodService.getTotalPages();
-            categories = categoryService.findByParentCategoryIsNull();
+            if(nutrients != null){
+                foodlist = foodService.findAllByNutrientsNotIn(categoryDTO,nutrients,pageRequest);
+            }else {
+                foodlist = foodService.searchByCategoryId(categoryDTO,pageRequest);
+            }
+
         }
-        System.out.println(totalpage);
+
+        int totalpage = foodService.getTotalPages();
+        List<CategoryResponseDTO> categories = categoryService.findByParentCategoryIsNull();
+
+        ModelAndView mav = new ModelAndView("/search/shop");
         mav.addObject("query",query);
-        mav.addObject("currentPage",page);
         mav.addObject("totalPage",totalpage);
+        mav.addObject("category",category);
         mav.addObject("foodlist",foodlist);
         mav.addObject("categories",categories);
         return mav;
@@ -67,5 +67,26 @@ public final class SearchFoodController {
     public ModelAndView searchPage2( ){
         ModelAndView mav = new ModelAndView("search/shop");
         return mav;
+    }
+
+    @PostMapping("/insert")
+    public String nutriInsert(@RequestParam("foodCode") String foodCode, HttpSession session) {
+        //add to cart버튼 누르 foodcode 파라미터 넘기
+        //foodcode food객체를 조회해
+        //세션 foodcode 세션 attributename으로 food 객체를 value로
+        FoodResponseDTO food = foodService.findByFoodCode(foodCode);
+        System.out.println(food);
+        session.setAttribute("food" ,food);
+//        model.addAttribute("code",foodCode);
+//        System.out.println(foodCode);
+//        Food food = (Food) session.getAttribute("basket"); //FOod로 바꾸기
+//        if (food == null) {
+//            food = new Food(); // 적절한 Basket 클래스 생성 로직이 필요합니다.
+//        }
+//        System.out.println(food);
+//        session.setAttribute("basket", food.getFoodCode()); // Object 수정해야함
+//        System.out.println(food);
+//        model.addAttribute("basket", food);
+        return "redirect:/basket/read";
     }
 }

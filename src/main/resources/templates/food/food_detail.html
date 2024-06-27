@@ -26,6 +26,11 @@
         <link href="../common/css/bootstrap.min.css" rel="stylesheet">
         <!-- Template Stylesheet -->
         <link href="../common/css/style.css" rel="stylesheet">
+        <link href="../common/css/food_detail.css" rel="stylesheet">
+        <!-- Font -->
+        <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+        <!-- Bootstrap Icons -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" rel="stylesheet">
     </head>
 
     <body>
@@ -54,19 +59,19 @@
             </div>
             <div class="container px-0">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                    <a href="../../static/index.html" class="navbar-brand"><h1 class="text-primary display-6">Fruitables</h1></a>
+                    <a href="/index.do" class="navbar-brand"><h1 class="text-primary display-6">nutri-well</h1></a>
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="fa fa-bars text-primary"></span>
                     </button>
                     <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
-                            <a href="../../static/index.html" class="nav-item nav-link">Home</a>
+                            <a href="/index.do" class="nav-item nav-link">Home</a>
                             <a href="shop.html" class="nav-item nav-link">Shop</a>
                             <a href="food_detail.html" class="nav-item nav-link active">Shop Detail</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                                    <a href="../../static/cart.html" class="dropdown-item">Cart</a>
+                                    <a href="/basket/read" class="dropdown-item">Cart</a>
                                     <a href="../../static/chackout.html" class="dropdown-item">Chackout</a>
                                     <a href="../../static/testimonial.html" class="dropdown-item">Testimonial</a>
                                     <a href="../../static/404.html" class="dropdown-item">404 Page</a>
@@ -76,11 +81,11 @@
                         </div>
                         <div class="d-flex m-3 me-0">
                             <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
-                            <a href="#" class="position-relative me-4 my-auto">
+                            <a href="/basket/read" class="position-relative me-4 my-auto">
                                 <i class="fa fa-shopping-bag fa-2x"></i>
                                 <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                             </a>
-                            <a href="#" class="my-auto">
+                            <a href="/member/signup" class="my-auto">
                                 <i class="fas fa-user fa-2x"></i>
                             </a>
                         </div>
@@ -137,16 +142,16 @@
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <h4 class="fw-bold mb-3" id="foodname" th:text="${food.name}">Brocoli</h4>
-                                <p class="mb-3" th:text="Category+' : ' + ${food.categoryName}"></p>
-                                <h5 class="fw-bold mb-3" th:text="${food.nutrientlist[0].amount} +' '+  ${food.nutrientlist[0].value}" ></h5>
-                                <div class="d-flex mb-4">
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star text-secondary"></i>
-                                    <i class="fa fa-star"></i>
+                                <div id="food-wrap-container">
+                                    <h4 class="fw-bold mb-3" id="foodname" th:text="${food.name}"></h4>
+                                    <div class="food-bookmark">
+                                        <button id="favorite-button" class="food-favorite" onclick="toggleFavorite()"><i class="bi bi-star-fill"></i></button>
+                                        <button id="exclude-button" class="food-exclude" onclick="toggleExcludeFood()"><i class="bi bi-clipboard-x"></i></button>
+                                    </div>
                                 </div>
+                                <p class="mb-3" th:text="Category+' : ' + ${food.categoryName}"></p>
+                                <h4 id="nutriKcal"></h4>
+<!--                                <h5 class="fw-bold mb-3" th:text="${food.nutrientlist[0].amount} +' '+  ${food.nutrientlist[0].value}" ></h5>-->
                                 <p class="mb-4">The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic words etc.</p>
                                 <p class="mb-4">Susp endisse ultricies nisi vel quam suscipit. Sabertooth peacock flounder; chain pickerel hatchetfish, pencilfish snailfish</p>
                                 <div class="input-group quantity mb-5" style="width: 100px;">
@@ -175,41 +180,42 @@
                                             aria-controls="nav-mission" aria-selected="false">Reviews</button>
                                     </div>
                                 </nav>
+                                <div id="nutri-row">
+                                    <button id="toggleSize" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary">총제공량 보기</button>
+                                </div>
                                 <div class="tab-content mb-5">
                                     <div class="tab-pane active" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
-                                        <div class="px-2">
-                                            <div class="row g-4">
-                                                <div class="col-6">
-                                                    <div class="row bg-light align-items-center text-center justify-content-center py-2">
-                                                        <table id="nutrientTable">
-                                                            <thead>
-                                                            <tr>
-                                                                <th>성분</th>
-                                                                <th>양</th>
-                                                                <th>퍼센티지</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <!--js로 동적추가-->
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                        <div id="nutritablerow">
+                                            <div class="col-6">
+                                                <div class="row align-items-center text-center justify-content-center py-2 nutri-col">
+                                                    <table class="nutritable" id="nutrientTable">
+                                                        <thead class="nt-header">
+                                                        <tr>
+                                                            <th>성분</th>
+                                                            <th>양</th>
+                                                            <th>퍼센티지</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <!--js로 동적추가-->
+                                                        </tbody>
+                                                    </table>
                                                 </div>
-                                                <div class="col-6">
-                                                    <div class="row bg-light align-items-center text-center justify-content-center py-2">
-                                                        <table id="nutrientTable2">
-                                                            <thead>
-                                                            <tr>
-                                                                <th>성분</th>
-                                                                <th>양</th>
-                                                                <th>퍼센티지</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <!--js로 동적추가-->
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                            </div>
+                                            <div class="col-6 nutri">
+                                                <div class="row align-items-center text-center justify-content-center py-2 nutri-col">
+                                                    <table class="nutritable" id="nutrientTable2">
+                                                        <thead class="nt-header">
+                                                        <tr>
+                                                            <th>성분</th>
+                                                            <th>양</th>
+                                                            <th>퍼센티지</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <!--js로 동적추가-->
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                         </div>
@@ -330,120 +336,9 @@
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <h4 class="mb-4">Featured products</h4>
-                                <div class="d-flex align-items-center justify-content-start">
-                                    <div class="rounded" style="width: 100px; height: 100px;">
-                                        <img src="../common/img/featur-1.jpg" class="img-fluid rounded" alt="Image">
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-2">Big Banana</h6>
-                                        <div class="d-flex mb-2">
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <div class="d-flex mb-2">
-                                            <h5 class="fw-bold me-2">2.99 $</h5>
-                                            <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-start">
-                                    <div class="rounded" style="width: 100px; height: 100px;">
-                                        <img src="../common/img/featur-2.jpg" class="img-fluid rounded" alt="">
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-2">Big Banana</h6>
-                                        <div class="d-flex mb-2">
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <div class="d-flex mb-2">
-                                            <h5 class="fw-bold me-2">2.99 $</h5>
-                                            <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-start">
-                                    <div class="rounded" style="width: 100px; height: 100px;">
-                                        <img src="../common/img/featur-3.jpg" class="img-fluid rounded" alt="">
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-2">Big Banana</h6>
-                                        <div class="d-flex mb-2">
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <div class="d-flex mb-2">
-                                            <h5 class="fw-bold me-2">2.99 $</h5>
-                                            <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-start">
-                                    <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                        <img src="../common/img/vegetable-item-4.jpg" class="img-fluid rounded" alt="">
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-2">Big Banana</h6>
-                                        <div class="d-flex mb-2">
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <div class="d-flex mb-2">
-                                            <h5 class="fw-bold me-2">2.99 $</h5>
-                                            <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-start">
-                                    <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                        <img src="../common/img/vegetable-item-5.jpg" class="img-fluid rounded" alt="">
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-2">Big Banana</h6>
-                                        <div class="d-flex mb-2">
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <div class="d-flex mb-2">
-                                            <h5 class="fw-bold me-2">2.99 $</h5>
-                                            <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-start">
-                                    <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                        <img src="../common/img/vegetable-item-6.jpg" class="img-fluid rounded" alt="">
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-2">Big Banana</h6>
-                                        <div class="d-flex mb-2">
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <div class="d-flex mb-2">
-                                            <h5 class="fw-bold me-2">2.99 $</h5>
-                                            <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                        </div>
-                                    </div>
+                                <h4 class="mb-4">Preferred products</h4>
+                                <div id="preferrerd-food-list">
+                                    <!--food_detail.js loadPreferrerdfood 동적 뷰 생성 -->
                                 </div>
                                 <div class="d-flex justify-content-center my-4">
                                     <a href="#" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew More</a>
@@ -672,7 +567,7 @@
             </div>
         </div>
         <!-- Copyright End -->
-
+        <div id="foodContainer" th:data-food="${foodId}"></div>
 
 
         <!-- Back to Top -->
@@ -689,55 +584,12 @@
 
     <!-- Template Javascript -->
     <script src="../common/js/main.js"></script>
-    </body>
-
-    <script>
-        $(document).ready(function() {
-           const foodname = $('#foodname').text();
-           const baseUrl = '/nutri-well/api/food/detail';
-           const urlWithParams = `${baseUrl}?foodname=${encodeURIComponent(foodname)}`;
-
-           fetch(urlWithParams)
-               .then(response => response.json())
-               .then(foodData => {
-                   if (!foodData || !foodData.nutrientlist) {
-                       console.error('Food 객체나 nutrientlist 배열이 정의되지 않았습니다.');
-                       return;
-                   }
-
-                   const nutrientTables = [
-                       { tableId: 'nutrientTable',
-                        nutrients: ['탄수화물', '단백질', '지방', '당류', '나트륨'],
-                        values: ['g', 'g', 'g', 'g', 'mg'] },
-
-                       { tableId: 'nutrientTable2',
-                        nutrients: ['마그네슘', '비타민 C', '칼슘', '콜레스테롤', '트랜스지방산'],
-                        values: ['mg', 'mg', 'mg', 'mg', 'g'] }
-                   ];
-
-                   nutrientTables.forEach(({ tableId, nutrients, values }) => {
-                       nutrients.forEach((nutrient, index) => {
-                           const unit = values[index];
-                           const nutrientData =
-                           foodData.nutrientlist.find(n => n.name === nutrient) || { name: nutrient, amount: 0, value: '' };
-
-                           const row = $('<tr></tr>');
-                           row.append($('<td></td>').text(nutrientData.name));
-                           row.append($('<td></td>').addClass('amount').text(`${nutrientData.amount} ${unit}`));
-
-                           const progressBar =
-                           $('<div></div>').addClass('progress-bar').css('width', `${nutrientData.amount / 5}%`);
-                           const progressDiv =
-                           $('<div></div>').addClass('progress').append(progressBar);
-
-                           row.append($('<td></td>').append(progressDiv));
-                           $(`#${tableId} tbody`).append(row);
-                       });
-                   });
-               })
-               .catch(error => {
-                   console.error('데이터를 가져오는 데 실패했습니다:', error);
-               });
-       });
+    <script src="../common/js/food_detail.js"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+            var sessionUser = /*[[${session.user}]]*/;
+        /*]]>*/
     </script>
+    <script>setSessionUser(sessionUser);</script>
+    </body>
 </html>

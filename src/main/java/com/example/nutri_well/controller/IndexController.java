@@ -1,16 +1,26 @@
 package com.example.nutri_well.controller;
 
 import com.example.nutri_well.config.auth.dto.SessionUser;
+import com.example.nutri_well.model.User;
+import com.example.nutri_well.model.myCalendar;
+import com.example.nutri_well.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.stream.Collectors;
+
 @Controller
 @RequiredArgsConstructor
 public class IndexController {
     private final HttpSession httpSession;
+    private final UserService userService;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -27,5 +37,27 @@ public class IndexController {
     public String indexHtml(Model model) {
         //src/main/resources/static/index.html
         return "index";
+    }
+
+    @GetMapping("/mypage.do")
+    public String mypageHtml(HttpSession session, Model model, HttpServletRequest request) {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("user");
+        if (sessionUser == null) {
+            model.addAttribute("loginError", true);
+            return "redirect:" + request.getHeader("Referer"); // 이전 페이지로 리다이렉트
+        }
+        if (sessionUser != null) {
+            Optional<User> userOptional = userService.findByUserEmail(sessionUser.getEmail());//userservice를 통해 사용자 객체 조회
+            if (userOptional.isPresent()) {
+                User user = userOptional.get();
+                model.addAttribute("user", user);
+            }
+        }
+        return "user/mypage";
+    }
+
+    @GetMapping("/addFoodPage")
+    public String showAddFoodPage() {
+        return "food/addFood";
     }
 }

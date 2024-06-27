@@ -59,19 +59,19 @@
             </div>
             <div class="container px-0">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                    <a href="index.html" class="navbar-brand"><h1 class="text-primary display-6">nutri-well</h1></a>
+                    <a href="/index.do" class="navbar-brand"><h1 class="text-primary display-6">nutri-well</h1></a>
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="fa fa-bars text-primary"></span>
                     </button>
                     <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
-                            <a href="index.html" class="nav-item nav-link active">Home</a>
+                            <a href="/index.do" class="nav-item nav-link active">Home</a>
                             <a href="shop.html" class="nav-item nav-link">Shop</a>
                             <a href="../static/shop-detail.html" class="nav-item nav-link">Shop Detail</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                                    <a href="../static/cart.html" class="dropdown-item">Cart</a>
+                                    <a href="/basket/read" class="dropdown-item">Cart</a>
                                     <a href="../static/chackout.html" class="dropdown-item">Chackout</a>
                                     <a href="../static/testimonial.html" class="dropdown-item">Testimonial</a>
                                     <a href="../static/404.html" class="dropdown-item">404 Page</a>
@@ -82,11 +82,11 @@
                         <div class="d-flex m-3 me-0">
                             <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
                             <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#loginModal"><i class="fas fa-solid fa-user-check"></i></button>
-                            <a href="#" class="position-relative me-4 my-auto">
+                            <a href="/basket/read" class="position-relative me-4 my-auto">
                                 <i class="fa fa-shopping-bag fa-2x"></i>
                                 <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                             </a>
-                            <a href="#" class="my-auto">
+                            <a th:href="mypage.do" class="my-auto">
                                 <i class="fas fa-user fa-2x"></i>
                             </a>
                         </div>
@@ -174,7 +174,7 @@
                             <!-- Create Account Link -->
                             <div class="mb-3 w-100 text-center">
                                 <p>계정이 없으신가요?
-                                    <button class="btn btn-link p-0"><b>계정 만들기</b></button>
+                                    <button class="btn btn-link p-0"><b><a href="member/signup">계정 만들기</a></b></button>
                                 </p>
                             </div>
                             <div class="mb-3 w-100 text-center">
@@ -1288,76 +1288,7 @@
 
         <!-- Template Javascript -->
         <script src="/common/js/main.js"></script>
-        <script>
-            $(document).ready(function() {
-
-                $('#login-button').click(function() {
-                    var email = $('#login-id').val();
-                    var password = $('#login-password').val();
-
-                    $.ajax({
-                        url: '/login',
-                        method: 'POST',
-                        data: {
-                            email: email,
-                            password: password
-                        },
-                        success: function(response) {
-                            alert('로그인 성공');
-                            $('#login-text').text(response.username);
-                            $('#login-link').addClass('d-none');
-                            $('#logout-link').removeClass('d-none');
-                            $('#username-display').text(response.username).show();
-                            $('#login-separator').removeClass('d-none');
-                            $('#loginModal').modal('hide');
-                        },
-                        error: function(response) {
-                            alert('로그인 실패: ' + response.responseText);
-                        }
-                    });
-                });
-
-                $('#logout-link').click(function() {
-                    $.ajax({
-                        url: '/logout',
-                        method: 'POST',
-                        success: function(response) {
-                            alert('로그아웃 성공');
-                            $('#login-text').text('로그인');
-                            $('#login-link').removeClass('d-none');
-                            $('#logout-link').addClass('d-none');
-                            $('#username-display').hide();
-                            $('#login-separator').addClass('d-none');
-                        },
-                        error: function(response) {
-                            alert('로그아웃 실패: ' + response.responseText);
-                            console.log(response.responseText);
-                        }
-                    });
-                });
-
-                // 초기 상태 설정
-                $.ajax({
-                    url: '/checkSession',
-                    method: 'GET',
-                    success: function(response) {
-                        if (response.loggedIn) {
-                            $('#login-text').text(response.username);
-                            $('#login-link').addClass('d-none');
-                            $('#logout-link').removeClass('d-none');
-                            $('#username-display').text(response.username).show();
-                            $('#login-separator').removeClass('d-none');
-                        } else {
-                            $('#login-text').text('로그인');
-                            $('#login-link').removeClass('d-none');
-                            $('#logout-link').addClass('d-none');
-                            $('#username-display').hide();
-                            $('#login-separator').addClass('d-none');
-                        }
-                    }
-                });
-            });
-        </script>
+        <script src="/common/js/login.js"></script>
     </body>
 
 

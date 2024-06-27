@@ -27,7 +27,7 @@ public final class SearchFoodAPIController {
         return foodService.findByName(foodname);
     }
     @GetMapping("/search")
-    public SearchPageWrapperDTO searchPage(@RequestParam("query") String query, @RequestParam("page") int page,
+    public SearchPageWrapperDTO searchPage(@RequestParam(name = "query",required = false) String query, @RequestParam("page") int page,
                                            @RequestParam("size") int size, @RequestParam(name="category",required = false) Long category,
                                            @RequestParam(name="nutrient",required = false) String nutrients ){
         if (nutrients != null){
@@ -48,7 +48,6 @@ public final class SearchFoodAPIController {
                     PageRequest.of(page,size, Sort.unsorted()));
             totalpage = foodService.getTotalPages();
             categories = categoryService.findByParentCategoryIsNull();
-
         } else {
             CategoryResponseDTO categoryDTO = categoryService.findbyId(category);
             foodlist = foodService.searchByCategoryId(categoryDTO,
@@ -59,7 +58,4 @@ public final class SearchFoodAPIController {
 
         return new SearchPageWrapperDTO(categories,foodlist);
     }
-
-
-
 }

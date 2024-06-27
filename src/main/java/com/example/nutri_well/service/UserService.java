@@ -20,4 +20,17 @@ public class UserService {
     public void save(User user) {
         userRepository.save(user);
     }
+
+    public void updateUser(User user) {
+        userRepository.save(user);
+    }
+    public User getCurrentUser(String email) {
+        return userRepository.findByEmail(email).orElse(null);
+    }
+
+    public Optional<User> findById(Long userId){return userRepository.findById(userId);}
+
+    public Optional<User> findByBaselMetabolism(Integer baselMetabolism) {
+        return userRepository.findByBaselMetabolism(baselMetabolism);
+    }
 }

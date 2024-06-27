@@ -1,6 +1,7 @@
 package com.example.nutri_well.controller;
 
 import com.example.nutri_well.dto.CategoryResponseDTO;
+import com.example.nutri_well.dto.FoodResponseDTO;
 import com.example.nutri_well.repository.FoodRepository;
 import com.example.nutri_well.service.CategoryService;
 import com.example.nutri_well.service.FoodService;
@@ -17,15 +18,16 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/food")
 public class FoodController {
-
     private final FoodService foodService;
     private final CategoryService categoryService;
 
     @GetMapping("/detail")
     public ModelAndView showPage(@RequestParam("foodname") String foodname){
         ModelAndView mav = new ModelAndView("/food/food_detail");
+        FoodResponseDTO dto = foodService.findByName(foodname);
         mav.addObject("categories",categoryService.findByParentCategoryIsNull());
-        mav.addObject("food",foodService.findByName(foodname));
+        mav.addObject("food",dto);
+        mav.addObject("foodId", dto.getId());
         return mav;
     }
 }

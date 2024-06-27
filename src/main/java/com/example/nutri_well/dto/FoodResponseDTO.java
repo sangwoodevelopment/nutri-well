@@ -12,20 +12,21 @@ import java.util.stream.Collectors;
 @Data
 @AllArgsConstructor
 public class FoodResponseDTO {
+    private Long id;
     private String name;
     private String categoryName;
-
     private String foodCode;
     private String product;
-
     private String manufacturer;
     private String servingSize;
+    private int weight;
 
     private List<FoodNutrientResponseDTO> nutrientlist = new ArrayList<>();
+
     //엔티티를 DTO로 변환하는 메소드
     public static FoodResponseDTO of(Food food){
-        return new FoodResponseDTO(food.getName(), food.getCategoryId().getName(), food.getFoodCode(),
-                food.getProduct(), food.getManufacturer(), food.getServingSize(),
+        return new FoodResponseDTO(food.getId(),food.getName(), food.getCategoryId().getName(), food.getFoodCode(),
+                food.getProduct(), food.getManufacturer(), food.getServingSize(), food.getWeight(),
                 food.getNutrientlist().stream()
                         .map(FoodNutrientResponseDTO::of)
                         .collect(Collectors.toList()));
