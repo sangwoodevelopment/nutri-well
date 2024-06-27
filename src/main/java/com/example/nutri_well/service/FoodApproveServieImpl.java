@@ -70,6 +70,7 @@ public class FoodApproveServieImpl implements FoodApproveServie{
                 foodApprove.getProduct(),
                 foodApprove.getManufacturer(),
                 foodApprove.getServingSize(),
+                100,
                 foodApprove.getApprovalDate()
         );
 
