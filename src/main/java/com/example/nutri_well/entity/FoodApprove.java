@@ -37,6 +37,8 @@ public class FoodApprove {
 
     private String servingSize; //1회 제공량
 
+    private int foodWeight;
+
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
