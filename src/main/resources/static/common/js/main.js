@@ -128,9 +128,6 @@
             $("#video").attr('src', $videoSrc);
         })
     });
-
-
-
     // Product Quantity
     $('.quantity button').on('click', function () {
         var button = $(this);
@@ -149,6 +146,7 @@
     //main 검색기능
     $('#searchButton').on('click', function ()  {
         var queryValue = $('#query').val();
+        sessionStorage.removeItem('nutrients');
         // 파라미터들을 객체(map)로 구성
         var params = {
             query: queryValue,

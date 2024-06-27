@@ -4,11 +4,15 @@ import com.example.nutri_well.dao.BookMarkDAO;
 import com.example.nutri_well.dao.FoodDAO;
 import com.example.nutri_well.dto.BookMarkRequestDTO;
 import com.example.nutri_well.dto.BookMarkResponseDTO;
+import com.example.nutri_well.dto.FoodResponseDTO;
 import com.example.nutri_well.entity.BookMark;
 import com.example.nutri_well.entity.Food;
 import com.example.nutri_well.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -56,5 +60,16 @@ public class BookMarkServiceImpl implements BookMarkService{
             dto = BookMarkResponseDTO.of(dao.findByFoodIdAndUserId(foodId, userId));
         }
         return dto;
+    }
+
+    @Override
+    public List<FoodResponseDTO> findTop5Foods() {
+        List<Food> top5Foods = dao.findTop5Foods();
+        List<FoodResponseDTO> top5FoodsList = new ArrayList<>();
+        for (Food top5Food : top5Foods) {
+            top5FoodsList.add(FoodResponseDTO.of(top5Food));
+        }
+
+        return top5FoodsList;
     }
 }

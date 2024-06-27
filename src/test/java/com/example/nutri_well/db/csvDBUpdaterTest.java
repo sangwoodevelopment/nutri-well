@@ -128,7 +128,8 @@ class csvDBUpdaterTest {
         Date date = formatter.parse(record[107]);
         System.out.println("Parsed Date: " + date);
         String manufacturer = record[103];
-        Food food = new Food(foodName, category, record[0], product, manufacturer, "100", date);
+        int weight = (int)Double.parseDouble(record[102].substring(0, record[102].length() - 1));
+        Food food = new Food(foodName, category, record[0], product, manufacturer, "100", weight,date);
 
         foodRepository.save(food);//Category도 같이 생성
         return food;
