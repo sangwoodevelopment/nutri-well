@@ -26,8 +26,8 @@ public class FoodApproveController {
 
     @GetMapping("/request")
     public String requestFoodApprovalForm(Model model) {
-        List<CategoryResponseDTO> categories = categoryService.getAllCategories();
-        List<NutrientResponseDTO> nutrients = nutrientService.getAllNutrients();
+        List<CategoryResponseDTO> categories = categoryService.findByParentCategoryIsNull(); //부모가 없는 카테고리만 가져오기
+        List<NutrientResponseDTO> nutrients = nutrientService.getAllNutrients(); //모든 영양소 가져오기
         model.addAttribute("categories", categories);
         model.addAttribute("nutrients", nutrients);
         model.addAttribute("foodApproveRequest", new FoodApproveRequestDTO());

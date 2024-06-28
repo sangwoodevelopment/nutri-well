@@ -1,8 +1,10 @@
 package com.example.nutri_well.controller;
 
 import com.example.nutri_well.config.auth.dto.SessionUser;
+import com.example.nutri_well.dto.FoodApproveResponseDTO;
 import com.example.nutri_well.model.User;
 import com.example.nutri_well.model.myCalendar;
+import com.example.nutri_well.service.FoodApproveServie;
 import com.example.nutri_well.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 @Controller
 @RequiredArgsConstructor
 public class IndexController {
+    private final FoodApproveServie foodApproveService;
     private final HttpSession httpSession;
     private final UserService userService;
 
@@ -41,6 +44,7 @@ public class IndexController {
 
     @GetMapping("/mypage.do")
     public String mypageHtml(HttpSession session, Model model, HttpServletRequest request) {
+        List<FoodApproveResponseDTO> approvals = foodApproveService.getAllFoodApprovals();
         SessionUser sessionUser = (SessionUser) session.getAttribute("user");
         if (sessionUser == null) {
             model.addAttribute("loginError", true);
@@ -53,6 +57,7 @@ public class IndexController {
                 model.addAttribute("user", user);
             }
         }
+        model.addAttribute("approvals", approvals);
         return "user/mypage";
     }
 

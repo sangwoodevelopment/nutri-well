@@ -19,5 +19,6 @@ public class FoodApproveRequestDTO {
     private String manufacturer;
     private String servingSize;
     private String userEmail;
-    private List<FoodNutrientApproveDTO> nutrients = new ArrayList<>();
+    private List<FoodNutrientApproveDTO> nutrients;
+
 }
