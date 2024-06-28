@@ -27,28 +27,19 @@ public final class SearchFoodController {
     private final CategoryService categoryService;
 
     @GetMapping("/search")
-    public ModelAndView searchPage(@RequestParam("query") String query, @RequestParam("page") int page,
-                                   @RequestParam("size") int size, @RequestParam(name="category",required = false) Long category,
-                                   @RequestParam(name="nutrients",required = false) List<String> nutrients){
+    public ModelAndView searchPage(@RequestParam("query") String query, @RequestParam("page") int page, @RequestParam("size") int size,
+                                   @RequestParam(name="nutrients",required = false) List<String> nutrients,
+                                   @RequestParam(name="min",required = false) Integer min,
+                                   @RequestParam(name="max",required = false) Integer max){
 
         PageRequest pageRequest = PageRequest.of(page, size, Sort.unsorted());
         List<FoodResponseDTO> foodlist = null;
 
-        if(category == null || category == 0){
-            if(nutrients != null){
-                System.out.println(nutrients.size());
-                foodlist = foodService.findAllByNutrientsNotIn(query,nutrients,pageRequest);
-            }else{
-                foodlist = foodService.searchByFoodName(query, pageRequest);
-            }
-        } else {
-            CategoryResponseDTO categoryDTO = categoryService.findbyId(category);
-            if(nutrients != null){
-                foodlist = foodService.findAllByNutrientsNotIn(categoryDTO,nutrients,pageRequest);
-            }else {
-                foodlist = foodService.searchByCategoryId(categoryDTO,pageRequest);
-            }
-
+        if(nutrients != null || min != null || max != null){
+            //foodlist = foodService.findAllByNutrientsNotIn(query,nutrients,pageRequest);
+            foodlist = foodService.findAllByNutrientsInRange(query,nutrients,min,max,pageRequest);
+        }else{
+            foodlist = foodService.searchByFoodName(query, pageRequest);
         }
 
         int totalpage = foodService.getTotalPages();
@@ -56,6 +47,33 @@ public final class SearchFoodController {
 
         ModelAndView mav = new ModelAndView("/search/shop");
         mav.addObject("query",query);
+        mav.addObject("totalPage",totalpage);
+        mav.addObject("foodlist",foodlist);
+        mav.addObject("categories",categories);
+        return mav;
+    }
+
+    @GetMapping("/searchCategory")
+    public ModelAndView searchCategoryPage(@RequestParam(name="category",required = false) Long category,
+                                           @RequestParam("page") int page, @RequestParam("size") int size,
+                                           @RequestParam(name="nutrients",required = false) List<String> nutrients,
+                                           @RequestParam(name="min",required = false) Integer min,
+                                           @RequestParam(name="max",required = false) Integer max){
+
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.unsorted());
+        List<FoodResponseDTO> foodlist = null;
+
+        CategoryResponseDTO categoryDTO = categoryService.findbyId(category);
+        if(nutrients != null || min != null || max != null){
+            //foodlist = foodService.findAllByNutrientsNotIn(categoryDTO,nutrients,pageRequest);
+            foodlist = foodService.findAllByNutrientsInRange(category,nutrients,min,max,pageRequest);
+        }else {
+            foodlist = foodService.searchByCategoryId(categoryDTO, pageRequest);
+        }
+        int totalpage = foodService.getTotalPages();
+
+        List<CategoryResponseDTO> categories = categoryService.findByParentCategoryIsNull();
+        ModelAndView mav = new ModelAndView("/search/shop");
         mav.addObject("totalPage",totalpage);
         mav.addObject("category",category);
         mav.addObject("foodlist",foodlist);

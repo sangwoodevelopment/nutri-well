@@ -260,7 +260,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12 mb-lg-4">
-                                        <h5 class="mb-3">제외 영양소</h5>
+                                        <h5 class="mb-3">영양소 세부검색</h5>
                                         <div class="mb-3">
                                             <div class="mb-2">
                                                 <input type="checkbox" class="me-2" id="Categories-1" name="nutrient" value="탄수화물">
@@ -285,8 +285,22 @@
                                         </div>
                                         <div class="mb-3">
                                             <h4 class="mb-2">Price</h4>
-                                            <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="500" value="0" oninput="amount.value=rangeInput.value">
-                                            <output id="amount" name="amount" min-velue="0" max-value="500" for="rangeInput">0</output>
+                                                <div class="middle">
+                                                    <div class="multi-range-slider">
+                                                        <input type="range" class="form-range w-100" id="input-left" min="0" max="500" value="0" >
+                                                        <input type="range" class="form-range w-100" id="input-right" min="0" max="500" value="0" >
+                                                        <div class="slider">
+                                                            <div class="track"></div>
+                                                            <div class="range"></div>
+                                                            <div class="thumb left"></div>
+                                                            <div class="thumb right"></div>
+                                                        </div>
+                                                        <output id="rangeValue" min-velue="0" max-value="500" for="rangeInput">0</output>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <button id="detailSearch"  class="btn btn-primary">상세검색</button>
                                         </div>
                                         <div class="mb-3">
                                             <a th:href="@{/food-approve/request}" class="btn btn-primary">식품 추가</a>
@@ -324,7 +338,7 @@
                                                 <div class="p-4 border border-secondary border-top-0 rounded-bottom" >
                                                     <input type="hidden" th:value="${food.foodCode}" th:name="foodCode">
                                                     <h4>
-                                                        <a th:href="@{/food/detail(foodname=${food.name})}" th:text="${food.name}"></a>
+                                                        <a th:href="@{/food/detail(foodId=${food.id})}" th:text="${food.name}"></a>
                                                     </h4>
                                                     <div class="unit">
                                                         <span>100g/ml 당</span>
