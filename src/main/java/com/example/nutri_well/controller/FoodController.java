@@ -22,9 +22,9 @@ public class FoodController {
     private final CategoryService categoryService;
 
     @GetMapping("/detail")
-    public ModelAndView showPage(@RequestParam("foodname") String foodname){
+    public ModelAndView showPage(@RequestParam("foodId") Long foodId){
         ModelAndView mav = new ModelAndView("/food/food_detail");
-        FoodResponseDTO dto = foodService.findByName(foodname);
+        FoodResponseDTO dto = foodService.findById(foodId);
         mav.addObject("categories",categoryService.findByParentCategoryIsNull());
         mav.addObject("food",dto);
         mav.addObject("foodId", dto.getId());

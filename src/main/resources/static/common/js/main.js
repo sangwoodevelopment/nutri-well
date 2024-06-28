@@ -146,6 +146,10 @@
     //main 검색기능
     $('#searchButton').on('click', function ()  {
         var queryValue = $('#query').val();
+        if (queryValue === null || queryValue.trim() === '') {
+               alert('검색어를 입력하세요');
+               return;
+        }
         sessionStorage.removeItem('nutrients');
         // 파라미터들을 객체(map)로 구성
         var params = {
@@ -167,6 +171,46 @@
             window.location.href = document.referrer; // 이전 페이지로 돌아감
         }
     });
-
+    //검색 자동완성 *별로라서 안쓰는게 나을듯
+//    $(document).ready(function() {
+//        $("#query").on("input", function() {
+//            let query = $(this).val();
+//            if (query.length > 1) {
+//                $.ajax({
+//                    url: 'api/auto/search',
+//                    type: 'GET',
+//                    data: { query: query },
+//                    success: function(data) {
+//                        let suggestions = $("#suggestions");
+//                        suggestions.empty();
+//                        data.forEach(function(food) {
+//                            suggestions.append('<div class="suggestion-item" data-query="' + food.name + '">' + food.name + '</div>');
+//                        });
+//                        // 새로 추가된 제안 항목에 클릭 이벤트 핸들러 바인딩
+//                        $(".suggestion-item").on("click", function() {
+//                            let selectedQuery = $(this).data("query");
+//                            search(selectedQuery);
+//                        });
+//                    },
+//                    error: function(error) {
+//                        console.log("Error: ", error);
+//                    }
+//                });
+//            } else {
+//                $("#suggestions").empty();
+//            }
+//        });
+//    });
+//    function search(query){
+//        var params = {
+//            query: query,
+//            page: 0,
+//            size: 12
+//        };
+//        // URLSearchParams 객체를 사용하여 파라미터를 URL 형식으로 변환
+//        var searchParams = new URLSearchParams(params);
+//        var url = '/search?' + searchParams.toString();
+//        location.href = url;
+//    }
 })(jQuery);
 

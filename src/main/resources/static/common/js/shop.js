@@ -45,81 +45,98 @@
             }
         });
     }
-    //main 검색기능
-    $('#searchButton').on('click', function ()  {
-        var queryValue = $('#query').val();
-        // 파라미터들을 객체(map)로 구성
-        var params = {
-            query: queryValue,
-            page: 0,
-            size: 12
-        };
-        // URLSearchParams 객체를 사용하여 파라미터를 URL 형식으로 변환
-        var searchParams = new URLSearchParams(params);
-        var url = '/search?' + searchParams.toString();
-        location.href = url;
-    });
-    //카테고리 조회
-    $('.searchCategory').on('click', function ()  {
-        var queryValue = $('#queryContainer').data("query");
-        var category = $(this).data("filter-value");
+   function buildUrl(base, params) {
+       return base + '?' + new URLSearchParams(params).toString();
+   }
 
-        var params = {
-            query: queryValue,
-            page: 0,
-            size: 12,
-            category: category
-        };
-        /*$('#queryContainer').data("query");*/
-        // URLSearchParams 객체를 사용하여 파라미터를 URL 형식으로 변환
-        var searchParams = new URLSearchParams(params);
-        var url = '/search?' + searchParams.toString();
-        location.href = url;
-    });
-    //제외품목 조회
-    var nutrients = JSON.parse(sessionStorage.getItem('nutrients') || '[]');
-    $('input[type="checkbox"]').each(function() {
-        if (nutrients.includes($(this).val())) {
-            $(this).prop('checked', true);
-        }
-    });
-    $('input[type="checkbox"]').change(function() {
-        const nutrient = $(this).val();
-        const isChecked = $(this).is(':checked');
-        var queryValue = $('#queryContainer').data("query");
-        var category = $('#categoryContainer').data("category") || 0;
-        var nutrients = JSON.parse(sessionStorage.getItem('nutrients') || '[]');
-        if (isChecked) {
-            if (!nutrients.includes(nutrient)) {
-                nutrients.push(nutrient);
-            }
-        } else {
-            if (nutrients.includes(nutrient)) {
-                nutrients = nutrients.filter(item => item !== nutrient);
-            }
-        }
+   function resetSession() {
+       sessionStorage.removeItem('nutrients');
+       sessionStorage.removeItem('min');
+       sessionStorage.removeItem('max');
+   }
 
-        // nutrients 배열을 다시 data에 설정
-        sessionStorage.setItem('nutrients', JSON.stringify(nutrients));
-        $('#nutrientContainer').data("array", nutrients);
-        var params = {
-            query: queryValue,
-            page: 0,
-            size: 12,
-            category: category,
-            nutrients: nutrients
-        };
+   function updateNutrients() {
+       const nutrients = JSON.parse(sessionStorage.getItem('nutrients') || '[]');
+       $('input[type="checkbox"]').each(function() {
+           $(this).prop('checked', nutrients.includes($(this).val()));
+       });
+   }
 
-        var searchParams = new URLSearchParams(params);
-        var url = '/search?' + searchParams.toString();
-        location.href = url;
-    });
+   $('#searchButton').on('click', function() {
+       var queryValue = $('#query').val().trim();
+       if (!queryValue) {
+           alert('검색어를 입력하세요');
+           return;
+       }
+
+       resetSession();
+
+       location.href = buildUrl('/search', {
+           query: queryValue,
+           page: 0,
+           size: 12
+       });
+   });
+
+   $('.searchCategory').on('click', function() {
+       resetSession();
+
+       location.href = buildUrl('/searchCategory', {
+           category: $(this).data("filter-value"),
+           page: 0,
+           size: 12
+       });
+   });
+
+   $('#detailSearch').on('click', function() {
+       var queryValue = $('#queryContainer').data("query");
+       var category = $('#categoryContainer').data("category") || 0;
+       var nutrients = JSON.parse(sessionStorage.getItem('nutrients') || '[]');
+       let min = $inputLeft.val();
+       let max = $inputRight.val();
+
+       var params = {
+           page: 0,
+           size: 12,
+           nutrients: nutrients.join(',')
+       };
+
+       if (queryValue) {
+           params.query = queryValue;
+       } else if (category != 0) {
+           params.category = category;
+       }
+
+       if (min) params.min = min;
+       if (max) params.max = max;
+
+       sessionStorage.setItem('min', min);
+       sessionStorage.setItem('max', max);
+
+       location.href = buildUrl(queryValue ? '/search' : '/searchCategory', params);
+   });
+
+   $('input[type="checkbox"]').change(function() {
+       const nutrient = $(this).val();
+       const isChecked = $(this).is(':checked');
+       var nutrients = JSON.parse(sessionStorage.getItem('nutrients') || '[]');
+
+       if (isChecked) {
+           if (!nutrients.includes(nutrient)) {
+               nutrients.push(nutrient);
+           }
+       } else {
+           nutrients = nutrients.filter(item => item !== nutrient);
+       }
+
+       sessionStorage.setItem('nutrients', JSON.stringify(nutrients));
+   });
+   updateNutrients();
 /*=============================shop.html pagination=============================*/
-    const totalPage = $('#pageContainer').data("pages");;
+    const totalPage = $('#pageContainer').data("pages");
     const maxPagesToShow = 10;
     let currentPageGroup = 0;
 
-    renderPagination();
     function renderPagination() {
         $('#page-container').empty();
         const startPage = currentPageGroup * maxPagesToShow;
@@ -153,27 +170,84 @@
 
     $(document).on('click', '#page-container .rounded', function(event) {
         event.preventDefault();
-        var queryValue = $('#queryContainer').data("query");
+        var queryValue = $('#queryContainer').data("query") || "";
         var category = $('#categoryContainer').data("category") || 0;
         var nutrients = JSON.parse(sessionStorage.getItem('nutrients') || '[]');
         var page = $(this).data("filter-value");
+        let min = sessionStorage.getItem('min');
+        let max = sessionStorage.getItem('max');
 
-        $(this).addClass('active');
+        var params = new URLSearchParams();
+        params.append("page", page);
+        params.append("size", 12);
 
-        var params = {
-            query: queryValue,
-            page: page,
-            size: 12,
-            nutrients: nutrients
-        };
-
-        if (category !== undefined) {
-            params.category = category;
+        if (queryValue) {
+            params.append("query", queryValue);
+        } else if (category != 0) {
+            params.append("category", category);
         }
 
-        var searchParams = new URLSearchParams(params);
-        var url = '/search?' + searchParams.toString();
+        if (nutrients.length > 0) {
+            params.append("nutrients", nutrients.join(','));
+            if (min) params.append("min", min);
+            if (max) params.append("max", max);
+        }
+
+        var url = (queryValue) ? '/search?' : '/searchCategory?';
+        url += params.toString();
+
+        $(this).addClass('active');
         location.href = url;
     });
+    renderPagination();
+    /*=============================slider 효과=============================*/
+    const $inputLeft = $("#input-left");
+    const $inputRight = $("#input-right");
+
+    const $thumbLeft = $(".slider .thumb.left");
+    const $thumbRight = $(".slider .thumb.right");
+    const $range = $(".slider .range");
+
+    function setLeftValue() {
+        const min = parseInt($inputLeft.attr("min"));
+        const max = parseInt($inputLeft.attr("max"));
+        let value = $inputLeft.val();
+        //let value = parseInt(sessionStorage.getItem('min'));
+
+        value = Math.min(value, parseInt($inputRight.val()) - 1);
+        $inputLeft.val(value);
+
+        const percent = ((value - min) / (max - min)) * 100;
+        $thumbLeft.css("left", percent + "%");
+        $range.css("left", percent + "%");
+
+        updateRangeValue();
+    }
+
+    function setRightValue() {
+        const min = parseInt($inputRight.attr("min"));
+        const max = parseInt($inputRight.attr("max"));
+        let value = $inputRight.val();
+
+        value = Math.max(value, parseInt($inputLeft.val()) + 1);
+        $inputRight.val(value);
+
+        const percent = ((value - min) / (max - min)) * 100;
+        $thumbRight.css("right", (100 - percent) + "%");
+        $range.css("right", (100 - percent) + "%");
+
+        updateRangeValue();
+    }
+
+    function updateRangeValue() {
+        $("#rangeValue").text($inputLeft.val() + " - " + $inputRight.val());
+    }
+
+    $inputLeft.on("input", setLeftValue);
+    $inputRight.on("input", setRightValue);
+
+    // 초기 값 설정
+    setLeftValue();
+    setRightValue();
 })(jQuery);
 

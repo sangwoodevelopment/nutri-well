@@ -72,4 +72,14 @@ public class BookMarkServiceImpl implements BookMarkService{
 
         return top5FoodsList;
     }
+
+    @Override
+    public List<BookMarkResponseDTO> findByUserId(Long userId) {
+        List<BookMark> bookmark = dao.findByUserId(userId);
+        List<BookMarkResponseDTO> bookmarkList = new ArrayList<>();
+        for (BookMark bookMark : bookmark) {
+            bookmarkList.add(BookMarkResponseDTO.of(bookMark));
+        }
+        return bookmarkList;
+    }
 }

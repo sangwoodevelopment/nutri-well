@@ -13,10 +13,12 @@ public interface FoodDAO {
     Page<Food> searchByCategoryId(Long categoryid, Pageable pageable);
     int getTotalPages(Page<Food> page);
     Food findByName(String name);
-    Page<Food> findAllByNutrientsNotIn(@Param("name")String foodname, @Param("names") List<String> names, Pageable pageable);
-    Page<Food> findAllByNutrientsNotIn(@Param("category")Long categoryid, @Param("names") List<String> names, Pageable pageable);
+    Page<Food> findAllByNutrientsNotIn(String foodname, List<String> names, Pageable pageable);
+    Page<Food> findAllByNutrientsNotIn(Long categoryid, List<String> names, Pageable pageable);
     Food findById(Long foodId);
     Food findByFoodCode(String foodcode);
-
+    Page<Food> findAllByNutrientsInRange( String foodname, List<String> names, Integer min, Integer max, Pageable pageable);
+    Page<Food> findAllByNutrientsInRange(Long category,  List<String> names, Integer min,  Integer max, Pageable pageable);
     Food save(Food food);
+    List<Food> findByNameStartingWith(String prefix,Pageable pageable);
 }
