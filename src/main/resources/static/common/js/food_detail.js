@@ -1,9 +1,9 @@
 (function ($) {
     "use strict";
 
-    const foodname = $('#foodname').text();
+    const foodId = $("#foodContainer").data("food");
     const baseUrl = '/api/food/detail';
-    const urlWithParams = `${baseUrl}?foodname=${encodeURIComponent(foodname)}`;
+    const urlWithParams = `${baseUrl}?foodId=${encodeURIComponent(foodId)}`;
     var servingSize = 0;//기준데이터
     var foodWeight = 0;//1회 총제공량
     $('#toggleSize').click(function() {
@@ -18,7 +18,6 @@
             servingSize = foodWeight/100;
         }
         loadNutriTable(servingSize);
-
     }
     loadPreferredFood();
     loadNutriTable(1);
