@@ -9,15 +9,16 @@
     <thead>
     <tr>
         <th>ID</th>
-        <th>Name</th>
-        <th>Category ID</th>
-        <th>Product</th>
-        <th>Manufacturer</th>
-        <th>Serving Size</th>
-        <th>User Email</th>
-        <th>Request Date</th>
-        <th>Approval Date</th>
-        <th>Actions</th>
+        <th>식품명</th>
+        <th>카테고리 ID</th>
+        <th>식품 기원명</th>
+        <th>제조사</th>
+        <th>1회 제공량</th>
+        <th>사용자 이메일</th>
+        <th>요청일시</th>
+        <th>승인일시</th>
+        <th>영양소</th>
+        <th>승인</th>
     </tr>
     </thead>
     <tbody>
@@ -31,6 +32,14 @@
         <td th:text="${approval.userEmail}"></td>
         <td th:text="${approval.requestDate}"></td>
         <td th:text="${approval.approvalDate}"></td>
+        <td>
+            <ul>
+                <li th:each="nutrient : ${approval.nutrients}">
+                    <span th:text="${nutrient.nutrientName}">Nutrient ID</span> -
+                    <span th:text="${nutrient.amount}">Amount</span>
+                </li>
+            </ul>
+        </td>
         <td><a th:href="@{/food-approve/approve/{id}(id=${approval.id})}">Approve</a></td>
     </tr>
     </tbody>
