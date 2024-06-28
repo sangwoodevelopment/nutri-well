@@ -17,4 +17,5 @@ public interface BookMarkService {
     BookMarkResponseDTO updateStates(BookMarkRequestDTO bookMark, boolean isPreferred);
     BookMarkResponseDTO findByFoodIdAndUserId(Long foodId, Long userId);
     List<FoodResponseDTO> findTop5Foods();
+    List<BookMarkResponseDTO> findByUserId(Long userId);
 }

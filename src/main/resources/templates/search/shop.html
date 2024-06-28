@@ -318,7 +318,7 @@
 
                                         <div class="rounded position-relative fruite-item">
                                             <div class="fruite-img">
-                                                <img src="common/img/fruite-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                                <img th:src="@{'common/img/category/' + ${food.categoryName} + '.jpg'}" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
                                             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;" th:text="${food.categoryName}"></div>
                                                 <div class="p-4 border border-secondary border-top-0 rounded-bottom" >
@@ -326,6 +326,10 @@
                                                     <h4>
                                                         <a th:href="@{/food/detail(foodname=${food.name})}" th:text="${food.name}"></a>
                                                     </h4>
+                                                    <div class="unit">
+                                                        <span>100g/ml 당</span>
+                                                        <span th:text="'식품중량: ' + ${food.weight} + 'g/ml'"></span>
+                                                    </div>
                                                         <span th:each="nutrient : ${food.nutrientlist}" th:text="${nutrient.name} + ': ' + ${nutrient.amount} + ${nutrient.value} + ' '"></span>
                                                     <div class="d-flex justify-content-between flex-lg-wrap">
                                                         <p class="text-dark fs-5 fw-bold mb-0" th:text="${food.nutrientlist[0].amount} + ${food.nutrientlist[0].value}" >$4.99 / kg</p>

@@ -26,4 +26,5 @@ public interface BookMarkRepository extends JpaRepository<BookMark,Long>  {
             "GROUP BY bm.food " +
             "ORDER BY COUNT(bm.food) DESC")
     List<Food> findTop5Foods();
+    List<BookMark> findByUser_UserId(Long userId);
 }
