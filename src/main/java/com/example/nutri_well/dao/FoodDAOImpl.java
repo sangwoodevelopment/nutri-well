@@ -51,6 +51,26 @@ public class FoodDAOImpl implements FoodDAO{
 
     @Override
     public Food findByFoodCode(String foodcode) {
-        return null;
+        return foodRepository.findByFoodCode(foodcode);
+    }
+
+    @Override
+    public Page<Food> findAllByNutrientsInRange(String foodname, List<String> names, Integer min, Integer max, Pageable pageable) {
+        return foodRepository.findAllByNutrientsInRange(foodname,names,min,max,pageable);
+    }
+
+    @Override
+    public Page<Food> findAllByNutrientsInRange(Long category, List<String> names, Integer min, Integer max, Pageable pageable) {
+        return foodRepository.findAllByNutrientsInRange(category,names,min,max,pageable);
+    }
+
+    @Override
+    public Food save(Food food) {
+        return foodRepository.save(food);
+    }
+
+    @Override
+    public List<Food> findByNameStartingWith(String prefix,Pageable pageable) {
+        return foodRepository.findByNameStartingWith(prefix,pageable);
     }
 }

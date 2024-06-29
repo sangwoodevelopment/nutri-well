@@ -66,6 +66,20 @@
         form .mb-3 {
             margin-bottom: 20px;
         }
+        #capture-btn:hover::after{
+            content: "캘린더가 잘보이는 상태로 캡쳐해주세요!";
+            position: absolute;
+            padding-left: 5px;
+            padding-right: 5px;
+            background-color: #f0f0f0;
+            color: #000;
+            border-radius: 5px;
+            border: 1px solid;
+            white-space: nowrap;
+            z-index: 1000;
+            left: 50%;
+            transform: translateX(-70%);
+        }
     </style>
 </head>
 
@@ -303,7 +317,7 @@
                     <h3>캘린더 정보</h3>
                     <div id='calendar'></div>
                     <!-- 캡처 버튼 -->
-                    <button id="capture-btn" title="캘린더가 잘보이는 상태로 캡쳐해주세요">캘린더 캡쳐</button>
+                    <button id="capture-btn">캘린더 캡쳐</button>
                     <!-- 캡처된 이미지 미리보기 -->
                     <img id="captured-image" style="display:none;">
                     <!-- 이미지 다운로드 버튼 -->
@@ -367,6 +381,50 @@
                 <div class="tab-pane fade" id="approval-tab-pane" role="tabpanel" aria-labelledby="approval-tab">
                     <h3>식품 승인</h3>
                     <!-- 식품 승인 내용 추가 -->
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>식품명</th>
+                                <th>카테고리 ID</th>
+                                <th>식품 기원명</th>
+                                <th>제조사</th>
+                                <th>1회 제공량</th>
+                                <th>사용자 이메일</th>
+                                <th>요청일시</th>
+                                <th>승인일시</th>
+                                <th>영양소</th>
+                                <th>승인</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="approval : ${approvals}">
+                                <td th:text="${approval.id}"></td>
+                                <td th:text="${approval.name}"></td>
+                                <td th:text="${approval.categoryId}"></td>
+                                <td th:text="${approval.product}"></td>
+                                <td th:text="${approval.manufacturer}"></td>
+                                <td th:text="${approval.servingSize}"></td>
+                                <td th:text="${approval.userEmail}"></td>
+                                <td th:text="${approval.requestDate}"></td>
+                                <td th:text="${approval.approvalDate}"></td>
+                                <td>
+                                    <ul>
+                                        <li th:each="nutrient : ${approval.nutrients}">
+                                            <span th:text="${nutrient.nutrientName}">Nutrient Name</span> -
+                                            <span th:text="${nutrient.amount}">Amount</span>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td th:if="${approval.approved}" th:text="'승인됨'"></td>
+                                <td th:if="${!approval.approved}">
+                                    <a th:href="@{/food-approve/approve/{id}(id=${approval.id})}" class="btn btn-sm btn-primary">Approve</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

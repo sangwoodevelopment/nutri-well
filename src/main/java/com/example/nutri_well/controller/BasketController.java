@@ -1,9 +1,11 @@
 package com.example.nutri_well.controller;
 
+import com.example.nutri_well.dto.BookMarkResponseDTO;
 import com.example.nutri_well.entity.Basket;
 import com.example.nutri_well.model.User;
 import com.example.nutri_well.service.BasketService;
 import com.example.nutri_well.entity.Food;
+import com.example.nutri_well.service.BookMarkService;
 import com.example.nutri_well.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -19,13 +22,14 @@ import java.util.Optional;
 @SessionAttributes("basket")
 public class BasketController {
     private final BasketService service;
-    private final UserService userService;
+    private final BookMarkService bookMarkService;
 
     @GetMapping("/read")
-    public String basketView(Integer baselMetabolism, Model model) {
-        Optional<User> user = userService.findByBaselMetabolism(baselMetabolism);
-        System.out.println(user);
-        model.addAttribute("user", user);
+    public String basketView(Model model, HttpSession session) {
+        Long userId = (Long) session.getAttribute(session.getId());
+        List<BookMarkResponseDTO> bookmarkUser = bookMarkService.findByUserId(userId);
+        System.out.println(bookmarkUser);
+        model.addAttribute("bookmark", bookmarkUser);
         return "basket/basket";
 //        return "test1/test";
     }

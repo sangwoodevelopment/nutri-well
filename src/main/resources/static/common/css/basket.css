@@ -28,11 +28,11 @@
             font-size: 12px;
             text-align: center;
         }
-        .nutrition-info table, .barsel table {
+        .nutrition-info table, .basel table {
             width: 100%;
             border-collapse: collapse;
         }
-        .nutrition-info h2, .barsel h2{
+        .nutrition-info h2, .basel h2{
             text-align: center;
             font-size: 22px;
             font-weight: bold;
@@ -43,17 +43,17 @@
             border-bottom: 1px solid #ddd;
             padding: 8px;
         }
-        .nutrition-info th:nth-child(2), .barsel th:nth-child(2) {
+        .nutrition-info th:nth-child(2), .basel th:nth-child(2) {
             text-align: right;
         }
-        .nutrition-info td:nth-child(2), .barsel td:nth-child(2){
+        .nutrition-info td:nth-child(2), .basel td:nth-child(2){
             text-align: right;
         }
-        .barsel th{
+        .basel th{
             border-bottom: 1px solid #ddd;
             padding: 8px;
         }
-        .barsel td{
+        .basel td{
             padding: 8px;
         }
         .footer {

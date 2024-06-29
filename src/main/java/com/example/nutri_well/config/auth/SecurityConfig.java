@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 @Configuration
@@ -21,14 +22,15 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        SimpleUrlAuthenticationSuccessHandler successHandler = new SimpleUrlAuthenticationSuccessHandler(); //성공 핸들러 선언
+//        SimpleUrlAuthenticationSuccessHandler successHandler = new SimpleUrlAuthenticationSuccessHandler(); //성공 핸들러 선언
+        SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
         successHandler.setDefaultTargetUrl("/index.do");
         http
                 .csrf(csrf -> csrf.disable())  // 최신 버전에서 CSRF 비활성화 설정, spring boot 6.1 이상버전
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable())) // h2-console 화면을 사용하기 위해 해당 옵션 disable
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/login", "/login/**", "/oauth2/**", "/**").permitAll() //해당 url은 모두 접근가능
-                        .requestMatchers("/api/v1/**").hasRole(Role.USER.name()) //이 url은 USER만 접근가능
+                        .requestMatchers("/food-approve/list/**", "/f").hasRole(Role.USER.name()) //이 url은 USER만 접근가능
                         .anyRequest().authenticated()// 위의 url을 제외하고 나머지 url들은 인증된 사용자만 접근가능
                         //.anyRequest().permitAll()
                 )

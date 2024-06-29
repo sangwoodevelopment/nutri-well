@@ -16,16 +16,34 @@ public interface FoodRepository extends JpaRepository<Food,Long> {
 
     @Query("SELECT f FROM Food f WHERE f.categoryId.id = :categoryId")
     Page<Food> findByCategoryId(@Param("categoryId") Long categoryId, Pageable pageable);
-
+    //이름으로 검색했을때
     @Query("SELECT f FROM Food f " +
             "WHERE f.name LIKE :name AND " +
             "NOT EXISTS (SELECT 1 FROM f.nutrientlist fn WHERE fn.nutrient.name IN :names)")
     Page<Food> findAllByNutrientsNotIn(@Param("name")String foodname, @Param("names") List<String> names, Pageable pageable);
-
+    //카테고리로 검색했을때
     @Query("SELECT f FROM Food f " +
             "WHERE f.categoryId.id = :categoryId AND " +
             "NOT EXISTS (SELECT 1 FROM f.nutrientlist fn WHERE fn.nutrient.name IN :names)")
     Page<Food> findAllByNutrientsNotIn(@Param("categoryId")Long category, @Param("names") List<String> names, Pageable pageable);
+    //이름으로 했을때
+    @Query("SELECT f FROM Food f " +
+            "JOIN f.nutrientlist fn " +
+            "WHERE f.name LIKE :name AND " +
+            "fn.nutrient.name IN :names AND " +
+            "fn.amount BETWEEN :min AND :max")
+    Page<Food> findAllByNutrientsInRange(@Param("name") String foodname, @Param("names") List<String> names,
+                                         @Param("min") Integer min, @Param("max") Integer max, Pageable pageable);
+    //카테고리로 했을때
+    @Query("SELECT f FROM Food f " +
+            "JOIN f.nutrientlist fn " +
+            "WHERE f.categoryId.id = :categoryId AND " +
+            "fn.nutrient.name IN :names AND " +
+            "fn.amount BETWEEN :min AND :max")
+    Page<Food> findAllByNutrientsInRange(@Param("categoryId")Long category, @Param("names") List<String> names,
+                                         @Param("min") Integer min, @Param("max") Integer max, Pageable pageable);
 
     Food findByFoodCode(String foodcode);
+
+    List<Food> findByNameStartingWith(String prefix, Pageable pageable);
 }
