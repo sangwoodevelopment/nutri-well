@@ -99,4 +99,3 @@ public class FoodApproveServieImpl implements FoodApproveServie {
                 .map(FoodApproveResponseDTO::of)
                 .collect(Collectors.toList());
     }
-}
