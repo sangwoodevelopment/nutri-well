@@ -31,7 +31,7 @@ public class BasketController {
         System.out.println(bookmarkUser);
         model.addAttribute("bookmark", bookmarkUser);
 //        return "basket/basket";
-        return "include/top";
+        return "layout/mainLayout";
     }
 //    public String basketView() {
 //    }
