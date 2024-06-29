@@ -30,8 +30,8 @@ public class BasketController {
         List<BookMarkResponseDTO> bookmarkUser = bookMarkService.findByUserId(userId);
         System.out.println(bookmarkUser);
         model.addAttribute("bookmark", bookmarkUser);
-        return "basket/basket";
-//        return "test1/test";
+//        return "basket/basket";
+        return "include/top";
     }
 //    public String basketView() {
 //    }
