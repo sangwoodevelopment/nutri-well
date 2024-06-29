@@ -1,116 +1,110 @@
 .header {
-            background-color: #000;
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        .favorites {
-            margin-bottom: 10px;
-        }
-        .star {
-            margin-right: -5px;
-            margin-left: -23px;
-        }
-        .section-tabs .nav-link.active {
-            background-color: #f7f7f7;
-            border-bottom: 1px solid #000;
-            text-align: center;
-        }
-        .section-tabs .nav-link {
-            text-align: center;
-        }
-        .section-tabs .nav-item {
-            flex: 1;
-            padding: 1px;
-            cursor: pointer;
-            font-size: 12px;
-            text-align: center;
-        }
-        .nutrition-info table, .basel table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .nutrition-info h2, .basel h2{
-            text-align: center;
-            font-size: 22px;
-            font-weight: bold;
-            margin-top: 8px;
-            margin-bottom: 0px;
-        }
-        .nutrition-info th, .nutrition-info td {
-            border-bottom: 1px solid #ddd;
-            padding: 8px;
-        }
-        .nutrition-info th:nth-child(2), .basel th:nth-child(2) {
-            text-align: right;
-        }
-        .nutrition-info td:nth-child(2), .basel td:nth-child(2){
-            text-align: right;
-        }
-        .basel th{
-            border-bottom: 1px solid #ddd;
-            padding: 8px;
-        }
-        .basel td{
-            padding: 8px;
-        }
-        .footer {
-            text-align: left;
-            font-size: 15px;
-            color: #777;
-            margin-top: 10px;
-        }
-        .container {
-            width: 300px;
-            margin: 20px auto;
-            background-color: #FFFFFF;
-            border: 3px solid #ddd;
-            border-color: #81C408;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-        .amount {
-            width: 40px;
-            height: 22px;
-            text-align: right;
-        }
-        .kcal {
-            width: 35px;
-            height: 22px;
-            text-align: right;
-            border: none;
-            font-weight: bold;
-        }
-        .percent {
-            width: 35px;
-            height: 22px;
-            text-align: right;
-            border: none;
-        }
-        .food {
-            display: flex;
-            justify-content: space-between;
-            font-size: 11px;
-        }
-        .food table {
-            width: 100%;
-        }
-        .food button {
-            white-space: nowrap; /* 줄바꿈 방지*/
-            border-radius: 5px;
-            background-color: yellowgreen;
-            margin-left: auto;
-            font-size: 15px;
-        }
-        .submit{
-            text-align: right;
-            margin-top: 15px;
-            padding: 2px;
-        }
-        .submit button {
-            border-radius: 5px;
-            background-color: yellowgreen;
-        }
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.basket{
+    width:80%;
+}
+.favorites {
+    margin-bottom: 10px;
+}
+.star {
+    margin-right: -5px;
+    margin-left: -23px;
+}
+.section-tabs .nav-link.active {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #000;
+    text-align: center;
+}
+.section-tabs .nav-link {
+    text-align: center;
+}
+.section-tabs .nav-item {
+    flex: 1;
+    padding: 1px;
+    cursor: pointer;
+    font-size: 12px;
+    text-align: center;
+}
+.nutrition-info table, .basel table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.nutrition-info h2, .basel h2{
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 8px;
+    margin-bottom: 0px;
+}
+.nutrition-info th, .nutrition-info td {
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+}
+.nutrition-info th:nth-child(2), .basel th:nth-child(2) {
+    text-align: right;
+}
+.nutrition-info td:nth-child(2), .basel td:nth-child(2){
+    text-align: right;
+}
+.basel th{
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+}
+.basel td{
+    padding: 8px;
+}
+.footer {
+    text-align: left;
+    font-size: 15px;
+    color: #777;
+    margin-top: 10px;
+}
+
+.amount {
+    width: 40px;
+    height: 22px;
+    text-align: right;
+}
+.kcal {
+    width: 35px;
+    height: 22px;
+    text-align: right;
+    border: none;
+    font-weight: bold;
+}
+.percent {
+    width: 35px;
+    height: 22px;
+    text-align: right;
+    border: none;
+}
+.food {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+}
+.food table {
+    width: 100%;
+}
+.food button {
+    white-space: nowrap; /* 줄바꿈 방지*/
+    border-radius: 5px;
+    background-color: yellowgreen;
+    margin-left: auto;
+    font-size: 15px;
+}
+.submit{
+    text-align: right;
+    margin-top: 15px;
+    padding: 2px;
+}
+.submit button {
+    border-radius: 5px;
+    background-color: yellowgreen;
+}
