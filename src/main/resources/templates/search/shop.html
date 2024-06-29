@@ -28,6 +28,7 @@
         <!-- Template Stylesheet -->
         <link href="common/css/style.css" rel="stylesheet">
         <link href="common/css/shop.css" rel="stylesheet">
+        <link href="common/css/basket.css" rel="stylesheet">
     </head>
 
     <body>
@@ -206,6 +207,7 @@
 
         <!-- Fruits Shop Start-->
         <div class="container-fluid fruite py-5">
+            <div class="container-nutri">
             <div class="container py-5">
                 <h1 class="mb-4">Fresh fruits shop</h1>
                 <div class="row g-4">
@@ -332,7 +334,8 @@
 
                                         <div class="rounded position-relative fruite-item">
                                             <div class="fruite-img">
-                                                <img th:src="@{'common/img/category/' + ${food.categoryName} + '.jpg'}" class="img-fluid w-100 rounded-top" alt="">
+                                                <img th:if="${food.name} == ${food.categoryName}" th:src="@{'common/img/category/' + ${food.categoryName} + '.jpg'}" class="img-fluid w-100 rounded-top" alt="">
+                                                <img th:unless="${food.name} == ${food.categoryName}" th:src="@{'common/img/category/' + ${food.categoryName} + '_' + ${food.name} + '.jpg'}" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
                                             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;" th:text="${food.categoryName}"></div>
                                                 <div class="p-4 border border-secondary border-top-0 rounded-bottom" >
@@ -372,6 +375,10 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="bs-container">
+                <th:block th:replace="~{basket/basket :: basket}">
+            </div>
             </div>
         </div>
         <!-- Fruits Shop End-->
