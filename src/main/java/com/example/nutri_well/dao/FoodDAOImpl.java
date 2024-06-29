@@ -51,11 +51,6 @@ public class FoodDAOImpl implements FoodDAO{
 
     @Override
     public Food findByFoodCode(String foodcode) {
-        return foodRepository.findByFoodCode(foodcode);
-    }
-
-    @Override
-    public Food save(Food food) {
-        return foodRepository.save(food);
+        return null;
     }
 }

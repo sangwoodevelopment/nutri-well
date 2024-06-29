@@ -29,8 +29,7 @@ public final class SearchFoodController {
     @GetMapping("/search")
     public ModelAndView searchPage(@RequestParam("query") String query, @RequestParam("page") int page,
                                    @RequestParam("size") int size, @RequestParam(name="category",required = false) Long category,
-                                   @RequestParam(name="nutrients",required = false) List<String> nutrients){
-
+                                    @RequestParam(name="nutrients",required = false) List<String> nutrients ){
         PageRequest pageRequest = PageRequest.of(page, size, Sort.unsorted());
         List<FoodResponseDTO> foodlist = null;
 

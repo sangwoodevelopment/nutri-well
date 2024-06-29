@@ -26,24 +26,23 @@ public class Food {
     @JoinColumn(name = "categoryId")
     private Category categoryId;
 
+
     private String foodCode;
     private String product;
 
     private String manufacturer;
     private String servingSize;
-    private int weight;
 
     private Date creationDate;
     //하나의 식품은 여러개의 영양소를 가질수 있다.
     @ToString.Exclude
     @OneToMany(mappedBy = "food", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FoodNutrient> nutrientlist = new ArrayList<>();
-
     @ToString.Exclude
-    @OneToMany
+    @OneToMany()
     private List<BookMark> userlist = new ArrayList<>();
 
-    public Food(String name, Category categoryId, String foodCode, String product, String manufacturer, String servingSize, int weight, Date creationDate) {
+    public Food(String name, Category categoryId, String foodCode, String product, String manufacturer, String servingSize, Date creationDate) {
         this.name = name;
         this.categoryId = categoryId;
         this.foodCode = foodCode;
@@ -51,6 +50,5 @@ public class Food {
         this.manufacturer = manufacturer;
         this.servingSize = servingSize;
         this.creationDate= creationDate;
-        this.weight = weight;
     }
 }
