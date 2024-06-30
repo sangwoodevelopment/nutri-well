@@ -10,13 +10,16 @@
     display: flex;
     justify-content: space-between;
 }
+.ct-container{
+  width: 100%;
+}
 .bs-container{
-    width: 20%;
-    margin-top: 10%;
+    width: 17%;
+    margin-top: 25%;
   position: fixed;
   z-index: 1000;
-  left: 50%;
-  transform: translateX(110%);
+  /*left: 50%;*/
+  transform: translateX(503%);
 }
 .middle {
   position: relative;
