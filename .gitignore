@@ -39,3 +39,6 @@ out/
 ### application-private.properties ###
 application.properties
 application-private.properties
+
+## img ##
+*.jpg
