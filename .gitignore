@@ -40,5 +40,5 @@ out/
 application.properties
 application-private.properties
 
-## img ##
-*.jpg
+## category img ##
+src/**/img/category/
