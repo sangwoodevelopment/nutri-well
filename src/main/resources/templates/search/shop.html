@@ -2,294 +2,290 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/mainLayout}">
-
     <head>
         <meta charset="utf-8">
     </head>
     <body>
-    <div layout:fragment="content">
-        <!-- Single Page Header start -->
-        <div class="container-fluid page-header py-5">
-            <h1 class="text-center text-white display-6">Shop</h1>
-            <ol class="breadcrumb justify-content-center mb-0">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                <li class="breadcrumb-item active text-white">Shop</li>
-            </ol>
-        </div>
-        <!-- Single Page Header End -->
+        <div layout:fragment="content">
+            <!-- Single Page Header start -->
+            <div class="container-fluid page-header py-5">
+                <h1 class="text-center text-white display-6">Shop</h1>
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                    <li class="breadcrumb-item active text-white">Shop</li>
+                </ol>
+            </div>
+            <!-- Single Page Header End -->
 
-
-        <!-- Fruits Shop Start-->
-        <div class="container-fluid fruite py-5">
-            <div class="container-nutri">
-            <div class="container py-5">
-                <h1 class="mb-4">Fresh fruits shop</h1>
-                <div class="row g-4">
-                    <div class="col-lg-12">
-                        <div class="row g-4">
-                            <div class="col-xl-3">
-                                <div class="input-group w-100 mx-auto d-flex">
-                                    <input type="search" id="query" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                                    <button id="searchButton" type="submit" class="input-group-text p-3"><i class="fa fa-search"></i></button>
+            <!-- Fruits Shop Start-->
+            <div class="container-fluid fruite py-5">
+                <div class="container-nutri">
+                <div class="container py-5">
+                    <h1 class="mb-4">Fresh fruits shop</h1>
+                    <div class="row g-4">
+                        <div class="col-lg-12">
+                            <div class="row g-4">
+                                <div class="col-xl-3">
+                                    <div class="input-group w-100 mx-auto d-flex">
+                                        <input type="search" id="query" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
+                                        <button id="searchButton" type="submit" class="input-group-text p-3"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                                <div class="col-6"></div>
+                                <div class="col-xl-3">
+                                    <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
+                                        <label for="fruits">Default Sorting:</label>
+                                        <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
+                                            <option value="volvo">Nothing</option>
+                                            <option value="saab"></option>
+                                            <option value="opel">Organic</option>
+                                            <option value="audi">Fantastic</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-6"></div>
-                            <div class="col-xl-3">
-                                <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
-                                    <label for="fruits">Default Sorting:</label>
-                                    <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
-                                        <option value="volvo">Nothing</option>
-                                        <option value="saab"></option>
-                                        <option value="opel">Organic</option>
-                                        <option value="audi">Fantastic</option>
-                                    </select>
+                            <div class="row g-4">
+                                <div class="col-lg-3">
+                                    <div class="row g-4">
+                                        <div class="col-lg-12">
+                                            <div class="mb-3">
+                                                <h4>Categories</h4>
+                                                    <div class="scrollable" id="results">
+                                                        <ul class="list-unstyled fruite-categorie">
+                                                            <li th:each="category: ${categories}">
+                                                                <div class="nav-item dropdown">
+                                                                    <div class="d-flex justify-content-between fruite-name">
+                                                                        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
+                                                                            <i class="fas fa-apple-alt me-2" th:text="' ' + ${category.categoryName}"></i>
+                                                                        </a>
+                                                                        <div class="dropdown-menu m-0 bg-secondary rounded-0" >
+                                                                            <a class="dropdown-item searchCategory" th:each="child: ${category.childCategory}"
+                                                                               th:data-filter-type="category" th:data-filter-value="${child.categoryId}"
+                                                                               th:text="${child.categoryName}" >
+
+                                                                            </a>
+                                                                        </div>
+                                                                        <span th:text="${#lists.size(category.childCategory)}">(3)</span>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 mb-lg-4">
+                                            <h5 class="mb-3">영양소 세부검색</h5>
+                                            <div class="mb-3">
+                                                <div class="mb-2">
+                                                    <input type="checkbox" class="me-2" id="Categories-1" name="nutrient" value="탄수화물">
+                                                    <label for="Categories-1"> 탄수화물</label>
+                                                </div>
+                                                <div class="mb-2">
+                                                    <input type="checkbox" class="me-2" id="Categories-2" name="nutrient" value="단백질">
+                                                    <label for="Categories-2"> 단백질</label>
+                                                </div>
+                                                <div class="mb-2">
+                                                    <input type="checkbox" class="me-2" id="Categories-3" name="nutrient" value="지방">
+                                                    <label for="Categories-3"> 지방</label>
+                                                </div>
+                                                <div class="mb-2">
+                                                    <input type="checkbox" class="me-2" id="Categories-4" name="nutrient" value="당류">
+                                                    <label for="Categories-4"> 당류</label>
+                                                </div>
+                                                <div class="mb-2">
+                                                    <input type="checkbox" class="me-2" id="Categories-5" name="nutrient" value="나트륨">
+                                                    <label for="Categories-5"> 나트륨</label>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <h4 class="mb-2">Price</h4>
+                                                    <div class="middle">
+                                                        <div class="multi-range-slider">
+                                                            <input type="range" class="form-range w-100" id="input-left" min="0" max="500" value="0" >
+                                                            <input type="range" class="form-range w-100" id="input-right" min="0" max="500" value="0" >
+                                                            <div class="slider">
+                                                                <div class="track"></div>
+                                                                <div class="range"></div>
+                                                                <div class="thumb left"></div>
+                                                                <div class="thumb right"></div>
+                                                            </div>
+                                                            <output id="rangeValue" min-velue="0" max-value="500" for="rangeInput">0</output>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <button id="detailSearch"  class="btn btn-primary">상세검색</button>
+                                            </div>
+                                            <div class="mb-3">
+                                                <a th:href="@{/food-approve/request}" class="btn btn-primary">식품 추가</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <h4 class="mb-3">Preferred products</h4>
+                                            <div id="preferrerd-food-list">
+                                                <!--shop.js loadPreferrerdfood 동적 뷰 생성 -->
+                                            </div>
+                                            <div class="d-flex justify-content-center my-4">
+                                                <a href="#" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew More</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="position-relative">
+                                                <img src="common/img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
+                                                <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
+                                                    <h3 class="text-secondary fw-bold">Fresh <br> Fruits <br> Banner</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="row g-4 justify-content-center">
+                                        <div class="col-md-6 col-lg-6 col-xl-4" th:each="food : ${foodlist}">
+                                            <form th:action="@{/insert}" method="post">
+
+                                            <div class="rounded position-relative fruite-item">
+                                                <div class="fruite-img">
+                                                    <img th:if="${food.name} == ${food.categoryName}" th:src="@{'common/img/category/' + ${food.categoryName} + '.jpg'}" class="img-fluid w-100 rounded-top" alt="">
+                                                    <img th:unless="${food.name} == ${food.categoryName}" th:src="@{'common/img/category/' + ${food.categoryName} + '_' + ${food.name} + '.jpg'}" class="img-fluid w-100 rounded-top" alt="">
+                                                </div>
+                                                <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;" th:text="${food.categoryName}"></div>
+                                                    <div class="p-4 border border-secondary border-top-0 rounded-bottom" >
+                                                        <input type="hidden" th:value="${food.foodCode}" th:name="foodCode">
+                                                        <h4>
+                                                            <a th:href="@{/food/detail(foodId=${food.id})}" th:text="${food.name}"></a>
+                                                        </h4>
+                                                        <div class="unit">
+                                                            <span>100g/ml 당</span>
+                                                            <span th:text="'식품중량: ' + ${food.weight} + 'g/ml'"></span>
+                                                        </div>
+                                                            <span th:each="nutrient : ${food.nutrientlist}" th:text="${nutrient.name} + ': ' + ${nutrient.amount} + ${nutrient.value} + ' '"></span>
+                                                        <div class="d-flex justify-content-between flex-lg-wrap">
+                                                            <p class="text-dark fs-5 fw-bold mb-0 mt-1" th:text="${food.nutrientlist[0].amount} + ${food.nutrientlist[0].value}" >$4.99 / kg</p>
+                                                            <button type="submit" class="btn border border-secondary rounded-pill px-3 text-primary">
+                                                                <i class="fa fa-shopping-bag me-2 text-primary"></i>Add to cart</button>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="pagination d-flex justify-content-center mt-5" >
+                                                <a href="#"  class="rounded" id="prev">&laquo;</a>
+                                                <span id="page-container">
+                                                    <!-- 페이지 동적 추가 10개씩-->
+                                                </span>
+                                                <a href="#" class="rounded" id="next">&raquo;</a>
+                                            </div>
+                                        </div>
+                                        <div id="queryContainer" th:data-query="${query}"></div>
+                                        <div id="categoryContainer" th:data-category="${category}"></div>
+                                        <div id="nutrientContainer" th:data-array='${nutrient}'></div>
+                                        <div id="pageContainer" th:data-pages="${totalPage}"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <!-- Fruits Shop End-->
+
+            <!-- Footer Start -->
+            <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
+                <div class="container py-5">
+                    <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5) ;">
                         <div class="row g-4">
                             <div class="col-lg-3">
-                                <div class="row g-4">
-                                    <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <h4>Categories</h4>
-                                                <div class="scrollable" id="results">
-                                                    <ul class="list-unstyled fruite-categorie">
-                                                        <li th:each="category: ${categories}">
-                                                            <div class="nav-item dropdown">
-                                                                <div class="d-flex justify-content-between fruite-name">
-                                                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
-                                                                        <i class="fas fa-apple-alt me-2" th:text="' ' + ${category.categoryName}"></i>
-                                                                    </a>
-                                                                    <div class="dropdown-menu m-0 bg-secondary rounded-0" >
-                                                                        <a class="dropdown-item searchCategory" th:each="child: ${category.childCategory}"
-                                                                           th:data-filter-type="category" th:data-filter-value="${child.categoryId}"
-                                                                           th:text="${child.categoryName}" >
-
-                                                                        </a>
-                                                                    </div>
-                                                                    <span th:text="${#lists.size(category.childCategory)}">(3)</span>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 mb-lg-4">
-                                        <h5 class="mb-3">영양소 세부검색</h5>
-                                        <div class="mb-3">
-                                            <div class="mb-2">
-                                                <input type="checkbox" class="me-2" id="Categories-1" name="nutrient" value="탄수화물">
-                                                <label for="Categories-1"> 탄수화물</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="checkbox" class="me-2" id="Categories-2" name="nutrient" value="단백질">
-                                                <label for="Categories-2"> 단백질</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="checkbox" class="me-2" id="Categories-3" name="nutrient" value="지방">
-                                                <label for="Categories-3"> 지방</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="checkbox" class="me-2" id="Categories-4" name="nutrient" value="당류">
-                                                <label for="Categories-4"> 당류</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="checkbox" class="me-2" id="Categories-5" name="nutrient" value="나트륨">
-                                                <label for="Categories-5"> 나트륨</label>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <h4 class="mb-2">Price</h4>
-                                                <div class="middle">
-                                                    <div class="multi-range-slider">
-                                                        <input type="range" class="form-range w-100" id="input-left" min="0" max="500" value="0" >
-                                                        <input type="range" class="form-range w-100" id="input-right" min="0" max="500" value="0" >
-                                                        <div class="slider">
-                                                            <div class="track"></div>
-                                                            <div class="range"></div>
-                                                            <div class="thumb left"></div>
-                                                            <div class="thumb right"></div>
-                                                        </div>
-                                                        <output id="rangeValue" min-velue="0" max-value="500" for="rangeInput">0</output>
-                                                    </div>
-                                                </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <button id="detailSearch"  class="btn btn-primary">상세검색</button>
-                                        </div>
-                                        <div class="mb-3">
-                                            <a th:href="@{/food-approve/request}" class="btn btn-primary">식품 추가</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <h4 class="mb-3">Preferred products</h4>
-                                        <div id="preferrerd-food-list">
-                                            <!--shop.js loadPreferrerdfood 동적 뷰 생성 -->
-                                        </div>
-                                        <div class="d-flex justify-content-center my-4">
-                                            <a href="#" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew More</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="position-relative">
-                                            <img src="common/img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
-                                            <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
-                                                <h3 class="text-secondary fw-bold">Fresh <br> Fruits <br> Banner</h3>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <a href="#">
+                                    <h1 class="text-primary mb-0">Fruitables</h1>
+                                    <p class="text-secondary mb-0">Fresh products</p>
+                                </a>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="position-relative mx-auto">
+                                    <input class="form-control border-0 w-100 py-3 px-4 rounded-pill" type="number" placeholder="Your Email">
+                                    <button type="submit" class="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white" style="top: 0; right: 0;">Subscribe Now</button>
                                 </div>
                             </div>
-                            <div class="col-lg-9">
-                                <div class="row g-4 justify-content-center">
-                                    <div class="col-md-6 col-lg-6 col-xl-4" th:each="food : ${foodlist}">
-                                        <form th:action="@{/insert}" method="post">
-
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img th:if="${food.name} == ${food.categoryName}" th:src="@{'common/img/category/' + ${food.categoryName} + '.jpg'}" class="img-fluid w-100 rounded-top" alt="">
-                                                <img th:unless="${food.name} == ${food.categoryName}" th:src="@{'common/img/category/' + ${food.categoryName} + '_' + ${food.name} + '.jpg'}" class="img-fluid w-100 rounded-top" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;" th:text="${food.categoryName}"></div>
-                                                <div class="p-4 border border-secondary border-top-0 rounded-bottom" >
-                                                    <input type="hidden" th:value="${food.foodCode}" th:name="foodCode">
-                                                    <h4>
-                                                        <a th:href="@{/food/detail(foodId=${food.id})}" th:text="${food.name}"></a>
-                                                    </h4>
-                                                    <div class="unit">
-                                                        <span>100g/ml 당</span>
-                                                        <span th:text="'식품중량: ' + ${food.weight} + 'g/ml'"></span>
-                                                    </div>
-                                                        <span th:each="nutrient : ${food.nutrientlist}" th:text="${nutrient.name} + ': ' + ${nutrient.amount} + ${nutrient.value} + ' '"></span>
-                                                    <div class="d-flex justify-content-between flex-lg-wrap">
-                                                        <p class="text-dark fs-5 fw-bold mb-0 mt-1" th:text="${food.nutrientlist[0].amount} + ${food.nutrientlist[0].value}" >$4.99 / kg</p>
-                                                        <button type="submit" class="btn border border-secondary rounded-pill px-3 text-primary">
-                                                            <i class="fa fa-shopping-bag me-2 text-primary"></i>Add to cart</button>
-                                                    </div>
-                                                </div>
-                                        </div>
-                                        </form>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="pagination d-flex justify-content-center mt-5" >
-                                            <a href="#"  class="rounded" id="prev">&laquo;</a>
-                                            <span id="page-container">
-                                                <!-- 페이지 동적 추가 10개씩-->
-                                            </span>
-                                            <a href="#" class="rounded" id="next">&raquo;</a>
-                                        </div>
-                                    </div>
-                                    <div id="queryContainer" th:data-query="${query}"></div>
-                                    <div id="categoryContainer" th:data-category="${category}"></div>
-                                    <div id="nutrientContainer" th:data-array='${nutrient}'></div>
-                                    <div id="pageContainer" th:data-pages="${totalPage}"></div>
+                            <div class="col-lg-3">
+                                <div class="d-flex justify-content-end pt-3">
+                                    <a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-twitter"></i></a>
+                                    <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-facebook-f"></i></a>
+                                    <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-youtube"></i></a>
+                                    <a class="btn btn-outline-secondary btn-md-square rounded-circle" href=""><i class="fab fa-linkedin-in"></i></a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            </div>
-        </div>
-        <!-- Fruits Shop End-->
-
-
-        <!-- Footer Start -->
-        <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
-            <div class="container py-5">
-                <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5) ;">
-                    <div class="row g-4">
-                        <div class="col-lg-3">
-                            <a href="#">
-                                <h1 class="text-primary mb-0">Fruitables</h1>
-                                <p class="text-secondary mb-0">Fresh products</p>
-                            </a>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="position-relative mx-auto">
-                                <input class="form-control border-0 w-100 py-3 px-4 rounded-pill" type="number" placeholder="Your Email">
-                                <button type="submit" class="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white" style="top: 0; right: 0;">Subscribe Now</button>
+                    <div class="row g-5">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="footer-item">
+                                <h4 class="text-light mb-3">Why People Like us!</h4>
+                                <p class="mb-4">typesetting, remaining essentially unchanged. It was
+                                    popularised in the 1960s with the like Aldus PageMaker including of Lorem Ipsum.</p>
+                                <a href="" class="btn border-secondary py-2 px-4 rounded-pill text-primary">Read More</a>
                             </div>
                         </div>
-                        <div class="col-lg-3">
-                            <div class="d-flex justify-content-end pt-3">
-                                <a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-youtube"></i></a>
-                                <a class="btn btn-outline-secondary btn-md-square rounded-circle" href=""><i class="fab fa-linkedin-in"></i></a>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="d-flex flex-column text-start footer-item">
+                                <h4 class="text-light mb-3">Shop Info</h4>
+                                <a class="btn-link" href="">About Us</a>
+                                <a class="btn-link" href="">Contact Us</a>
+                                <a class="btn-link" href="">Privacy Policy</a>
+                                <a class="btn-link" href="">Terms & Condition</a>
+                                <a class="btn-link" href="">Return Policy</a>
+                                <a class="btn-link" href="">FAQs & Help</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="d-flex flex-column text-start footer-item">
+                                <h4 class="text-light mb-3">Account</h4>
+                                <a class="btn-link" href="">My Account</a>
+                                <a class="btn-link" href="">Shop details</a>
+                                <a class="btn-link" href="">Shopping Cart</a>
+                                <a class="btn-link" href="">Wishlist</a>
+                                <a class="btn-link" href="">Order History</a>
+                                <a class="btn-link" href="">International Orders</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="footer-item">
+                                <h4 class="text-light mb-3">Contact</h4>
+                                <p>Address: 1429 Netus Rd, NY 48247</p>
+                                <p>Email: Example@gmail.com</p>
+                                <p>Phone: +0123 4567 8910</p>
+                                <p>Payment Accepted</p>
+                                <img src="common/img/payment.png" class="img-fluid" alt="">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row g-5">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-item">
-                            <h4 class="text-light mb-3">Why People Like us!</h4>
-                            <p class="mb-4">typesetting, remaining essentially unchanged. It was 
-                                popularised in the 1960s with the like Aldus PageMaker including of Lorem Ipsum.</p>
-                            <a href="" class="btn border-secondary py-2 px-4 rounded-pill text-primary">Read More</a>
+            </div>
+            <!-- Footer End -->
+
+            <!-- Copyright Start -->
+            <div class="container-fluid copyright bg-dark py-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="d-flex flex-column text-start footer-item">
-                            <h4 class="text-light mb-3">Shop Info</h4>
-                            <a class="btn-link" href="">About Us</a>
-                            <a class="btn-link" href="">Contact Us</a>
-                            <a class="btn-link" href="">Privacy Policy</a>
-                            <a class="btn-link" href="">Terms & Condition</a>
-                            <a class="btn-link" href="">Return Policy</a>
-                            <a class="btn-link" href="">FAQs & Help</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="d-flex flex-column text-start footer-item">
-                            <h4 class="text-light mb-3">Account</h4>
-                            <a class="btn-link" href="">My Account</a>
-                            <a class="btn-link" href="">Shop details</a>
-                            <a class="btn-link" href="">Shopping Cart</a>
-                            <a class="btn-link" href="">Wishlist</a>
-                            <a class="btn-link" href="">Order History</a>
-                            <a class="btn-link" href="">International Orders</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-item">
-                            <h4 class="text-light mb-3">Contact</h4>
-                            <p>Address: 1429 Netus Rd, NY 48247</p>
-                            <p>Email: Example@gmail.com</p>
-                            <p>Phone: +0123 4567 8910</p>
-                            <p>Payment Accepted</p>
-                            <img src="common/img/payment.png" class="img-fluid" alt="">
+                        <div class="col-md-6 my-auto text-center text-md-end text-white">
+                            <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
+                            <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
+                            <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
+                            Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- Copyright End -->
+
+            <!-- Back to Top -->
+            <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
         </div>
-        <!-- Footer End -->
-
-        <!-- Copyright Start -->
-        <div class="container-fluid copyright bg-dark py-4">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
-                    </div>
-                    <div class="col-md-6 my-auto text-center text-md-end text-white">
-                        <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
-                        <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
-                        <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Copyright End -->
-
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
-
-    </div>
     </body>
 </html>
