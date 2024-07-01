@@ -14,7 +14,6 @@
             type: "POST",
             dataType: "json",
             success: function(result) {
-                console.log(result);
                 const $container = $('#preferrerd-food-list');
                 $container.empty(); // 기존 내용을 지우기
                for (let i = 0; i < result.length; i++) {
@@ -22,7 +21,7 @@
                    const $foodItem = $('<div class="d-flex align-items-center justify-content-start"></div>');
 
                    const $imgDiv = $('<div class="rounded me-4" style="width: 100px; height: 100px;"></div>');
-                   const $img = $('<img class="img-fluid rounded" alt="">').attr('src', "common/img/featur-1.jpg");
+                   const $img = $('<img class="img-fluid rounded" alt="">').attr('src', "/common/img/featur-1.jpg");
                    $imgDiv.append($img);
 
                    const $infoDiv = $('<div></div>');
@@ -249,5 +248,7 @@
     // 초기 값 설정
     setLeftValue();
     setRightValue();
+
+
 })(jQuery);
 
