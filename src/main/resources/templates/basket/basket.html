@@ -10,138 +10,53 @@
         <section >
             <span class="star">⭐</span>
             <select th:each="favorite: ${bookmark}">
-<!--                th:each="favorite: ${bookmark}"-->
                 <option value="#">즐겨찾기 목록</option>
                 <option th:value="${favorite.getFoodId()}">새우</option>
-<!--                th:value="${favorite.getFoodId()}"-->
-<!--                <option value="브로콜리">브로콜리</option>-->
-<!--                <option value="복숭아">복숭아</option>-->
             </select>
         </section>
     </div>
     <ul class="nav nav-tabs section-tabs" id="myTab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="daily-tab" data-toggle="tab" href="#daily" role="tab" aria-controls="daily" aria-selected="true">일일 권장 섭취량</a>
+            <a class="nav-link active" id="daily-tab" data-bs-toggle="tab" href="#daily" role="tab" aria-controls="daily" aria-selected="true">일일 권장 섭취량</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="bmr-tab" data-toggle="tab" href="#bmr" role="tab" aria-controls="bmr" aria-selected="false">기초대사량</a>
+            <a class="nav-link" id="bmr-tab" data-bs-toggle="tab" href="#bmr" role="tab" aria-controls="bmr" aria-selected="false">영양성분 차트</a>
         </li>
     </ul>
     <div class="tab-content p-1" id="myTabContent">
         <div class="tab-pane fade show active" id="daily" role="tabpanel" aria-labelledby="daily-tab">
+            <h2>영양정보</h2>
+            <h5>나의 하루섭취량은?</h5>
             <div class="nutrition-info">
-                <h2>영양정보</h2>
-<!--                <table>-->
-<!--                    <thead>-->
-<!--                    <tr th:if="${session.food.nutrientlist.?[name.equals('에너지')].size() > 0}">-->
-<!--                        <th>총 내용량</th>-->
-<!--                        <th><input class="kcal" th:value="${session.food.nutrientlist.?[name.equals('에너지')][0].amount}" readonly>kcal</th>-->
-<!--                    </tr>-->
-<!--                    </thead>-->
-<!--                    <tbody>-->
-<!--                    <tr>-->
-<!--                        <td>나트륨-->
-<!--                            <input class="amount" th:value="${session.food.nutrientlist.?[name.equals('나트륨')].size() > 0 ?-->
-<!--                                                    session.food.nutrientlist.?[name.equals('나트륨')][0].amount : 0}">mg-->
-<!--                        </td>-->
-<!--                        <td><input class="percent" value="100" readonly>%</td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td>탄수화물-->
-<!--                            <input class="amount" th:value="${session.food.nutrientlist.?[name.equals('탄수화물')].size() > 0 ?-->
-<!--                                                    session.food.nutrientlist.?[name.equals('탄수화물')][0].amount : 0}">mg-->
-<!--                        </td>-->
-<!--                        <td><input class="percent" value="100" readonly>%</td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td>당류-->
-<!--                            <input class="amount" th:value="${session.food.nutrientlist.?[name.equals('당류')].size() > 0 ?-->
-<!--                                                    session.food.nutrientlist.?[name.equals('당류')][0].amount : 0}">mg-->
-<!--                        </td>-->
-<!--                        <td><input class="percent" value="100" readonly>%</td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td>지방-->
-<!--                            <input class="amount" th:value="${session.food.nutrientlist.?[name.equals('지방')].size() > 0 ?-->
-<!--                                                    session.food.nutrientlist.?[name.equals('지방')][0].amount : 0}">mg-->
-<!--                        </td>-->
-<!--                        <td><input class="percent" value="100" readonly>%</td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td>트랜스지방-->
-<!--                            <input class="amount" th:value="${session.food.nutrientlist.?[name.equals('트랜스지방')].size() > 0 ?-->
-<!--                                                    session.food.nutrientlist.?[name.equals('트랜스지방')][0].amount : 0}">mg-->
-<!--                        </td>-->
-<!--                        <td></td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td>포화지방-->
-<!--                            <input class="amount" th:value="${session.food.nutrientlist.?[name.equals('포화지방')].size() > 0 ?-->
-<!--                                                    session.food.nutrientlist.?[name.equals('포화지방')][0].amount : 0}">mg-->
-<!--                        </td>-->
-<!--                        <td><input class="percent" value="100" readonly>%</td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <<td>콜레스테롤-->
-<!--                             <input class="amount" th:value="${session.food.nutrientlist.?[name.equals('콜레스테롤')].size() > 0 ?-->
-<!--                                                    session.food.nutrientlist.?[name.equals('콜레스테롤')][0].amount : 0}">mg-->
-<!--                        </td>-->
-<!--                        <td><input class="percent" value="100" readonly>%</td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td>단백질-->
-<!--                            <input class="amount" th:value="${session.food.nutrientlist.?[name.equals('단백질')].size() > 0 ?-->
-<!--                                                    session.food.nutrientlist.?[name.equals('단백질')][0].amount : 0}">mg-->
-<!--                        </td>-->
-<!--                        <td><input class="percent" value="100" readonly>%</td>-->
-<!--                    </tr>-->
-<!--                    </tbody>-->
-<!--                </table>-->
             </div>
         </div>
         <div class="tab-pane fade" id="bmr" role="tabpanel" aria-labelledby="bmr-tab">
             <!-- 기초대사량 내용 -->
             <div class="basel">
-                <h2>영양정보</h2>
-                <table >
-                    <!--                    th:each="nutrient : ${session.food.nutrientlist}"-->
-                    <thead >
-<!--                    <tr th:if="${session.food.nutrientlist.?[name.equals('에너지')].size() > 0}">-->
-<!--                        <th>총 내용량</th>-->
-<!--                        <th><input id="amount" class="amount" th:value="${session.food.nutrientlist.?[name.equals('에너지')][0].amount}">kcal</th>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td><input id="basel" type="hidden" th:value="${session.user.baselMetabolism}"></td>-->
-<!--                        <td><input id="percent" class="percent" readonly>%</td>-->
-<!--                    </tr>-->
-                    </thead>
-                </table>
+                <h2>영양성분 차트</h2>
+                <div class="baselMetabolism">
+                </div>
+                <div class="chart-nutri">
+                    <canvas id="nutritionChart"></canvas>
+                </div>
+
             </div>
         </div>
     </div>
     <div class="footer p-2">
-        1일 영양성분 기준치에 대한 비율(%)은 2,000kcal 기준이므로 개인의 필요열량에 따라 다를 수 있습니다.
+        <span th:text="${session.user == null || session.user.baselMetabolism == null || session.user.baselMetabolism == 0 ?
+               '1일 영양성분 기준치에 대한 비율(%)은 2,000kcal 기준입니다. 회원정보 수정을 통해 개인의 기초대사량을 확인해보세요.' :
+               '나의 기초대사량은 ' + session.user.baselMetabolism + ' 입니다.'}"></span>
     </div>
-
     <!--   담긴 식품     -->
-    <div class="food">
-        <table>
-            <tbody>
-                    <tr>
-<!--                    <td th:text="${session.food.name}"></td>-->
-                        <td><button>삭제</button></td>
-                    </tr>
-            </tbody>
-        </table>
+    <div class="basketFood">
     </div>
 
     <div class="submit">
-        <button type="submit">등록</button>
+        <button id="initBasket">초기화</button>
+        <button type="submit" th:onclick="saveCalender()">캘린더 등록</button>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="../common/js/basket.js"></script>
+
 </body>
 </html>

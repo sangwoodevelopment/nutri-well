@@ -2,10 +2,7 @@ package com.example.nutri_well.entity;
 
 import com.example.nutri_well.model.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="food")
+@Builder
 public class Food {
     @Id
     @GeneratedValue
@@ -42,7 +40,7 @@ public class Food {
     @ToString.Exclude
     @OneToMany
     private List<BookMark> userlist = new ArrayList<>();
-
+    @Builder
     public Food(String name, Category categoryId, String foodCode, String product, String manufacturer, String servingSize, int weight, Date creationDate) {
         this.name = name;
         this.categoryId = categoryId;

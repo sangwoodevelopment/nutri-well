@@ -36,28 +36,22 @@ public class SignUpServiceImpl implements SignUpService {
 
             throw new IllegalArgumentException("필수 입력 필드가 누락되었습니다");
         }
-            SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd");
-            Date birthDate;
-        try{
-            birthDate = sf.parse(memberSignUpDTO.getBirth());
-        }catch (ParseException e){
-            throw new IllegalArgumentException("유효하지 않은 생년월일 형식입니다 yyyy/MM/dd");
-        }
 
-                 User user = User.builder()
-                         .username(memberSignUpDTO.getUsername())
-                        .email(memberSignUpDTO.getEmail())
-                        .password(memberSignUpDTO.getPassword())
-                        .birth(birthDate)
-                        .gender(memberSignUpDTO.getGender())
-                        .weight(Float.parseFloat(memberSignUpDTO.getWeight()))
-                        .height(Float.parseFloat(memberSignUpDTO.getHeight()))
-                        .tel(memberSignUpDTO.getTel())
-                        .picture(memberSignUpDTO.getPicture())
-                         .baselMetabolism(memberSignUpDTO.getBaselMetabolism())
-                         .role(memberSignUpDTO.getRole())
-                         .state(true)
-                        .build();
+
+        User user = User.builder()
+                .username(memberSignUpDTO.getUsername())
+                .email(memberSignUpDTO.getEmail())
+                .password(memberSignUpDTO.getPassword())
+                .birth(memberSignUpDTO.getBirth())
+                .gender(memberSignUpDTO.getGender())
+                .weight(Float.parseFloat(memberSignUpDTO.getWeight()))
+                .height(Float.parseFloat(memberSignUpDTO.getHeight()))
+                .tel(memberSignUpDTO.getTel())
+                .picture(memberSignUpDTO.getPicture())
+                .baselMetabolism(memberSignUpDTO.getBaselMetabolism())
+                .role(memberSignUpDTO.getRole())
+                .state(true)
+                .build();
         return userRepository.save(user);
     }
 
@@ -132,4 +126,4 @@ public class SignUpServiceImpl implements SignUpService {
 //            }
 //            userRepository.deleteById(id);
 //        }
-    }
+}

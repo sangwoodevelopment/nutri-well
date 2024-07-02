@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -22,28 +23,19 @@ public class Basket {
     @ManyToOne
     @JoinColumn(name = "userId")
     private User userId;
-    @CreationTimestamp
-    private Date startDate;
 
-    @Column(nullable = false)
-    private String type;
+    private LocalDate startDate;
 
     @ManyToOne
     @JoinColumn(name = "foodId")
     private Food foodId;
 
-    @Transient // 기초대사량 계산식 적용해야함
-    private String baselMetabolism;
+    private double percent;//기ㅏ초대사량 퍼센티지
 
-    public Basket(User userId, String type, Food foodId) {
+
+    public Basket(User userId, LocalDate startDate, Food foodId) {
         this.userId = userId;
-        this.type = type;
+        this.startDate = startDate;
         this.foodId = foodId;
-    }
-
-    public Basket(Long id, User userId, String type) {
-        this.id = id;
-        this.userId = userId;
-        this.type = type;
     }
 }
