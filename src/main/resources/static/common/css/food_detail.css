@@ -33,16 +33,14 @@
     color: gold;
 }
 .amount{ /*food_detail 영양성분표 js 참고*/
-    text-align: right;
-    padding-right: 10px;
+    text-align: center;
+    white-space: nowrap;
 }
 .nutrientname{
-    text-align: right;
-    padding-right: 10px;
+    text-align: center;
 }
 .nt-header{
-    text-align: right;
-    padding-right: 10px;
+    text-align: center;
 }
 table {
     width: 20%; /* 테이블의 너비를 50%로 설정 */
@@ -92,4 +90,11 @@ th:last-child, td:last-child {
     height: 20px; /* 진행 바 높이 */
     background-color: #4caf50; /* 진행 바 색 */
 }
-
+.chart-nutri{
+    width : 55%;!important;
+    height : 55%;!important;
+}
+.top-nutri-content{
+    display: flex;
+    justify-content: space-between;
+}

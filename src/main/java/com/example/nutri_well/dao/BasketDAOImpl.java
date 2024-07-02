@@ -2,6 +2,7 @@ package com.example.nutri_well.dao;
 
 import com.example.nutri_well.entity.Basket;
 import com.example.nutri_well.entity.Food;
+import com.example.nutri_well.repository.BasketRepository;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -10,10 +11,10 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class BasketDAOImpl implements BasketDAO {
     private final EntityManager entityManager;
-
+    private final BasketRepository basketRepository;
     @Override
-    public void insert(Basket dto) {
-        // (코드 작성중)
+    public Basket insert(Basket dto) {
+        return basketRepository.save(dto);
     }
 
     @Override

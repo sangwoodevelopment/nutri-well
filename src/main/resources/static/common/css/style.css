@@ -548,4 +548,7 @@
     line-height: 35px;
 }
 /*** Footer End ***/
-
+.mainLayout{
+    display: flex;
+    flex-direction: column;
+}
