@@ -55,7 +55,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
-    private int basel_metabolism;
 
     @Builder
     public User(String name, String email, String password, String picture, Role role, String gender, boolean state, Date birth, String tel) {

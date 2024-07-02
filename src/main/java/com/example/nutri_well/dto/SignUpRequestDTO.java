@@ -5,9 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.util.Date;
 //notnull 라이브러리 추가필요
 
 
@@ -33,7 +30,7 @@ public class SignUpRequestDTO {
     private String password;
 
     @Column(nullable = false)
-    private Date birth;
+    private String birth;
 
     private String nickName;
 
