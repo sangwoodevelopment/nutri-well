@@ -15,11 +15,12 @@
 }
 .bs-container{
     width: 17%;
-    margin-top: 25%;
+    margin-top: 10%;
   position: fixed;
   z-index: 1000;
+  white-space: nowrap;
   /*left: 50%;*/
-  transform: translateX(503%);
+  transform: translateX(495%);
 }
 .middle {
   position: relative;
