@@ -9,12 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookMarkResponseDTO {
-    private Long userId;
-    private Long foodId;
     private boolean preferredState;
     private boolean excludedState;
 
     public static BookMarkResponseDTO of(BookMark bookMark){
-        return new BookMarkResponseDTO(bookMark.getUser().getUserId(), bookMark.getFood().getId(), bookMark.isPreferredState(), bookMark.isExcludedState());
+        return new BookMarkResponseDTO(bookMark.isPreferredState(), bookMark.isExcludedState());
     }
 }
