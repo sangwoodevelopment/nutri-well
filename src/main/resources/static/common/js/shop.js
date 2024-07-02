@@ -22,7 +22,7 @@
                    const $foodItem = $('<div class="d-flex align-items-center justify-content-start"></div>');
 
                    const $imgDiv = $('<div class="rounded me-4" style="width: 100px; height: 100px;"></div>');
-                   const $img = $('<img class="img-fluid rounded" alt="">').attr('src', "common/img/featur-1.jpg");
+                   const $img = $('<img class="img-fluid rounded" alt="">').attr('src', "/common/img/featur-1.jpg");
                    $imgDiv.append($img);
 
                    const $infoDiv = $('<div></div>');

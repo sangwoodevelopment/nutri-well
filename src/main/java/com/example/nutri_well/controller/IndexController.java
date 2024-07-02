@@ -39,7 +39,8 @@ public class IndexController {
     @GetMapping("/index.do")
     public String indexHtml(Model model) {
         //src/main/resources/static/index.html
-        return "index";
+        return "include/indexContent";
+//        return "layout/indexLayout";
     }
 
     @GetMapping("/mypage.do")

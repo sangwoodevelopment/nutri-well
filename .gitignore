@@ -37,5 +37,8 @@ out/
 .vscode/
 
 ### application-private.properties ###
-application-private/
+application.properties
 application-private.properties
+
+## category img ##
+src/**/img/category/
