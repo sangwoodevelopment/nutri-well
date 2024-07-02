@@ -17,27 +17,48 @@
                 </ol>
             </div>
             <!-- Single Page Header End -->
-
-            <!-- Single Product Start -->
-            <div class="container-fluid py-5 mt-5">
-                <div class="container py-5">
-                    <div class="row g-4 mb-5">
-                        <div class="col-lg-8 col-xl-9">
-                            <div class="row g-4">
-                                <div class="col-lg-6">
-                                    <div class="border rounded">
-                                        <a href="#">
-                                            <img src="/common/img/single-item.jpg" class="img-fluid rounded" alt="Image">
-                                        </a>
+        <!-- Single Product Start -->
+        <div class="container-fluid py-5 mt-5">
+            <div class="container py-5">
+                <div class="row g-4 mb-5">
+                    <div class="col-lg-8 col-xl-9">
+                        <div class="row g-4">
+                            <div class="col-lg-6">
+                                <div class="border rounded">
+                                    <a href="#">
+                                        <img src="../common/img/single-item.jpg" class="img-fluid rounded" alt="Image">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div id="food-wrap-container">
+                                    <h4 class="fw-bold mb-3" id="foodname" th:text="${food.name}"></h4>
+                                    <div class="food-bookmark">
+                                        <button id="favorite-button" class="food-favorite" onclick="toggleFavorite()"><i class="bi bi-star-fill"></i></button>
+                                        <button id="exclude-button" class="food-exclude" onclick="toggleExcludeFood()"><i class="bi bi-clipboard-x"></i></button>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div id="food-wrap-container">
-                                        <h4 class="fw-bold mb-3" id="foodname" th:text="${food.name}"></h4>
-                                        <div class="food-bookmark">
-                                            <button id="favorite-button" class="food-favorite" onclick="toggleFavorite()"><i class="bi bi-star-fill"></i></button>
-                                            <button id="exclude-button" class="food-exclude" onclick="toggleExcludeFood()"><i class="bi bi-clipboard-x"></i></button>
-                                        </div>
+                                <p class="mb-3" th:text="Category+' : ' + ${food.categoryName}"></p>
+                                <h4 id="nutriKcal"></h4>
+                                <div class="top-nutri-content">
+                                    <div class="showShop">
+        <!--                                https://mfront.homeplus.co.kr/search?entry=direct&keyword=%EB%B0%80%ED%82%A4%ED%8A%B8-->
+        <!--                                https://www.lotteon.com/search/search/search.ecn?render=search&platform=pc&q=%EC%98%A5%EC%88%98%EC%88%98%EA%B0%80%EC%9E%90%ED%83%95%20&mallId=4-->
+        <!--                                <h5 class="fw-bold mb-3" th:text="${food.nutrientlist[0].amount} +' '+  ${food.nutrientlist[0].value}" ></h5>-->
+                                        <p class="mb-4">The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic words etc.</p>
+                                        <a th:href="@{https://www.ssg.com/search.ssg(target='all', query=${food.name} + ${food.categoryName})}"><p class="mb-4">쓱에서 식품보기</p></a>
+                                        <a th:href="@{https://mfront.homeplus.co.kr/search(entry='direct', keyword=${food.name} + ${food.categoryName})}"><p class="mb-4">홈플러스에서 식품보기</p></a>
+                                        <a th:href="@{https://www.lotteon.com/search/search/search.ecn(render='search', platform='pc', q=${food.name} + ${food.categoryName}, mallId='4')}"><p class="mb-4">롯데마트에서 식품보기</p></a>
+                                    </div>
+                                    <div class="chart-nutri">
+                                        <canvas id="nutritionChart-detail"></canvas>
+                                    </div>
+                                </div>
+                                <div class="input-group quantity mb-5" style="width: 100px;">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border" >
+                                            <i class="fa fa-minus"></i>
+                                        </button>
                                     </div>
                                     <p class="mb-3" th:text="Category+' : ' + ${food.categoryName}"></p>
                                     <h4 id="nutriKcal"></h4>
@@ -61,38 +82,39 @@
                                     </div>
                                     <a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                                 </div>
-                                <div class="col-lg-12">
-                                    <nav>
-                                        <div class="nav nav-tabs mb-3">
-                                            <button class="nav-link active border-white border-bottom-0" type="button" role="tab"
-                                                id="nav-about-tab" data-bs-toggle="tab" data-bs-target="#nav-about"
-                                                aria-controls="nav-about" aria-selected="true">영양성분표</button>
-                                            <button class="nav-link border-white border-bottom-0" type="button" role="tab"
-                                                id="nav-mission-tab" data-bs-toggle="tab" data-bs-target="#nav-mission"
-                                                aria-controls="nav-mission" aria-selected="false">Reviews</button>
-                                        </div>
-                                    </nav>
-                                    <div id="nutri-row">
-                                        <button id="toggleSize" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary">총제공량 보기</button>
+                                <a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                            </div>
+                            <div class="col-lg-12">
+                                <nav>
+                                    <div class="nav nav-tabs mb-3">
+                                        <button class="nav-link active border-white border-bottom-0" type="button" role="tab"
+                                            id="nav-about-tab" data-bs-toggle="tab" data-bs-target="#nav-about"
+                                            aria-controls="nav-about" aria-selected="true">영양성분표</button>
+                                        <button class="nav-link border-white border-bottom-0" type="button" role="tab"
+                                            id="tab-chart-tab" data-bs-toggle="tab" data-bs-target="#tab-chart"
+                                            aria-controls="tab-chart" aria-selected="false">영양성분차트</button>
                                     </div>
-                                    <div class="tab-content mb-5">
-                                        <div class="tab-pane active" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
-                                            <div id="nutritablerow">
-                                                <div class="col-6">
-                                                    <div class="row align-items-center text-center justify-content-center py-2 nutri-col">
-                                                        <table class="nutritable" id="nutrientTable">
-                                                            <thead class="nt-header">
-                                                            <tr>
-                                                                <th>성분</th>
-                                                                <th>양</th>
-                                                                <th>퍼센티지</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <!--js로 동적추가-->
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                </nav>
+                                <div class="tab-content mb-5">
+                                    <div class="tab-pane active" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+                                        <div id="nutri-row">
+                                            <button id="toggleSize" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary">총제공량 보기</button>
+                                        </div>
+                                        <div id="nutritablerow">
+                                            <div class="col-6">
+                                                <div class="row align-items-center text-center justify-content-center py-2 nutri-col">
+                                                    <table class="nutritable" id="nutrientTable">
+                                                        <thead class="nt-header">
+                                                        <tr>
+                                                            <th>성분</th>
+                                                            <th>양</th>
+                                                            <th>퍼센티지</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <!--js로 동적추가-->
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                                 <div class="col-6 nutri">
                                                     <div class="row align-items-center text-center justify-content-center py-2 nutri-col">
@@ -112,50 +134,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
-                                            <div class="d-flex">
-                                                <img src="/common/img/avatar.jpg" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
-                                                <div class="">
-                                                    <p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
-                                                    <div class="d-flex justify-content-between">
-                                                        <h5>Jason Smith</h5>
-                                                        <div class="d-flex mb-3">
-                                                            <i class="fa fa-star text-secondary"></i>
-                                                            <i class="fa fa-star text-secondary"></i>
-                                                            <i class="fa fa-star text-secondary"></i>
-                                                            <i class="fa fa-star text-secondary"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                    </div>
-                                                    <p>The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic
-                                                        words etc. Susp endisse ultricies nisi vel quam suscipit </p>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex">
-                                                <img src="/common/img/avatar.jpg" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
-                                                <div class="">
-                                                    <p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
-                                                    <div class="d-flex justify-content-between">
-                                                        <h5>Sam Peters</h5>
-                                                        <div class="d-flex mb-3">
-                                                            <i class="fa fa-star text-secondary"></i>
-                                                            <i class="fa fa-star text-secondary"></i>
-                                                            <i class="fa fa-star text-secondary"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                    </div>
-                                                    <p class="text-dark">The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic
-                                                        words etc. Susp endisse ultricies nisi vel quam suscipit </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane" id="nav-vision" role="tabpanel">
-                                            <p class="text-dark">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et tempor sit. Aliqu diam
-                                                amet diam et eos labore. 3</p>
-                                            <p class="mb-0">Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore.
-                                                Clita erat ipsum et lorem et sit</p>
-                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="tab-chart" role="tabpanel" aria-labelledby="tab-chart-tab">
                                     </div>
                                 </div>
                                 <form action="#">

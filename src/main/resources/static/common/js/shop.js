@@ -14,7 +14,6 @@
             type: "POST",
             dataType: "json",
             success: function(result) {
-                console.log(result);
                 const $container = $('#preferrerd-food-list');
                 $container.empty(); // 기존 내용을 지우기
                for (let i = 0; i < result.length; i++) {
@@ -249,5 +248,7 @@
     // 초기 값 설정
     setLeftValue();
     setRightValue();
+
+
 })(jQuery);
 

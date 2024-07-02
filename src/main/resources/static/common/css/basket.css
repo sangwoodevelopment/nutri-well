@@ -67,19 +67,20 @@
 }
 
 .amount {
-    width: 40px;
+    width: 50px;
     height: 22px;
     text-align: right;
 }
 .kcal {
-    width: 35px;
+    width: 50px;
     height: 22px;
     text-align: right;
     border: none;
     font-weight: bold;
+    white-space: nowrap;
 }
 .percent {
-    width: 35px;
+    width: 50px;
     height: 22px;
     text-align: right;
     border: none;
@@ -107,4 +108,38 @@
 .submit button {
     border-radius: 5px;
     background-color: yellowgreen;
+}
+.input-wrapper {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 7px;
+}
+
+.input-wrapper input.amount {
+    margin-right: 1px; /* input과 단위 사이의 간격 조절 */
+}
+.chart-nutri{
+    width : 80%;!important;
+    height : 60%;!important;
+}
+.baselMetabolism{
+    display: flex;
+}
+.over-limit {
+    color: red;
+}
+.totalKcal {
+    font-weight: bold;
+    color: black;
+}
+.totalKcal.over {
+    color: red;
+}
+progress {
+    width: 100%; /* progress bar의 너비를 조정 */
+    height: 30px; /* progress bar의 높이를 조정 */
+}
+progress.over {
+    --webkit-progress-value-color: red;
+    --webkit-progress-bar-color: red;
 }

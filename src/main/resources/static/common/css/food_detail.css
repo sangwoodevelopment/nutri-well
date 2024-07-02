@@ -90,4 +90,11 @@ th:last-child, td:last-child {
     height: 20px; /* 진행 바 높이 */
     background-color: #4caf50; /* 진행 바 색 */
 }
-
+.chart-nutri{
+    width : 55%;!important;
+    height : 55%;!important;
+}
+.top-nutri-content{
+    display: flex;
+    justify-content: space-between;
+}
