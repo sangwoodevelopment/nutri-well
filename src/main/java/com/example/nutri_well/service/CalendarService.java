@@ -1,7 +1,11 @@
 package com.example.nutri_well.service;
 
+import com.example.nutri_well.dto.DailyNutritionResponse;
+import com.example.nutri_well.entity.CalendarFood;
+import com.example.nutri_well.entity.FoodNutrient;
 import com.example.nutri_well.model.User;
 import com.example.nutri_well.model.myCalendar;
+import com.example.nutri_well.repository.CalendarFoodRepository;
 import com.example.nutri_well.repository.CalendarRepository;
 import com.example.nutri_well.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +22,7 @@ public class CalendarService {
 
     private final CalendarRepository calendarRepository;
     private final UserRepository userRepository;
+    private final CalendarFoodRepository calendarFoodRepository;
 
     public myCalendar addCalendarEntry(Long userId, Date date, int percentage) {
         User user = userRepository.findById(userId)
@@ -41,9 +46,22 @@ public class CalendarService {
         return calendarRepository.findByUser(user);
     }
 
-    public List<myCalendar> getCalendarEntriesByDate(Long userId, Date date) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID"));
-        return calendarRepository.findByUserAndCalDate(user, date);
+
+
+    public DailyNutritionResponse getDailyNutrition(Long calendarId) {
+        List<CalendarFood> calendarFoods = calendarFoodRepository.findByCalendar_CalendarId(calendarId);
+        DailyNutritionResponse response = new DailyNutritionResponse();
+
+        for (CalendarFood calendarFood : calendarFoods) {
+            for (FoodNutrient foodNutrient : calendarFood.getFood().getNutrientlist()) {
+                response.addNutrient(foodNutrient.getNutrient().getName(), foodNutrient.getAmount());
+            }
+        }
+
+        return response;
+    }
+
+    public List<myCalendar> getAllCalendars() {
+        return calendarRepository.findAll();
     }
 }

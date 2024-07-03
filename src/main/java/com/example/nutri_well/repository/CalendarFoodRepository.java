@@ -7,4 +7,5 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface CalendarFoodRepository extends JpaRepository<CalendarFood, Long> {
+    List<CalendarFood> findByCalendar_CalendarId(Long calendarId);
 }
