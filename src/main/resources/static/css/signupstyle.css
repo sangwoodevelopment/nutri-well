@@ -1,5 +1,6 @@
 body {
-    margin: 50px;
+    margin-top: 30px;
+    margin-left: 200px;
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
@@ -8,11 +9,12 @@ body {
     background-color: #f8f9fa;
 }
 
-.container {
+.all {
     display: flex;
-    width: 80%;
-    max-width: 2000px;
-    height: 100%;
+    width: 90%;
+    margin-top: 200px;
+    max-width: 1300px;
+    height: 80%;
     max-height: 1300px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
@@ -64,52 +66,6 @@ body {
     font-size: 1.8em;
     font-weight: bold;
     color: #333;
-}
-
-.social-signup {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-    max-width: 800px;
-    margin-bottom: 20px;
-    gap: 10px;
-    font-size : 10px;
-}
-
-.social-signup button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 1em;
-    flex: 1;
-    max-width: 300px;
-}
-
-.social-signup button img.icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-}
-
-.google-signup {
-    background-color: #4285f4;
-    color: white;
-}
-
-.kakao-signup {
-    background-color: #fee500;
-    color: black;
-}
-
-.apple-signup {
-    background-color: #000000;
-    color: white;
 }
 
 .divider {
