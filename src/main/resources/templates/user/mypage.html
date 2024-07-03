@@ -75,7 +75,7 @@
                         <p th:text="'성별 : '+${user.gender}"></p>
                         <p th:text="'키 : '+${user.height}"></p>
                         <p th:text="'몸무게 : '+${user.weight}"></p>
-                        <p th:text="'생년월일 : '+${user.birth}"></p>
+                        <p th:text="'생년월일 : ' + ${#dates.format(user.birth, 'yyyy-MM-dd')}"></p>
                         <p th:text="'전화번호 : '+${user.tel}"></p>
                         <p th:text="'기초대사량 : '+${user.baselMetabolism}"></p>
                         <p th:text="'프로필 URL : '+${user.picture}"></p>

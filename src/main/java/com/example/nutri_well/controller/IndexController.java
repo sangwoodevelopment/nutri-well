@@ -2,8 +2,10 @@ package com.example.nutri_well.controller;
 
 import com.example.nutri_well.config.auth.dto.SessionUser;
 import com.example.nutri_well.dto.FoodApproveResponseDTO;
+import com.example.nutri_well.dto.FoodResponseDTO;
 import com.example.nutri_well.model.User;
 import com.example.nutri_well.model.myCalendar;
+import com.example.nutri_well.service.BookMarkService;
 import com.example.nutri_well.service.FoodApproveServie;
 import com.example.nutri_well.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,6 +26,7 @@ public class IndexController {
     private final FoodApproveServie foodApproveService;
     private final HttpSession httpSession;
     private final UserService userService;
+    private final BookMarkService bookMarkService;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -38,9 +41,10 @@ public class IndexController {
 
     @GetMapping("/index.do")
     public String indexHtml(Model model) {
-        //src/main/resources/static/index.html
+        List<FoodResponseDTO> top5Foods = bookMarkService.findTop5Foods();
+        model.addAttribute("top5Foods", top5Foods);
+        System.out.println(top5Foods);
         return "include/indexContent";
-//        return "layout/indexLayout";
     }
 
     @GetMapping("/mypage.do")
