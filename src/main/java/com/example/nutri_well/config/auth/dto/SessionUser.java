@@ -1,11 +1,14 @@
 package com.example.nutri_well.config.auth.dto;
 
+import com.example.nutri_well.entity.BookMark;
 import com.example.nutri_well.model.Role;
 import com.example.nutri_well.model.User;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 public class SessionUser implements Serializable {

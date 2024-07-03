@@ -6,7 +6,7 @@
             userid = user.userId;
         }
     };
-    loadPreferredFood();
+
     //추천상품목록 load
     function loadPreferredFood() {
         $.ajax({
@@ -186,7 +186,7 @@
             params.append("category", category);
         }
 
-        if (nutrients.length > 0) {
+        if (nutrients.length > 0 && min >= 0 && max > 0) {
             params.append("nutrients", nutrients.join(','));
             if (min) params.append("min", min);
             if (max) params.append("max", max);
@@ -244,11 +244,9 @@
 
     $inputLeft.on("input", setLeftValue);
     $inputRight.on("input", setRightValue);
-
     // 초기 값 설정
     setLeftValue();
     setRightValue();
-
-
+    loadPreferredFood();
 })(jQuery);
 
