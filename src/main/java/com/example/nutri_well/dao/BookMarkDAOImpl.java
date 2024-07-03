@@ -43,4 +43,9 @@ public class BookMarkDAOImpl implements BookMarkDAO{
         return bookMarkRepository.findByUser_UserId(userId);
     }
 
+    @Override
+    public List<Food> findFoodNamesByUserId(Long userId) {
+        return bookMarkRepository.findFoodNamesByUserId(userId);
+    }
+
 }

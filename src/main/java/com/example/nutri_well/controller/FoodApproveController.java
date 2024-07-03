@@ -8,12 +8,15 @@ import com.example.nutri_well.service.CategoryService;
 import com.example.nutri_well.service.FoodApproveServie;
 import com.example.nutri_well.service.NutrientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/food-approve")
@@ -42,10 +45,18 @@ public class FoodApproveController {
     }
 
     @GetMapping("/approve/{id}")
-    public String approveFood(@PathVariable Long id, Model model) {
-        FoodApproveResponseDTO response = foodApproveService.approveFood(id);
-        model.addAttribute("response", response);
-        return "food-approve/approve-success";
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> approveFood(@PathVariable Long id) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            FoodApproveResponseDTO responseDTO = foodApproveService.approveFood(id);
+            response.put("success", true);
+            response.put("data", responseDTO);
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("error", e.getMessage());
+        }
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/list")

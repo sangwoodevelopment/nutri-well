@@ -285,6 +285,7 @@
                 </select>
                 <label for="amount">양:</label>
                 <input type="text" th:field="*{nutrients[0].amount}" value=""/>
+                <span id="nutrient-unit"></span>
             </div>
         </div>
 
@@ -405,31 +406,6 @@
 <script src="/common/js/main.js"></script>
 <script src="/common/js/login.js"></script>
 
-<script>
-    function addNutrient() {
-        const template = document.getElementById('nutrient-template');
-        const clone = template.cloneNode(true);
-        clone.classList.remove('template');
-        clone.id = '';
-
-        const container = document.getElementById('nutrients-container');
-        const index = container.children.length;
-
-        const selects = clone.querySelectorAll('select');
-        const inputs = clone.querySelectorAll('input');
-
-        selects.forEach(select => {
-            select.name = select.name.replace('nutrients[0]', 'nutrients[' + index + ']');
-            select.selectedIndex = 0; //첫번째 영양소를 기본값으로
-        });
-
-        inputs.forEach(input => {
-            input.name = input.name.replace('nutrients[0]', 'nutrients[' + index + ']');
-            input.value = ''; //일단 빈값으로
-        });
-
-        container.appendChild(clone);
-    }
-</script>
+<script src="/common/js/request.js"></script>
 </body>
 </html>
