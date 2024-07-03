@@ -1,6 +1,10 @@
 (function($) {
 "use strict";
-$(document).ready(function() {
+
+    var baselMetabolism = 2000;
+    var userWeight = 60;
+    var nutritionChart;
+    var userId;
     $('#initBasket').click(function() {
         localStorage.removeItem('foodNames');
         localStorage.removeItem('nutrientData');
@@ -9,23 +13,11 @@ $(document).ready(function() {
         nutritionChart.destroy();
          $('#nutritionChart').data('chartInitialized', false);
     });
-    var baselMetabolism = 2000;
-    var userWeight = 60;
-    var nutritionChart;
-    var userId;
-    window.setSessionUser = function(user) {;
-        if (user != null) {
-            baselMetabolism = user.baselMetabolism === 0 ? 2000 : user.baselMetabolism;
-            userWeight = user.weight=== null ? 60 : user.weight;
-            userId = user.userId;
-        }
-    };
     //Local Storage
     function getStoredNutrients() {
         var storedNutrient = localStorage.getItem('nutrientData');
         return storedNutrient ? JSON.parse(storedNutrient) : {};
     }
-
     //영양소저장
     function storeNutrients(nutrientData) {
         localStorage.setItem('nutrientData', JSON.stringify(nutrientData));
@@ -249,9 +241,43 @@ $(document).ready(function() {
             });
         }
     }
-    //로드 시 데이터표시
-    updateTable(getStoredNutrients());
-    updateFoodTable(getStoredFoods());
-    setSessionUser(sessionUser);
-});
+    //즐겨찾기
+    function loadBookMark(){
+        if(userId === null){
+            return;
+        }
+        const baseUrl = 'http://localhost:9079';
+        $.ajax({
+            url: baseUrl + '/basket/getBookMark',
+            type: 'POST',
+            dataType: "json",
+            data:  { userId: userId },
+            success: function(foodlist) {
+                const select = $('#bookmark-select');
+                foodlist.forEach(function(food) {
+                    const option = $('<option></option>')
+                        .attr('value', food.id)
+                        .text(food.name);
+                    select.append(option);
+                });
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+    $(document).ready(function() {
+        window.setSessionUser = function(user) {
+            if (user != null) {
+                baselMetabolism = user.baselMetabolism === 0 ? 2000 : user.baselMetabolism;
+                userWeight = user.weight=== null ? 60 : user.weight;
+                userId = user.userId;
+            }
+        };
+        //로드 시 데이터표시
+        setSessionUser(sessionUser);
+        updateTable(getStoredNutrients());
+        updateFoodTable(getStoredFoods());
+        loadBookMark();
+    });
 })(jQuery);
