@@ -9,22 +9,13 @@
     var baselMetabolism = 2000;
     var userWeight = 60;
     var nutritionChart;
-    var userid;
+    var userId;
     var nutrientAmounts = {};
-    loadPreferredFood();
-    loadNutriTable(1);
 
-    window.setSessionUser = function(user) {;
-        if (user != null) {
-            baselMetabolism = user.baselMetabolism === 0 ? 2000 : user.baselMetabolism;
-            userWeight = user.weight=== null ? 60 : user.weight;
-            userId = user.userId;
-        }
-    };
     $('#toggleSize').click(function() {
         const isSize = $(this).toggleClass('active').hasClass('active');
-                        setServingSize(!isSize);
-                        $(this).text(isSize ?  "100g기준량 보기" : "총제공량 보기");
+        setServingSize(!isSize);
+        $(this).text(isSize ?  "100g기준량 보기" : "총제공량 보기");
     });
     function setServingSize(isSize){
         if(isSize){
@@ -106,7 +97,6 @@
 
     //즐겨찾기 이벤트
     function updatePreferredState() {
-        const userId = userid ? userid : null;
         const foodId = $("#foodContainer").data("food");
         let querydata = {
             "userId": userId,
@@ -137,37 +127,35 @@
     }
     //제외식품이벤트
     function updateExcludedState() {
-            const userId = userid ? userid : null;
-            const foodId = $("#foodContainer").data("food");
-            let querydata = {
-                "userId": userId,
-                "foodId": foodId,
-                "excludedState": $('#exclude-button').hasClass('excluded')
-            };
-            $.ajax({
-                url: "/bookmark/excluded",
-                type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify(querydata),
-                success: function(result) {
-                    if(result.excludedState){
-                        $('#exclude-button').addClass('excluded')
-                        alert("제외식품으로 추가되었습니다!");
-                    }else{
-                        $('#exclude-button').removeClass('excluded')
-                       alert("제외식품에서 제거되었습니다!");
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error occurred: " + error);
-                    if (typeof error_run === 'function') {
-                        error_run(xhr, status, error);
-                    }
+        const foodId = $("#foodContainer").data("food");
+        let querydata = {
+            "userId": userId,
+            "foodId": foodId,
+            "excludedState": $('#exclude-button').hasClass('excluded')
+        };
+        $.ajax({
+            url: "/bookmark/excluded",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(querydata),
+            success: function(result) {
+                if(result.excludedState){
+                    $('#exclude-button').addClass('excluded')
+                    alert("제외식품으로 추가되었습니다!");
+                }else{
+                    $('#exclude-button').removeClass('excluded')
+                   alert("제외식품에서 제거되었습니다!");
                 }
-            });
-        }
+            },
+            error: function(xhr, status, error) {
+                console.error("Error occurred: " + error);
+                if (typeof error_run === 'function') {
+                    error_run(xhr, status, error);
+                }
+            }
+        });
+    }
     function loadBookmark() {
-        const userId = userid ? userid : null;
         const foodId = $("#foodContainer").data("food");
         let querydata = {
            "userId": userId,
@@ -211,7 +199,7 @@
     }
     // 즐겨찾기
     window.toggleFavorite = function () {
-        if (userid == null) {
+        if (userId == null) {
             alert("로그인 해주세요!");
             return;
         }else{
@@ -221,7 +209,7 @@
 
     // 제외식품
     window.toggleExcludeFood = function () {
-         if (userid == null) {
+        if (userId == null) {
             alert("로그인 해주세요!");
             return;
         }else{
@@ -266,62 +254,77 @@
         });
     }
     function updateChart(){
-            if (!$('#nutritionChart-detail').data('chartInitialized')) {
-                if (nutritionChart) {
-                    nutritionChart.destroy();
-                }
-                var ctx = $('#nutritionChart-detail')[0].getContext('2d');
-                nutritionChart = new Chart(ctx, {
-                    type: 'pie',
-                    data: {
-                        labels: ['탄수화물', '단백질', '지방', '당류', '나트륨'],
-                        datasets: [{
-                            label: '기초대사량 구성',
-                            data: [nutrientAmounts['탄수화물'],
-                                   nutrientAmounts['단백질'],
-                                   nutrientAmounts['지방'],
-                                   nutrientAmounts['당류'],
-                                   nutrientAmounts['나트륨']/1000], // 예시 데이터, 실제 데이터로 변경 가능
-                            backgroundColor: [
-                                'rgba(150, 250, 50, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(153, 102, 255, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(150, 250, 50, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(153, 102, 255, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                position: 'top',
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        let label = context.label || '';
-                                        if (label) {
-                                            label += ': ';
-                                        }
-                                        if (context.parsed !== null) {
-                                            label += context.parsed + '%';
-                                        }
-                                        return label;
+        if (!$('#nutritionChart-detail').data('chartInitialized')) {
+            if (nutritionChart) {
+                nutritionChart.destroy();
+            }
+            var ctx = $('#nutritionChart-detail')[0].getContext('2d');
+            nutritionChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['탄수화물', '단백질', '지방', '당류', '나트륨'],
+                    datasets: [{
+                        label: '기초대사량 구성',
+                        data: [nutrientAmounts['탄수화물'],
+                               nutrientAmounts['단백질'],
+                               nutrientAmounts['지방'],
+                               nutrientAmounts['당류'],
+                               nutrientAmounts['나트륨']/1000], // 예시 데이터, 실제 데이터로 변경 가능
+                        backgroundColor: [
+                            'rgba(150, 250, 50, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(153, 102, 255, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(150, 250, 50, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
                                     }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed + '%';
+                                    }
+                                    return label;
                                 }
                             }
                         }
                     }
-                });
-            }
+                }
+            });
         }
+    }
+    $(document).ready(function() {
+        window.setSessionUser = function(user) {
+            if (user != null) {
+                baselMetabolism = user.baselMetabolism === 0 ? 2000 : user.baselMetabolism;
+                userWeight = user.weight=== null ? 60 : user.weight;
+                userId = user.userId;
+            }
+        };
+        //로드 시 데이터표시
+        setSessionUser(sessionUser);
+        loadBookmark();
+        loadPreferredFood();
+        loadNutriTable(1);
+
+    });
 })(jQuery);

@@ -1,5 +1,6 @@
 package com.example.nutri_well.repository;
 
+import com.example.nutri_well.dto.BookMarkResponseDTO;
 import com.example.nutri_well.entity.BookMark;
 import com.example.nutri_well.entity.Food;
 import jakarta.transaction.Transactional;
@@ -27,4 +28,6 @@ public interface BookMarkRepository extends JpaRepository<BookMark,Long>  {
             "ORDER BY COUNT(bm.food) DESC")
     List<Food> findTop5Foods();
     List<BookMark> findByUser_UserId(Long userId);
+    @Query("SELECT bm.food FROM BookMark bm WHERE bm.user.id = :userId")
+    List<Food> findFoodNamesByUserId(@Param("userId") Long userId);
 }

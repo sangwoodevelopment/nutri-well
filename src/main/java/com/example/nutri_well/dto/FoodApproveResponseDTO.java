@@ -2,6 +2,7 @@ package com.example.nutri_well.dto;
 
 import com.example.nutri_well.entity.Category;
 import com.example.nutri_well.entity.FoodApprove;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 public class FoodApproveResponseDTO {
     private Long id;
     private String name;
-    private Category categoryId;
+    private CategorySummaryDTO categoryId;
     private String product;
     private Date requestDate;
     private Date approvalDate;
@@ -24,13 +25,15 @@ public class FoodApproveResponseDTO {
     private String servingSize;
     private String userEmail;
     private boolean approved;
+
+    @JsonManagedReference
     private List<FoodNutrientApproveDTO> nutrients;
 
     public static FoodApproveResponseDTO of(FoodApprove foodApprove) {
         return new FoodApproveResponseDTO(
                 foodApprove.getId(),
                 foodApprove.getName(),
-                foodApprove.getCategoryId(),
+                CategorySummaryDTO.of(foodApprove.getCategoryId()),
                 foodApprove.getProduct(),
                 foodApprove.getRequestDate(),
                 foodApprove.getApprovalDate(),
