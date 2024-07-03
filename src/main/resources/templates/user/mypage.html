@@ -66,6 +66,24 @@
                     <a id="download-link" href="#" download="calendar.png" style="display:none;">Download Image</a>
                 </div>
 
+                <!-- 영양소 모달 -->
+                <div class="modal fade" id="nutritionModal" tabindex="-1" aria-labelledby="nutritionModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="nutritionModalLabel">영양소 정보</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <canvas id="dailyNutritionChart" width="400" height="400"></canvas>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- 회원정보 수정탭-->
                 <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab">
                     <h3 class="section-title">내 정보 </h3>
