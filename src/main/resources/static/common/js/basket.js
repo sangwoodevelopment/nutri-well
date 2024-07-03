@@ -6,8 +6,8 @@
     var nutritionChart;
     var userId;
     $('#initBasket').click(function() {
-        localStorage.removeItem('foodNames');
-        localStorage.removeItem('nutrientData');
+        sessionStorage.removeItem('foodNames');
+        sessionStorage.removeItem('nutrientData');
         updateTable({});
         updateFoodTable([]);
         nutritionChart.destroy();
@@ -15,16 +15,16 @@
     });
     //Local Storage
     function getStoredNutrients() {
-        var storedNutrient = localStorage.getItem('nutrientData');
+        var storedNutrient = sessionStorage.getItem('nutrientData');
         return storedNutrient ? JSON.parse(storedNutrient) : {};
     }
     //영양소저장
     function storeNutrients(nutrientData) {
-        localStorage.setItem('nutrientData', JSON.stringify(nutrientData));
+        sessionStorage.setItem('nutrientData', JSON.stringify(nutrientData));
     }
     //음식이름 가져오기
     function getStoredFoods() {
-        var storedFood = JSON.parse(localStorage.getItem('foodNames')) || [];
+        var storedFood = JSON.parse(sessionStorage.getItem('foodNames')) || [];
         return storedFood;
     }
     //음식이름 저장
@@ -35,7 +35,7 @@
             return false;
         }
         foodNames.push(foodData)
-        localStorage.setItem('foodNames', JSON.stringify(foodNames));
+        sessionStorage.setItem('foodNames', JSON.stringify(foodNames));
         return true;
     }
     //영양소 데이터 누적
