@@ -75,7 +75,7 @@
                         <p th:text="'성별 : '+${user.gender}"></p>
                         <p th:text="'키 : '+${user.height}"></p>
                         <p th:text="'몸무게 : '+${user.weight}"></p>
-                        <p th:text="'생년월일 : '+${user.birth}"></p>
+                        <p th:text="'생년월일 : ' + ${#dates.format(user.birth, 'yyyy-MM-dd')}"></p>
                         <p th:text="'전화번호 : '+${user.tel}"></p>
                         <p th:text="'기초대사량 : '+${user.baselMetabolism}"></p>
                         <p th:text="'프로필 URL : '+${user.picture}"></p>
@@ -85,20 +85,22 @@
                     <!-- action="updateProfile" 로 하면 9079/updateProfile로 렌더링 되어버림-->
                     <!-- th:action="@{/updateProfile}" 로 해서 9079/mypage.do/updateProfile 로 동적으로 처리할 수 있게함-->
                     <form method="post" th:action="@{/updateProfile}" enctype="multipart/form-data" onsubmit="return showSuccessAlert()">
-                        <div class="mb-3">
-                            <label for="gender" class="form-label">성별</label>
-                            <select id="gender" name="gender" class="form-select">
-                                <option th:value="MALE" th:text="#{male}" th:selected="${user.gender == 'MALE'}"></option>
-                                <option th:value="FEMALE" th:text="#{female}" th:selected="${user.gender == 'FEMALE'}"></option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="height" class="form-label">키</label>
-                            <input type="number" id="height" name="height" class="form-control" th:value="${user.height}" step="0.01">
-                        </div>
-                        <div class="mb-3">
-                            <label for="weight" class="form-label">몸무게</label>
-                            <input type="number" id="weight" name="weight" class="form-control" th:value="${user.weight}" step="0.01">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="gender" class="form-label">성별</label>
+                                <select id="gender" name="gender" class="form-select">
+                                    <option th:value="MALE" th:text="#{male}" th:selected="${user.gender == 'MALE'}"></option>
+                                    <option th:value="FEMALE" th:text="#{female}" th:selected="${user.gender == 'FEMALE'}"></option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="height" class="form-label">키</label>
+                                <input type="number" id="height" name="height" class="form-control" th:value="${user.height}" step="0.01">
+                            </div>
+                            <div class="col">
+                                <label for="weight" class="form-label">몸무게</label>
+                                <input type="number" id="weight" name="weight" class="form-control" th:value="${user.weight}" step="0.01">
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="birth" class="form-label">생일 (입력형식을 맞춰주세요.)</label>
@@ -161,13 +163,14 @@
                                 </td>
                                 <td th:if="${approval.approved}" th:text="'승인됨'"></td>
                                 <td th:if="${!approval.approved}">
-                                    <a th:href="@{/food-approve/approve/{id}(id=${approval.id})}" class="btn btn-sm btn-primary">Approve</a>
+                                    <button class="btn btn-sm btn-primary approve-btn" th:data-id="${approval.id}">Approve</button>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
+                <!-- 식품승인탭 끝 -->
             </div>
         </div>
 
@@ -281,6 +284,8 @@
 <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
         class="fa fa-arrow-up"></i></a>
 </div>
+
+
 </body>
 
 </html>

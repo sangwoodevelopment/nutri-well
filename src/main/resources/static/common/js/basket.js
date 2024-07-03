@@ -1,38 +1,31 @@
 (function($) {
 "use strict";
-$(document).ready(function() {
-    $('#initBasket').click(function() {
-        localStorage.removeItem('foodNames');
-        localStorage.removeItem('nutrientData');
-        updateTable({});
-        updateFoodTable([]);
-        nutritionChart.destroy();
-         $('#nutritionChart').data('chartInitialized', false);
-    });
+
     var baselMetabolism = 2000;
     var userWeight = 60;
     var nutritionChart;
     var userId;
-    window.setSessionUser = function(user) {;
-        if (user != null) {
-            baselMetabolism = user.baselMetabolism === 0 ? 2000 : user.baselMetabolism;
-            userWeight = user.weight=== null ? 60 : user.weight;
-            userId = user.userId;
-        }
-    };
+    $('#initBasket').click(function() {
+        sessionStorage.removeItem('foodNames');
+        sessionStorage.removeItem('nutrientData');
+        updateTable({});
+        updateFoodTable([]);
+        nutritionChart.destroy();
+        deleteTable();
+        $('#nutritionChart').data('chartInitialized', false);
+    });
     //Local Storage
     function getStoredNutrients() {
-        var storedNutrient = localStorage.getItem('nutrientData');
+        var storedNutrient = sessionStorage.getItem('nutrientData');
         return storedNutrient ? JSON.parse(storedNutrient) : {};
     }
-
     //영양소저장
     function storeNutrients(nutrientData) {
-        localStorage.setItem('nutrientData', JSON.stringify(nutrientData));
+        sessionStorage.setItem('nutrientData', JSON.stringify(nutrientData));
     }
     //음식이름 가져오기
     function getStoredFoods() {
-        var storedFood = JSON.parse(localStorage.getItem('foodNames')) || [];
+        var storedFood = JSON.parse(sessionStorage.getItem('foodNames')) || [];
         return storedFood;
     }
     //음식이름 저장
@@ -43,7 +36,7 @@ $(document).ready(function() {
             return false;
         }
         foodNames.push(foodData)
-        localStorage.setItem('foodNames', JSON.stringify(foodNames));
+        sessionStorage.setItem('foodNames', JSON.stringify(foodNames));
         return true;
     }
     //영양소 데이터 누적
@@ -249,9 +242,58 @@ $(document).ready(function() {
             });
         }
     }
-    //로드 시 데이터표시
-    updateTable(getStoredNutrients());
-    updateFoodTable(getStoredFoods());
-    setSessionUser(sessionUser);
-});
+    //즐겨찾기
+    function loadBookMark(){
+        if(userId === null){
+            return;
+        }
+        const baseUrl = 'http://localhost:9079';
+        $.ajax({
+            url: baseUrl + '/basket/getBookMark',
+            type: 'POST',
+            dataType: "json",
+            data:  { userId: userId },
+            success: function(foodlist) {
+                const select = $('#bookmark-select');
+                foodlist.forEach(function(food) {
+                    const option = $('<option></option>')
+                        .attr('value', food.id)
+                        .text(food.name);
+                    select.append(option);
+                });
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+    function deleteTable(){
+        const baseUrl = 'http://localhost:9079';
+
+        $.ajax({
+            url: baseUrl + '/basket/delete',
+            type: 'POST',
+            data:  { userId: userId },
+            success: function() {
+                alert('초기화 완료');
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+    $(document).ready(function() {
+        window.setSessionUser = function(user) {
+            if (user != null) {
+                baselMetabolism = user.baselMetabolism === 0 ? 2000 : user.baselMetabolism;
+                userWeight = user.weight=== null ? 60 : user.weight;
+                userId = user.userId;
+            }
+        };
+        //로드 시 데이터표시
+        setSessionUser(sessionUser);
+        updateTable(getStoredNutrients());
+        updateFoodTable(getStoredFoods());
+        loadBookMark();
+    });
 })(jQuery);

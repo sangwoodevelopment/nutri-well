@@ -145,6 +145,16 @@
     });
     //main 검색기능
     $('#searchButton').on('click', function ()  {
+        search();
+    });
+
+    $('#query').on('keydown', function (event)  {
+        if(event.key ==='Enter') {
+            search();
+        }
+    });
+
+    function search() {
         var queryValue = $('#query').val();
         if (queryValue === null || queryValue.trim() === '') {
                alert('검색어를 입력하세요');
@@ -161,7 +171,7 @@
         var searchParams = new URLSearchParams(params);
         var url = '/search?' + searchParams.toString();
         location.href = url;
-    });
+    };
 
     // 로그인 체크
     $(document).ready(function() {

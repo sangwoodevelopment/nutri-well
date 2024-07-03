@@ -8,11 +8,10 @@
 <body>
 <div layout:fragment="content">
 <!-- Hero Start -->
-<div class="container-fluid py-5 mb-5 hero-header">
-    <div class="container py-5">
+<div class="container-fluid pt-5 hero-header">
+    <div class="container py-3">
         <div class="row g-5 align-items-center">
-            <div class="col-md-12 col-lg-7">
-                <h1 th:text="2조"></h1>
+            <div class="col-md-12 col-lg-7" style="border: none; box-shadow: none">
                 <h4 class="mb-3 text-secondary">2조</h4>
                 <h1 class="mb-5 display-3 text-primary">웰빙러를 위한 사이트 nutri-well 입니다.</h1>
                 <div class="position-relative mx-auto">
@@ -52,54 +51,26 @@
 
 
 <!-- Featurs Section Start -->
-<div class="container-fluid featurs py-5">
+<div class="container-fluid featurs py-2">
     <div class="container py-5">
+            <h3>인기 식품 TOP 4</h3>
         <div class="row g-4">
-            <div class="col-md-6 col-lg-3">
-                <div class="featurs-item text-center rounded bg-light p-4">
-                    <div class="mb-5 mx-auto">
-                        <!--                                <i class="fas fa-car-side fa-3x text-white"></i>-->
-                        <a href="https://www.ssg.com/search.ssg?target=all&query=돼지머리국밥"><img src="/common/img/category/국밥_돼지머리.jpg" width="120" height="120"></a>
+            <div class="col-md-6 col-lg-3" th:each="test: ${top5Foods}">
+                <div class="featurs-item text-center rounded bg-light p-4 px-6 py-6">
+                    <div class="mb-3 mx-auto">
+                        <a th:if="${test.name} == ${test.categoryName} and ${test.name.contains(test.categoryName)}" th:href="@{'https://www.ssg.com/search.ssg?target=all&query=' + ${test.name}}"><img th:src="@{'/common/img/category/' + ${test.name} + '.jpg'}" width="120" height="120"></a>
+                        <a th:if="${test.name.contains(test.categoryName)}" th:href="@{'https://www.ssg.com/search.ssg?target=all&query=' + ${test.name}}"><img th:src="@{'/common/img/category/' + ${test.categoryName} + '_' + ${test.name} + '.jpg'}" width="120" height="120"></a>
+                        <a th:unless="${test.name} == ${test.categoryName} or ${test.name.contains(test.categoryName)}" th:href="@{'https://www.ssg.com/search.ssg?target=all&query=' + ${test.name} + ${test.categoryName}}"><img th:src="@{'/common/img/category/' + ${test.categoryName} + '_' + ${test.name} + '.jpg'}" width="120" height="120"></a>
                     </div>
                     <div class="featurs-content text-center">
-                        <h5>국밥</h5>
-                        <a href="https://www.ssg.com/search.ssg?target=all&query=돼지머리국밥"><p class="mb-0">돼지머리</p></a>
+                        <h5 th:text="${test.categoryName}"></h5>
+                        <h5 th:text="${test.name}"></h5>
+                        <a th:if="${test.name} == ${test.categoryName} or ${test.name.contains(test.categoryName)}" th:href="@{'https://www.ssg.com/search.ssg?target=all&query=' + ${test.name}}"><p class="mb-0" th:text="${test.name} + ' 검색하기'"></p></a>
+                        <a th:unless="${test.name} == ${test.categoryName} or ${test.name.contains(test.categoryName)}" th:href="@{'https://www.ssg.com/search.ssg?target=all&query=' + ${test.name} + ${test.categoryName}}"><p class="mb-0" th:text="${test.name} + ' 검색하기'"></p></a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-3">
-                <div class="featurs-item text-center rounded bg-light p-4">
-                    <div class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
-                        <i class="fas fa-user-shield fa-3x text-white"></i>
-                    </div>
-                    <div class="featurs-content text-center">
-                        <h5>Security Payment</h5>
-                        <p class="mb-0">100% security payment</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-                <div class="featurs-item text-center rounded bg-light p-4">
-                    <div class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
-                        <i class="fas fa-exchange-alt fa-3x text-white"></i>
-                    </div>
-                    <div class="featurs-content text-center">
-                        <h5>30 Day Return</h5>
-                        <p class="mb-0">30 day money guarantee</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-                <div class="featurs-item text-center rounded bg-light p-4">
-                    <div class="featurs-icon btn-square rounded-circle bg-secondary mb-5 mx-auto">
-                        <i class="fa fa-phone-alt fa-3x text-white"></i>
-                    </div>
-                    <div class="featurs-content text-center">
-                        <h5>24/7 Support</h5>
-                        <p class="mb-0">Support every time fast</p>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 </div>
@@ -348,7 +319,7 @@
                                 <div class="col-md-6 col-lg-4 col-xl-3">
                                     <div class="rounded position-relative fruite-item">
                                         <div class="fruite-img">
-                                            <img src="/common/img/category/음료%20및%20차류.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                            <img src="/common/img/category/음료%20및%20차류.jpg" class="img-fluid w-100 rounded-top" alt="" style="height: 180px">
                                         </div>
                                         <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">음료 및 차류</div>
                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom">

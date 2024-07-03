@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/mainLayout}">
+      layout:decorate="~{layout/indexLayout}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,7 +32,7 @@
                 bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
             }
 
-            document.getElementById("basel_Metabolism").value = bmr.toFixed(2);
+            document.getElementById("basel_Metabolism").value = bmr.toFixed(0);
         }
 
         document.addEventListener('DOMContentLoaded', (event) => {
@@ -46,6 +46,7 @@
     </script>
 </head>
 <body>
+<div layout:fragment="content">
 <div class="container">
     <div class="left-panel">
         <div class="logo">Nutri-
@@ -81,6 +82,7 @@
         </form>
 
     </div>
+</div>
 </div>
 </body>
 </html>

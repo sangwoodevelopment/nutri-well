@@ -65,7 +65,6 @@
 	<script th:inline="javascript">
 		/*<![CDATA[*/
 		var sessionUser = /*[[${session.user}]]*/;
-		sessionUser = JSON.parse(/*[[${session.user}]]*/);
 		/*]]>*/
 	</script>
 	<script>setSessionUser(sessionUser);</script>

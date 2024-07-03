@@ -17,10 +17,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/basket")
 @RequiredArgsConstructor
-@SessionAttributes("basket")
 public class BasketController {
     private final BasketService service;
     private final BookMarkService bookMarkService;
@@ -30,7 +29,6 @@ public class BasketController {
     private final BasketService basketService;
 
     @PostMapping("/insert")
-    @ResponseBody
     public FoodResponseDTO nutriInsert(@RequestParam("foodId") Long foodId, @RequestParam(value = "userId",required = false) Long userId) {//유저아이디바당야댐
         FoodResponseDTO fooddto = null;
         if(userId != null){//로그인시 DB저장
@@ -40,7 +38,15 @@ public class BasketController {
             basketService.insert(new Basket(user, LocalDate.now(),food));
         }
         fooddto = foodService.findById(foodId);
-        //session.setAttribute("food" ,food);
         return fooddto;
+    }
+
+    @PostMapping("/getBookMark")
+    public List<FoodResponseDTO> getBookMark(@RequestParam("userId") Long userId) {
+        return bookMarkService.findFoodNamesByUserId(userId);
+    }
+    @PostMapping("/delete")
+    public void delete(@RequestParam("userId") Long userId) {
+        basketService.delete(userId);
     }
 }

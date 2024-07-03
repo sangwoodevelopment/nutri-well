@@ -7,11 +7,10 @@
 <div class="basket" th:fragment="basket">
     <div class="favorites p-2">
         <!--         즐겨찾기 목록 (for문으로 반목문 처리해서 뿌려주면 될듯)-->
-        <section >
+        <section>
             <span class="star">⭐</span>
-            <select th:each="favorite: ${bookmark}">
+            <select id="bookmark-select">
                 <option value="#">즐겨찾기 목록</option>
-                <option th:value="${favorite.getFoodId()}">새우</option>
             </select>
         </section>
     </div>
