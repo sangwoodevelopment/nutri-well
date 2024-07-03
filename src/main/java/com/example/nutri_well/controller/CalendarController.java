@@ -79,6 +79,6 @@ public class CalendarController {
 
     @PostMapping("/api/dailyNutrition")
     public DailyNutritionResponse getDailyNutrition(@RequestBody DailyNutritionRequest request) {
-        return calendarService.getDailyNutrition(request.getCalendarId());
+        return calendarService.getDailyNutrition(request.getCalendarId());//영양소 별 이름과 양을 반환
     }
 }
