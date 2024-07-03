@@ -82,4 +82,14 @@ public class BookMarkServiceImpl implements BookMarkService{
         }
         return bookmarkList;
     }
+
+    @Override
+    public List<FoodResponseDTO> findFoodNamesByUserId(Long userId) {
+        List<Food> foodlist = dao.findFoodNamesByUserId(userId);
+        List<FoodResponseDTO > fooddtolist = new ArrayList<>();
+        for (Food food : foodlist) {
+            fooddtolist.add(FoodResponseDTO.of(food));
+        }
+        return fooddtolist;
+    }
 }

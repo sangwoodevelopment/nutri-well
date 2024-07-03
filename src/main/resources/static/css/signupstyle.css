@@ -18,7 +18,9 @@ body {
     border-radius: 10px;
     overflow: hidden;
 }
-
+.ct-container{
+    width: 100%;
+}
 .left-panel {
     background-color: #8fd792;
     color: white;
