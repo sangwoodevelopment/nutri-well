@@ -54,8 +54,9 @@
         return storedNutrients;
     }
 
-    var kcalPercentage
     //테이블 업데이트
+    var kcalPercentage;
+    
     function updateTable(nutrientData) {
         var energy = nutrientData['에너지'] || 0;
         kcalPercentage = (energy / baselMetabolism * 100).toFixed(1);
