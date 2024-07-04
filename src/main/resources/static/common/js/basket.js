@@ -11,7 +11,8 @@
         updateTable({});
         updateFoodTable([]);
         nutritionChart.destroy();
-         $('#nutritionChart').data('chartInitialized', false);
+        deleteTable();
+        $('#nutritionChart').data('chartInitialized', false);
     });
     //Local Storage
     function getStoredNutrients() {
@@ -57,7 +58,7 @@
         var kcalPercentage = (energy / baselMetabolism * 100).toFixed(1);
         var isOver = kcalPercentage > 100;
         var progressBarHtml = '<span class="totalKcal' + (isOver ? ' over' : '') + '">' +  kcalPercentage + ' % (' + energy.toFixed(0) + ' / ' + baselMetabolism + ')</span>'
-                               + '<progress value="' + energy.toFixed(0) + '" max="' + baselMetabolism + '" class="' + (isOver ? 'over' : '') + '"></progress>'
+                               + '<br />'+ '<progress value="' + energy.toFixed(0) + '" max="' + baselMetabolism + '" class="' + (isOver ? 'over' : '') + '"></progress>'
                                + '</div>';
         var tableHtml = '<table>';
         tableHtml += '<thead>';
@@ -260,6 +261,21 @@
                         .text(food.name);
                     select.append(option);
                 });
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+    function deleteTable(){
+        const baseUrl = 'http://localhost:9079';
+
+        $.ajax({
+            url: baseUrl + '/basket/delete',
+            type: 'POST',
+            data:  { userId: userId },
+            success: function() {
+                alert('초기화 완료');
             },
             error: function(error) {
                 console.error('Error:', error);
