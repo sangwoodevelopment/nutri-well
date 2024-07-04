@@ -44,6 +44,10 @@ public class BasketController {
     public List<FoodResponseDTO> getBookMark(@RequestParam("userId") Long userId) {
         return bookMarkService.findFoodNamesByUserId(userId);
     }
+    @PostMapping("/delete")
+    public void delete(@RequestParam("userId") Long userId) {
+        basketService.delete(userId);
+    }
 
     @PostMapping("/saveCalendar")
     @ResponseBody

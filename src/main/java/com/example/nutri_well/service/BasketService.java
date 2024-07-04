@@ -10,7 +10,8 @@ import java.util.List;
 
 public interface BasketService {
 	BasketResponseDTO insert(Basket dto) ;
-	void delete(Food foodid);
+	void deleteFood(Food foodid);
 
 	void saveToCalendar(User user, List<Long> foodIds, LocalDate date, double kcalPercentage);
+	void deleteUser(Long userId);
 }
