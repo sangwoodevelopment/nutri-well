@@ -13,7 +13,7 @@
      opacity: 1;
  }
 
- .back-to-top {
+ .indexback-to-top {
     position: fixed;
     right: 30px;
     bottom: 30px;
@@ -24,6 +24,19 @@
     justify-content: center;
     transition: 0.5s;
     z-index: 99;
+}
+.back-to-top {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    display: flex;
+    width: 45px;
+    height: 45px;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s;
+    z-index: 99;
+    transform: translateX(-200px);
 }
 /*** Spinner End ***/
 
