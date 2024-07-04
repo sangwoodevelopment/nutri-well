@@ -46,7 +46,7 @@ public class BasketController {
     }
     @PostMapping("/delete")
     public void delete(@RequestParam("userId") Long userId) {
-        basketService.delete(userId);
+        basketService.deleteUser(userId);
     }
 
     @PostMapping("/saveCalendar")

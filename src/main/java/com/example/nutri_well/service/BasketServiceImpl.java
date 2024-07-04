@@ -46,8 +46,8 @@ public class BasketServiceImpl implements BasketService {
     }
 
     @Override
-    public void delete(Long userId) {
-        dao.deleteUser(userId,LocalDate.now());
+    public void deleteUser(Long userId) {
+        dao.delete(userId,LocalDate.now());
     }
 
     @Override
