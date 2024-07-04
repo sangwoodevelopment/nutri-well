@@ -83,6 +83,11 @@ function showNutritionModal(data) {
     // 권장 섭취량 데이터 생성
     const maxIntakeData = Object.keys(data.nutrients).map(nutrient => recommendedIntake[nutrient]);
 
+    // 동적으로 캔버스 높이 설정
+    const numNutrients = Object.keys(data.nutrients).length;
+    const canvasHeight = numNutrients * 50; // 각 영양소에 대해 50px 높이 할당
+    chartEl.height(canvasHeight);
+
     chartInstance = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -91,8 +96,8 @@ function showNutritionModal(data) {
                 {
                     label: '섭취량',
                     data: intakeData,
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(144, 238, 144, 0.2)',
+                    borderColor: 'rgba(144, 238, 144, 1)',
                     borderWidth: 1,
                     barThickness: 15, // 막대 두께 조정
                 },

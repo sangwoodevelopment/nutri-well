@@ -1,14 +1,9 @@
 /* CSS for larger modal with scrollable content */
 #nutritionModal .modal-dialog {
-    max-width: 90%; /* 모달 너비 확대 */
+    max-width: 1000px; /* 원하는 너비로 설정 */
 }
 
-#nutritionModal .modal-content {
-    max-height: 80vh;
-    overflow-y: auto; /* 세로 스크롤 추가 */
-}
-
-#nutritionChart {
-    height: 4699px; /* 캔버스 높이 설정 */
-    width: 939px;   /* 캔버스 너비 설정 */
+#nutritionModal .modal-body {
+    max-height: 5000px; /* 원하는 높이로 설정 */
+    overflow-y: auto; /* 스크롤 가능하도록 설정 */
 }
