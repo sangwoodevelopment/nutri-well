@@ -48,6 +48,9 @@ public class BasketController {
     @PostMapping("/saveCalendar")
     @ResponseBody
     public String saveCalendar(@RequestBody CalendarSaveRequest request) {
+        //basket.js에서 basket/saveCalendar 호출 -> saveToCalendar 함수로
+        //calendar 테이블 에는 user, date, kcalPercentage 저장
+        //calendarFood 테이블 에는 calendarId, foodId 저장
         User user = userService.findById(request.getUserId()).orElseThrow(() -> new IllegalArgumentException("Invalid user ID"));
         System.out.println(user.getUserId()+"&&&&&&&&&&&&&"+request.getFoodIds()); //여기서 null로 들어오는게 문제
         basketService.saveToCalendar(user, request.getFoodIds(), LocalDate.now(), request.getKcalPercentage());

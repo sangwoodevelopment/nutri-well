@@ -34,6 +34,8 @@ function showSuccessAlert() {
     return true;
 }
 
+var chartInstance;
+
 function fetchDailyNutrition(calendarId) {
     $.ajax({
         url: '/calendar/api/dailyNutrition',
@@ -55,16 +57,21 @@ function showNutritionModal(data) {
     const chartEl = $('#nutritionChart');
     const ctx = chartEl[0].getContext('2d');
 
+    // 이전에 생성된 차트가 있으면 파괴
+    if (chartInstance) {
+        chartInstance.destroy();
+    }
+
     // 권장 섭취량 설정
     const recommendedIntake = {
-        '탄수화물': 300, // 예시 값, 실제 권장 섭취량으로 수정
-        '단백질': 50,    // 예시 값, 실제 권장 섭취량으로 수정
-        '지방': 70,      // 예시 값, 실제 권장 섭취량으로 수정
-        '당류': 50,      // 예시 값, 실제 권장 섭취량으로 수정
-        '나트륨': 2300,  // 예시 값, 실제 권장 섭취량으로 수정
-        '트랜스지방산': 2,  // 예시 값, 실제 권장 섭취량으로 수정
-        '포화지방산': 20,   // 예시 값, 실제 권장 섭취량으로 수정
-        '콜레스테롤': 300   // 예시 값, 실제 권장 섭취량으로 수정
+        '탄수화물': baselMetabolism * 0.5 / 4,
+        '단백질': userWeight * 1,
+        '지방': baselMetabolism * 0.3 / 9,
+        '당류': baselMetabolism * 0.1 / 4,
+        '나트륨': 2300,
+        '트랜스지방산': 2,
+        '포화지방산': baselMetabolism * 0.1 / 9,
+        '콜레스테롤': 300
     };
 
     // 섭취량 데이터 생성
@@ -76,7 +83,7 @@ function showNutritionModal(data) {
     // 권장 섭취량 데이터 생성
     const maxIntakeData = Object.keys(data.nutrients).map(nutrient => recommendedIntake[nutrient]);
 
-    new Chart(ctx, {
+    chartInstance = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: Object.keys(data.nutrients),
@@ -111,4 +118,41 @@ function showNutritionModal(data) {
     });
 
     modal.modal('show');
+}
+
+$(document).ready(function() {
+    $.ajax({
+        url: '/checkSession',
+        type: 'GET',
+        success: function (response) {
+            if (response.loggedIn) {
+                setSessionUser(response);
+            } else {
+                alert('로그인이 필요합니다.');
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error('Error occurred:', error);
+            alert('사용자 정보를 가져오는 데 실패했습니다.');
+        }
+    });
+});
+
+function setSessionUser(user) {
+    if (user != null) {
+        baselMetabolism = user.baselMetabolism === 0 ? 2000 : user.baselMetabolism;
+        userWeight = user.weight === null ? 60 : user.weight;
+        userId = user.userId;
+
+        recommendedIntake = {
+            '탄수화물': baselMetabolism * 0.5 / 4,
+            '단백질': userWeight * 1,
+            '지방': baselMetabolism * 0.3 / 9,
+            '당류': baselMetabolism * 0.1 / 4,
+            '나트륨': 2300,
+            '트랜스지방산': 2,
+            '포화지방산': baselMetabolism * 0.1 / 9,
+            '콜레스테롤': 300
+        };
+    }
 }
