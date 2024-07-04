@@ -21,9 +21,9 @@
 <!-- My Page 시작 -->
 <div class="container my-5">
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-2" style="transform: translateX(-250px)">
             <!-- 유저 정보 섹션 -->
-            <div class="card">
+            <div class="card" >
                 <div class="card-body text-center">
                     <h5 class="card-title" id="user-name" th:text="${user.username}"></h5>
                     <!--여기에 유저의 사진 보여주기-->
@@ -35,8 +35,7 @@
             </div>
         </div>
 
-
-        <div class="col-lg-12">
+        <div class="col-lg-9" style="max-width: none; width: 105%; transform: translateY(-200px)">
             <!-- 네비게이션 -->
             <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-bottom: 10px" >
                 <li class="nav-item" role="presentation">

@@ -98,7 +98,11 @@
                         <div class="col-lg-6">
                             <div class="border rounded">
                                 <a href="#">
-                                    <img src="/common/img/single-item.jpg" class="img-fluid rounded" alt="Image">
+<!--                                    <img th:if="${food.name} == ${food.categoryName}" th:src="@{'/common/img/category/' + ${food.categoryName} + '.jpg'}" class="img-fluid w-100 rounded-top" alt="" style="height: 180px">-->
+<!--                                    &lt;!&ndash;                                                    이미지 높이 스타일 css로 이동 예정&ndash;&gt;-->
+<!--                                    <img th:unless="${food.name} == ${food.categoryName}" th:src="@{'/common/img/category/' + ${food.categoryName} + '_' + ${food.name} + '.jpg'}" class="img-fluid w-100 rounded-top" alt="">-->
+                                    <img th:if="${food.name} == ${food.categoryName}" th:src="@{'/common/img/' + ${food.categoryName} + '.jpg'}" class="img-fluid rounded" alt="Image">
+                                    <img th:unless="${food.name} == ${food.categoryName}" th:src="@{'/common/img/' + ${food.categoryName} + '_' + ${food.name} + '.jpg'}" class="img-fluid rounded" alt="Image">
                                 </a>
                             </div>
                         </div>
